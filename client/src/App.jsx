@@ -7,70 +7,68 @@ import './styles/index.css';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('landing');
-  const [selectedUser, setSelectedUser] = useState('mid-user'); // Default to mid-user for best initial demo view
+  const [selectedUser, setSelectedUser] = useState('pro-user');
 
   return (
     <div className="app">
-      <nav className="top-navbar" style={{ gap: '1rem', flexWrap: 'wrap' }}>
-        <div className="nav-brand" style={{ cursor: 'pointer' }} onClick={() => setActiveTab('landing')}>
-          <span style={{ fontSize: '1.25rem' }}>🎓</span>
-          <span style={{ fontWeight: 800 }}>SkillPath</span>
-          <span className="logo-badge" style={{ margin: 0, fontSize: '0.7rem' }}>SDG 4 Track</span>
+      {/* Top Navbar */}
+      <nav className="top-navbar">
+        <div className="nav-left">
+          <div className="nav-brand" onClick={() => setActiveTab('landing')}>
+            <span style={{ fontSize: '1.4rem' }}>🎓</span>
+            <span>SkillPath</span>
+            <span className="sdg-badge">SDG 4 TRACK</span>
+          </div>
+
+          <div className="demo-account-picker">
+            <span className="demo-label">DEMO ACCOUNT:</span>
+            <select
+              className="demo-select"
+              value={selectedUser}
+              onChange={(e) => setSelectedUser(e.target.value)}
+            >
+              <option value="pro-user">⭐ pro-user (Near Complete + Signed Credential)</option>
+              <option value="mid-user">🟡 mid-user (Mid-Progress - 4 Proven)</option>
+              <option value="fresh-user">🟢 fresh-user (Fresh Start - 0%)</option>
+            </select>
+          </div>
         </div>
 
-        {/* Demo Account Switcher for Judges & Presenters */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.05)', padding: '0.25rem 0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
-          <span style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 600 }}>Demo Account:</span>
-          <select
-            value={selectedUser}
-            onChange={(e) => setSelectedUser(e.target.value)}
-            style={{
-              background: '#0f172a',
-              color: '#38bdf8',
-              border: '1px solid #334155',
-              padding: '0.3rem 0.6rem',
-              borderRadius: '6px',
-              fontWeight: 600,
-              fontSize: '0.85rem',
-              cursor: 'pointer'
-            }}
-          >
-            <option value="fresh-user">🟢 fresh-user (Fresh Start - 0%)</option>
-            <option value="mid-user">🟡 mid-user (Mid-Progress - 4 Proven)</option>
-            <option value="pro-user">⭐ pro-user (Near Complete + Signed Credential)</option>
-          </select>
-        </div>
+        <div className="nav-right">
+          <div className="nav-tabs">
+            <button
+              className={`nav-tab ${activeTab === 'landing' ? 'active' : ''}`}
+              onClick={() => setActiveTab('landing')}
+            >
+              <span>🏠</span> Home
+            </button>
+            <button
+              className={`nav-tab ${activeTab === 'assessment' ? 'active' : ''}`}
+              onClick={() => setActiveTab('assessment')}
+            >
+              <span>⚡</span> Adaptive Assessment
+            </button>
+            <button
+              className={`nav-tab ${activeTab === 'report' ? 'active' : ''}`}
+              onClick={() => setActiveTab('report')}
+            >
+              <span>🎯</span> Skill Gap Report
+            </button>
+            <button
+              className={`nav-tab ${activeTab === 'verify' ? 'active' : ''}`}
+              onClick={() => setActiveTab('verify')}
+            >
+              <span>🛡️</span> Verify Credential
+            </button>
+          </div>
 
-        {/* Navigation Tabs */}
-        <div className="nav-tabs">
-          <button
-            className={`nav-tab ${activeTab === 'landing' ? 'active' : ''}`}
-            onClick={() => setActiveTab('landing')}
-          >
-            🏠 Home
-          </button>
-          <button
-            className={`nav-tab ${activeTab === 'assessment' ? 'active' : ''}`}
-            onClick={() => setActiveTab('assessment')}
-          >
-            ⚡ Adaptive Assessment
-          </button>
-          <button
-            className={`nav-tab ${activeTab === 'report' ? 'active' : ''}`}
-            onClick={() => setActiveTab('report')}
-          >
-            🎯 Skill Gap Report
-          </button>
-          <button
-            className={`nav-tab ${activeTab === 'verify' ? 'active' : ''}`}
-            onClick={() => setActiveTab('verify')}
-          >
-            🛡️ Verify Credential
-          </button>
+          <div className="user-avatar" title="Suraj Bhan Kumar">
+            SB
+          </div>
         </div>
       </nav>
 
-      {/* Page Content */}
+      {/* Main Content Pages */}
       {activeTab === 'landing' && <Landing onNavigate={setActiveTab} />}
       {activeTab === 'assessment' && (
         <Assessment
@@ -78,7 +76,7 @@ export default function App() {
           onFinish={() => setActiveTab('report')}
         />
       )}
-      {activeTab === 'report' && <GapReport userId={selectedUser} />}
+      {activeTab === 'report' && <GapReport userId={selectedUser} onNavigate={setActiveTab} />}
       {activeTab === 'verify' && <CredentialVerify />}
     </div>
   );
