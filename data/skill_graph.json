@@ -12,7 +12,10 @@
       ],
       "demandScore": 1.0,
       "frequency": 17,
-      "resources": []
+      "resources": [
+        { "title": "MDN – REST API Overview", "url": "https://developer.mozilla.org/en-US/docs/Glossary/REST", "type": "docs" },
+        { "title": "RESTful API Design Best Practices", "url": "https://restfulapi.net/", "type": "article" }
+      ]
     },
     {
       "id": "react",
@@ -24,7 +27,10 @@
       ],
       "demandScore": 0.94,
       "frequency": 16,
-      "resources": []
+      "resources": [
+        { "title": "React Official Quick Start", "url": "https://react.dev/learn", "type": "docs" },
+        { "title": "freeCodeCamp – React Course for Beginners", "url": "https://www.youtube.com/watch?v=bMknfKXIFA8", "type": "video" }
+      ]
     },
     {
       "id": "css",
@@ -35,7 +41,10 @@
       ],
       "demandScore": 0.88,
       "frequency": 15,
-      "resources": []
+      "resources": [
+        { "title": "MDN – CSS First Steps", "url": "https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps", "type": "docs" },
+        { "title": "CSS-Tricks – Guide to Flexbox", "url": "https://css-tricks.com/snippets/css/a-guide-to-flexbox/", "type": "article" }
+      ]
     },
     {
       "id": "git",
@@ -44,7 +53,10 @@
       "prerequisites": [],
       "demandScore": 0.88,
       "frequency": 15,
-      "resources": []
+      "resources": [
+        { "title": "Git Official Documentation & Book", "url": "https://git-scm.com/doc", "type": "docs" },
+        { "title": "Atlassian Git Tutorial", "url": "https://www.atlassian.com/git/tutorials", "type": "article" }
+      ]
     },
     {
       "id": "html",
@@ -53,7 +65,10 @@
       "prerequisites": [],
       "demandScore": 0.76,
       "frequency": 13,
-      "resources": []
+      "resources": [
+        { "title": "MDN – HTML Developer Guide", "url": "https://developer.mozilla.org/en-US/docs/Web/HTML", "type": "docs" },
+        { "title": "freeCodeCamp – Responsive Web Design HTML", "url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/", "type": "interactive" }
+      ]
     },
     {
       "id": "javascript",
@@ -64,7 +79,10 @@
       ],
       "demandScore": 0.76,
       "frequency": 13,
-      "resources": []
+      "resources": [
+        { "title": "JavaScript.info – Modern JS Tutorial", "url": "https://javascript.info/", "type": "docs" },
+        { "title": "MDN – JavaScript First Steps", "url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps", "type": "docs" }
+      ]
     },
     {
       "id": "typescript",
@@ -75,7 +93,10 @@
       ],
       "demandScore": 0.53,
       "frequency": 9,
-      "resources": []
+      "resources": [
+        { "title": "TypeScript Handbook", "url": "https://www.typescriptlang.org/docs/handbook/intro.html", "type": "docs" },
+        { "title": "Total TypeScript for Beginners", "url": "https://www.totaltypescript.com/tutorials/beginners-typescript", "type": "interactive" }
+      ]
     },
     {
       "id": "responsive-design",
@@ -87,7 +108,9 @@
       ],
       "demandScore": 0.53,
       "frequency": 9,
-      "resources": []
+      "resources": [
+        { "title": "web.dev – Responsive Web Design Fundamentals", "url": "https://web.dev/learn/design/", "type": "docs" }
+      ]
     },
     {
       "id": "web-performance",
@@ -99,7 +122,9 @@
       ],
       "demandScore": 0.53,
       "frequency": 9,
-      "resources": []
+      "resources": [
+        { "title": "web.dev – Learn Web Performance", "url": "https://web.dev/learn/performance/", "type": "docs" }
+      ]
     },
     {
       "id": "state-management",
@@ -110,7 +135,10 @@
       ],
       "demandScore": 0.35,
       "frequency": 6,
-      "resources": []
+      "resources": [
+        { "title": "Redux Toolkit Quick Start", "url": "https://redux-toolkit.js.org/tutorials/quick-start", "type": "docs" },
+        { "title": "Zustand Documentation", "url": "https://zustand-demo.pmnd.rs/", "type": "docs" }
+      ]
     },
     {
       "id": "jest",
@@ -122,7 +150,9 @@
       ],
       "demandScore": 0.35,
       "frequency": 6,
-      "resources": []
+      "resources": [
+        { "title": "Jest Getting Started", "url": "https://jestjs.io/docs/getting-started", "type": "docs" }
+      ]
     },
     {
       "id": "graphql",
@@ -133,7 +163,9 @@
       ],
       "demandScore": 0.29,
       "frequency": 5,
-      "resources": []
+      "resources": [
+        { "title": "GraphQL Official Introduction", "url": "https://graphql.org/learn/", "type": "docs" }
+      ]
     },
     {
       "id": "vite",
@@ -144,7 +176,9 @@
       ],
       "demandScore": 0.29,
       "frequency": 5,
-      "resources": []
+      "resources": [
+        { "title": "Vite Guide & Documentation", "url": "https://vitejs.dev/guide/", "type": "docs" }
+      ]
     },
     {
       "id": "tailwind",
@@ -156,7 +190,9 @@
       ],
       "demandScore": 0.29,
       "frequency": 5,
-      "resources": []
+      "resources": [
+        { "title": "Tailwind CSS Official Docs", "url": "https://tailwindcss.com/docs/installation", "type": "docs" }
+      ]
     },
     {
       "id": "dom",
@@ -168,7 +204,9 @@
       ],
       "demandScore": 0.24,
       "frequency": 4,
-      "resources": []
+      "resources": [
+        { "title": "MDN – Introduction to the DOM", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction", "type": "docs" }
+      ]
     },
     {
       "id": "webpack",
@@ -179,7 +217,9 @@
       ],
       "demandScore": 0.24,
       "frequency": 4,
-      "resources": []
+      "resources": [
+        { "title": "Webpack Concepts & Guide", "url": "https://webpack.js.org/concepts/", "type": "docs" }
+      ]
     },
     {
       "id": "a11y",
@@ -191,7 +231,10 @@
       ],
       "demandScore": 0.24,
       "frequency": 4,
-      "resources": []
+      "resources": [
+        { "title": "W3C Web Accessibility Initiative Basics", "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/", "type": "docs" },
+        { "title": "MDN – Accessibility Overview", "url": "https://developer.mozilla.org/en-US/docs/Learn/Accessibility", "type": "article" }
+      ]
     },
     {
       "id": "nextjs",
@@ -203,7 +246,9 @@
       ],
       "demandScore": 0.18,
       "frequency": 3,
-      "resources": []
+      "resources": [
+        { "title": "Next.js Learn Course", "url": "https://nextjs.org/learn", "type": "interactive" }
+      ]
     },
     {
       "id": "npm",
@@ -214,7 +259,9 @@
       ],
       "demandScore": 0.18,
       "frequency": 3,
-      "resources": []
+      "resources": [
+        { "title": "npm Docs – Getting Started", "url": "https://docs.npmjs.com/about-npm", "type": "docs" }
+      ]
     },
     {
       "id": "web-security",
@@ -226,7 +273,10 @@
       ],
       "demandScore": 0.12,
       "frequency": 2,
-      "resources": []
+      "resources": [
+        { "title": "OWASP Top 10 Security Risks", "url": "https://owasp.org/www-project-top-ten/", "type": "article" },
+        { "title": "MDN – Web Security Guide", "url": "https://developer.mozilla.org/en-US/docs/Web/Security", "type": "docs" }
+      ]
     },
     {
       "id": "pwa",
@@ -238,7 +288,9 @@
       ],
       "demandScore": 0.12,
       "frequency": 2,
-      "resources": []
+      "resources": [
+        { "title": "web.dev – Learn Progressive Web Apps", "url": "https://web.dev/learn/pwa/", "type": "docs" }
+      ]
     },
     {
       "id": "chrome-devtools",
@@ -250,7 +302,9 @@
       ],
       "demandScore": 0.12,
       "frequency": 2,
-      "resources": []
+      "resources": [
+        { "title": "Chrome DevTools Overview", "url": "https://developer.chrome.com/docs/devtools/overview", "type": "docs" }
+      ]
     },
     {
       "id": "async-js",
@@ -261,7 +315,9 @@
       ],
       "demandScore": 0.12,
       "frequency": 2,
-      "resources": []
+      "resources": [
+        { "title": "MDN – Asynchronous JavaScript Guide", "url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous", "type": "docs" }
+      ]
     },
     {
       "id": "bootstrap",
@@ -272,7 +328,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "Bootstrap 5 Documentation", "url": "https://getbootstrap.com/docs/5.3/getting-started/introduction/", "type": "docs" }
+      ]
     },
     {
       "id": "sass",
@@ -283,7 +341,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "Sass Basics Guide", "url": "https://sass-lang.com/guide/", "type": "docs" }
+      ]
     },
     {
       "id": "css-in-js",
@@ -295,7 +355,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "Styled Components Docs", "url": "https://styled-components.com/docs", "type": "docs" }
+      ]
     },
     {
       "id": "websockets",
@@ -307,7 +369,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "MDN – WebSockets API Guide", "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications", "type": "docs" }
+      ]
     },
     {
       "id": "browser-storage",
@@ -318,7 +382,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "MDN – Web Storage API Guide", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API", "type": "docs" }
+      ]
     },
     {
       "id": "storybook",
@@ -329,7 +395,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "Storybook React Tutorial", "url": "https://storybook.js.org/tutorials/intro-to-storybook/react/en/get-started/", "type": "interactive" }
+      ]
     },
     {
       "id": "vue",
@@ -340,7 +408,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "Vue.js Official Guide", "url": "https://vuejs.org/guide/introduction.html", "type": "docs" }
+      ]
     },
     {
       "id": "d3",
@@ -352,7 +422,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "D3.js Getting Started Guide", "url": "https://d3js.org/getting-started", "type": "docs" }
+      ]
     },
     {
       "id": "figma",
@@ -361,7 +433,9 @@
       "prerequisites": [],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "Figma Guide to Dev Mode", "url": "https://help.figma.com/hc/en-us/articles/15023121296151-Guide-to-Dev-Mode", "type": "article" }
+      ]
     },
     {
       "id": "micro-frontends",
@@ -373,7 +447,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "Webpack Module Federation Documentation", "url": "https://module-federation.io/guide/start/index.html", "type": "docs" }
+      ]
     },
     {
       "id": "single-page-apps",
@@ -385,7 +461,9 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        { "title": "MDN – Single Page Applications & History API", "url": "https://developer.mozilla.org/en-US/docs/Web/API/History_API", "type": "docs" }
+      ]
     }
   ]
 }
