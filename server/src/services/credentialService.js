@@ -20,13 +20,31 @@ const publicKeyPath = path.join(keysDir, 'public.pem');
 const issuedCredentials = new Map();
 
 /**
+ * Ensures ECDSA key pair exists, auto-generating them if missing.
+ */
+function ensureKeysExist() {
+  if (!fs.existsSync(keysDir)) {
+    fs.mkdirSync(keysDir, { recursive: true });
+  }
+  if (!fs.existsSync(privateKeyPath) || !fs.existsSync(publicKeyPath)) {
+    console.log('[CredentialService] Keys missing in /keys. Auto-generating ECDSA P-256 key pair...');
+    const { publicKey, privateKey } = crypto.generateKeyPairSync('ec', {
+      namedCurve: 'prime256v1',
+      publicKeyEncoding: { type: 'spki', format: 'pem' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
+    });
+    fs.writeFileSync(privateKeyPath, privateKey, 'utf8');
+    fs.writeFileSync(publicKeyPath, publicKey, 'utf8');
+    console.log('[CredentialService] ECDSA key pair successfully auto-generated.');
+  }
+}
+
+/**
  * Loads private key from file.
  * Private key is used strictly server-side and never returned in API responses or logs.
  */
 function getPrivateKey() {
-  if (!fs.existsSync(privateKeyPath)) {
-    throw new Error('Private key not found at /keys/private.pem. Please run node scripts/generateKeys.js first.');
-  }
+  ensureKeysExist();
   return fs.readFileSync(privateKeyPath, 'utf8');
 }
 
@@ -34,9 +52,7 @@ function getPrivateKey() {
  * Loads public key from file.
  */
 function getPublicKey() {
-  if (!fs.existsSync(publicKeyPath)) {
-    throw new Error('Public key not found at /keys/public.pem. Please run node scripts/generateKeys.js first.');
-  }
+  ensureKeysExist();
   return fs.readFileSync(publicKeyPath, 'utf8');
 }
 
