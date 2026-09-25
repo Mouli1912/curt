@@ -60,3 +60,45 @@ export async function fetchGapReport(userId = 'demo-user') {
   }
   return response.json();
 }
+
+export async function issueCredential(userId = 'demo-user', skillNode, studentName = 'Alex Learner') {
+  const response = await fetch(`${API_BASE}/credential/issue`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, skillNode, studentName })
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Failed to issue credential: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function verifyCredential(credentialObj) {
+  const response = await fetch(`${API_BASE}/credential/verify`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(credentialObj)
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Failed to verify credential: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function fetchPublicKey() {
+  const response = await fetch(`${API_BASE}/credential/public-key`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch public key: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function getCredentialById(credentialId) {
+  const response = await fetch(`${API_BASE}/credential/${credentialId}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch credential ${credentialId}: ${response.statusText}`);
+  }
+  return response.json();
+}

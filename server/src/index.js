@@ -21,6 +21,7 @@ app.use(express.json());
 const graphRoutes = require('./routes/graph.routes');
 const assessmentRoutes = require('./routes/assessment.routes');
 const reportRoutes = require('./routes/report.routes');
+const credentialRoutes = require('./routes/credential.routes');
 
 // Health Check Endpoint
 app.get('/api/health', (req, res) => {
@@ -36,6 +37,9 @@ app.use('/api/assessment', assessmentRoutes);
 // Gap Report API Endpoints
 app.use('/api/report', reportRoutes);
 
+// Credential API Endpoints
+app.use('/api/credential', credentialRoutes);
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`[SkillPath Server] Running on http://localhost:${PORT}`);
@@ -43,6 +47,7 @@ app.listen(PORT, () => {
   console.log(`[SkillPath Server] Skill graph API: http://localhost:${PORT}/api/graph/frontend-developer`);
   console.log(`[SkillPath Server] Assessment API: http://localhost:${PORT}/api/assessment/start`);
   console.log(`[SkillPath Server] Gap Report API: http://localhost:${PORT}/api/report/demo-user`);
+  console.log(`[SkillPath Server] Credential API: http://localhost:${PORT}/api/credential/public-key`);
 });
 
 module.exports = app;

@@ -10,8 +10,8 @@ __pycache__/
 .env.local
 
 # Cryptographic Keys (NEVER COMMIT PRIVATE KEYS)
-/keys/private.pem
-/keys/
+keys/private.pem
+!keys/public.pem
 
 # Build Outputs
 dist/
