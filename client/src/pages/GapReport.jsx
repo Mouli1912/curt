@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { fetchGapReport, fetchSkillGraph } from '../api/client';
+import { fetchGapReport, fetchSkillGraph, issueCredential } from '../api/client';
 import GraphCanvas from '../components/GraphCanvas';
+import CredentialQR from '../components/CredentialQR';
 
 export default function GapReport({ userId = 'demo-user' }) {
   const [report, setReport] = useState(null);
   const [graphNodes, setGraphNodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeCredential, setActiveCredential] = useState(null);
+  const [credentialError, setCredentialError] = useState(null);
+  const [mintingNode, setMintingNode] = useState(null);
 
   const loadData = async () => {
     setLoading(true);
@@ -29,6 +33,21 @@ export default function GapReport({ userId = 'demo-user' }) {
   useEffect(() => {
     loadData();
   }, [userId]);
+
+  const handleMintCredential = async (nodeId) => {
+    setMintingNode(nodeId);
+    setCredentialError(null);
+    setActiveCredential(null);
+    try {
+      const cred = await issueCredential(userId, nodeId, 'Alex Learner');
+      setActiveCredential(cred);
+    } catch (err) {
+      console.error('Failed to issue credential:', err);
+      setCredentialError(err.message);
+    } finally {
+      setMintingNode(null);
+    }
+  };
 
   if (loading) {
     return (
@@ -61,10 +80,10 @@ export default function GapReport({ userId = 'demo-user' }) {
       <header style={{ marginBottom: '2rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <span className="logo-badge">Gap Analysis Engine — Step 3</span>
-            <h1 style={{ fontSize: '1.8rem', margin: '0.25rem 0' }}>Role Readiness & Skill Gap Report</h1>
+            <span className="logo-badge">Gap Analysis & Credentials — Steps 3 & 4</span>
+            <h1 style={{ fontSize: '1.8rem', margin: '0.25rem 0' }}>Role Readiness & Digital Credentials</h1>
             <p className="subtitle" style={{ margin: 0, fontSize: '0.95rem' }}>
-              Target Role: <strong>{report?.roleTitle || report?.targetRole}</strong> — Topologically ordered skill pathway.
+              Target Role: <strong>{report?.roleTitle || report?.targetRole}</strong> — Topologically ordered pathway.
             </p>
           </div>
 
@@ -94,9 +113,33 @@ export default function GapReport({ userId = 'demo-user' }) {
 
         {/* Zero LLM Banner */}
         <div className="no-llm-banner" style={{ marginTop: '1.25rem' }}>
-          <span>⚡ <strong>Deterministic Graph Traversal:</strong> Prerequisites respected topologically. Resource recommendations manually curated.</span>
+          <span>⚡ <strong>Pure Graph Math & ECDSA P-256 Cryptography:</strong> No LLM APIs. Offline verifiable credentials.</span>
         </div>
       </header>
+
+      {/* Active Credential Modal / Card */}
+      {activeCredential && (
+        <div style={{ marginBottom: '2.5rem', animation: 'fadeIn 0.3s ease-in' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#34d399' }}>
+              🎉 Cryptographic Digital Credential Minted!
+            </h3>
+            <button
+              onClick={() => setActiveCredential(null)}
+              style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}
+            >
+              ✕
+            </button>
+          </div>
+          <CredentialQR credential={activeCredential} />
+        </div>
+      )}
+
+      {credentialError && (
+        <div style={{ padding: '1rem', background: '#fee2e2', color: '#991b1b', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+          ⚠️ <strong>Credential Minting Notice:</strong> {credentialError}
+        </div>
+      )}
 
       {/* Visual Skill Taxonomy Graph Canvas */}
       <section style={{ marginBottom: '2.5rem' }}>
@@ -199,7 +242,6 @@ export default function GapReport({ userId = 'demo-user' }) {
                               fontWeight: 500,
                               transition: 'all 0.15s ease'
                             }}
-                            className="resource-link-button"
                           >
                             <span>🔗 {res.title}</span>
                             <span
@@ -233,31 +275,47 @@ export default function GapReport({ userId = 'demo-user' }) {
               <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>({report.proven.length})</span>
             </h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '0.75rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
               {report.proven.map(pNode => (
                 <div
                   key={pNode.id}
                   style={{
-                    padding: '0.85rem 1.1rem',
-                    borderRadius: '8px',
+                    padding: '1rem 1.25rem',
+                    borderRadius: '12px',
                     background: 'rgba(16, 185, 129, 0.08)',
                     border: '1px solid rgba(16, 185, 129, 0.3)',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    gap: '0.75rem'
                   }}
                 >
                   <div>
                     <div style={{ fontWeight: 600, fontSize: '0.95rem', color: '#f8fafc' }}>
                       ✓ {pNode.label}
                     </div>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
-                      {pNode.category}
+                    <div style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 700 }}>
+                      {pNode.rating} Elo
                     </div>
                   </div>
-                  <span style={{ fontWeight: 700, color: '#10b981', fontSize: '0.9rem' }}>
-                    {pNode.rating} Elo
-                  </span>
+
+                  <button
+                    onClick={() => handleMintCredential(pNode.id)}
+                    disabled={mintingNode === pNode.id}
+                    style={{
+                      padding: '0.45rem 0.85rem',
+                      borderRadius: '6px',
+                      background: '#10b981',
+                      color: '#ffffff',
+                      border: 'none',
+                      fontSize: '0.8rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 6px rgba(16, 185, 129, 0.3)'
+                    }}
+                  >
+                    {mintingNode === pNode.id ? 'Minting...' : '🔏 Claim Credential'}
+                  </button>
                 </div>
               ))}
             </div>
