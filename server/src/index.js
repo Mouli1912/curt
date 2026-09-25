@@ -19,6 +19,7 @@ app.use(express.json());
 
 // Routes
 const graphRoutes = require('./routes/graph.routes');
+const assessmentRoutes = require('./routes/assessment.routes');
 
 // Health Check Endpoint
 app.get('/api/health', (req, res) => {
@@ -28,11 +29,15 @@ app.get('/api/health', (req, res) => {
 // Graph API Endpoint
 app.use('/api/graph', graphRoutes);
 
+// Assessment API Endpoints
+app.use('/api/assessment', assessmentRoutes);
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`[SkillPath Server] Running on http://localhost:${PORT}`);
   console.log(`[SkillPath Server] Health check: http://localhost:${PORT}/api/health`);
   console.log(`[SkillPath Server] Skill graph API: http://localhost:${PORT}/api/graph/frontend-developer`);
+  console.log(`[SkillPath Server] Assessment API: http://localhost:${PORT}/api/assessment/start`);
 });
 
 module.exports = app;

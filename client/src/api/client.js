@@ -18,3 +18,37 @@ export async function fetchHealth() {
   }
   return response.json();
 }
+
+export async function startAssessment(userId = 'demo-user', targetRole = 'frontend-developer') {
+  const response = await fetch(`${API_BASE}/assessment/start`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, targetRole })
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Failed to start assessment: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function submitAnswer(userId, questionId, selectedIndex) {
+  const response = await fetch(`${API_BASE}/assessment/answer`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, questionId, selectedIndex })
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Failed to submit answer: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function getAssessmentStatus(userId = 'demo-user') {
+  const response = await fetch(`${API_BASE}/assessment/status/${userId}`);
+  if (!response.ok) {
+    throw new Error(`Failed to get status for user ${userId}: ${response.statusText}`);
+  }
+  return response.json();
+}

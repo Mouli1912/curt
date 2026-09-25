@@ -1,0 +1,557 @@
+[
+  {
+    "id": "q_js_01",
+    "skillNode": "javascript",
+    "difficulty": 850,
+    "prompt": "Which operator is used for strict equality comparison without type coercion in JavaScript?",
+    "options": ["==", "===", "=", "equals()"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_js_02",
+    "skillNode": "javascript",
+    "difficulty": 1050,
+    "prompt": "What is the evaluated output of typeof NaN in JavaScript?",
+    "options": ["\"number\"", "\"nan\"", "\"undefined\"", "\"object\""],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_js_03",
+    "skillNode": "javascript",
+    "difficulty": 1250,
+    "prompt": "What will `console.log(0.1 + 0.2 === 0.3)` output in JavaScript?",
+    "options": ["true", "false", "TypeError", "undefined"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_js_04",
+    "skillNode": "javascript",
+    "difficulty": 1450,
+    "prompt": "How does JavaScript closure behave when returning an inner function that references a outer variable?",
+    "options": [
+      "It copies the primitive value at function creation time",
+      "It maintains a reference to the outer scope variable environment",
+      "It throws a ReferenceError when the outer function context finishes execution",
+      "It converts the scope variables into global scope variables"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_react_01",
+    "skillNode": "react",
+    "difficulty": 900,
+    "prompt": "Which React hook is primarily used to manage local component state?",
+    "options": ["useEffect", "useReducer", "useState", "useContext"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_react_02",
+    "skillNode": "react",
+    "difficulty": 1100,
+    "prompt": "Why should keys be provided to elements when rendering lists in React?",
+    "options": [
+      "To style elements with CSS selectors",
+      "To help React identify which items have changed, been added, or removed for reconciliation",
+      "To pass index props down to child components automatically",
+      "To encrypt component state"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_react_03",
+    "skillNode": "react",
+    "difficulty": 1300,
+    "prompt": "What happens when you pass an empty dependency array `[]` to `useEffect`?",
+    "options": [
+      "The effect runs on every re-render",
+      "The effect runs only once after the initial mount",
+      "The effect never runs",
+      "The effect runs before component unmounts only"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_react_04",
+    "skillNode": "react",
+    "difficulty": 1500,
+    "prompt": "How does `useCallback` optimize child component re-renders?",
+    "options": [
+      "By memoizing the computed return value of an expensive calculation",
+      "By memoizing the callback function instance between renders unless dependencies change",
+      "By executing the callback in a web worker",
+      "By skipping Virtual DOM diffing completely"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_css_01",
+    "skillNode": "css",
+    "difficulty": 850,
+    "prompt": "Which CSS property is used to specify the space between content and element border?",
+    "options": ["margin", "padding", "border-spacing", "gap"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_css_02",
+    "skillNode": "css",
+    "difficulty": 1050,
+    "prompt": "What is the default value of the `position` property in CSS?",
+    "options": ["relative", "absolute", "static", "fixed"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_css_03",
+    "skillNode": "css",
+    "difficulty": 1250,
+    "prompt": "In Flexbox, which property aligns flex items along the cross axis?",
+    "options": ["justify-content", "align-items", "flex-direction", "align-content"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_css_04",
+    "skillNode": "css",
+    "difficulty": 1450,
+    "prompt": "What is the CSS specificity weight calculation for selector `#header .nav-item:hover a`?",
+    "options": ["1-2-1 (1 ID, 2 Classes/Pseudo-classes, 1 Element)", "0-3-1", "2-1-1", "1-1-2"],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_html_01",
+    "skillNode": "html",
+    "difficulty": 800,
+    "prompt": "Which HTML element is used to define the main structural heading of a document?",
+    "options": ["<head>", "<header>", "<h1>", "<main>"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_html_02",
+    "skillNode": "html",
+    "difficulty": 1000,
+    "prompt": "Which HTML5 semantic tag best represents independent, self-contained blog posts or news items?",
+    "options": ["<section>", "<article>", "<div>", "<aside>"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_html_03",
+    "skillNode": "html",
+    "difficulty": 1200,
+    "prompt": "What attribute should be added to an `<img>` tag to provide text alternative for screen readers?",
+    "options": ["title", "description", "alt", "aria-label"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_git_01",
+    "skillNode": "git",
+    "difficulty": 850,
+    "prompt": "Which Git command records staged changes in the local repository history?",
+    "options": ["git push", "git save", "git commit", "git add"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_git_02",
+    "skillNode": "git",
+    "difficulty": 1100,
+    "prompt": "What is the difference between `git fetch` and `git pull`?",
+    "options": [
+      "git fetch downloads changes without merging; git pull fetches and automatically merges",
+      "git pull only checks status, git fetch downloads code",
+      "git fetch overwrites local branches, git pull preserves them",
+      "They are identical aliases"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_git_03",
+    "skillNode": "git",
+    "difficulty": 1350,
+    "prompt": "Which command applies the changes introduced by existing commits onto a new base commit?",
+    "options": ["git merge", "git rebase", "git checkout", "git reset"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_rest_01",
+    "skillNode": "rest-api",
+    "difficulty": 900,
+    "prompt": "Which HTTP method is idempotent and used to retrieve representation of a resource?",
+    "options": ["POST", "GET", "PATCH", "DELETE"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_rest_02",
+    "skillNode": "rest-api",
+    "difficulty": 1150,
+    "prompt": "Which HTTP response status code indicates that a client is unauthorized due to missing valid credentials?",
+    "options": ["400 Bad Request", "401 Unauthorized", "403 Forbidden", "404 Not Found"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_rest_03",
+    "skillNode": "rest-api",
+    "difficulty": 1350,
+    "prompt": "What distinguishes `PUT` from `PATCH` in RESTful Web API design?",
+    "options": [
+      "PUT replaces the entire target resource state, whereas PATCH applies partial modifications",
+      "PATCH replaces the resource completely, whereas PUT updates single fields",
+      "PUT is non-idempotent, whereas PATCH is strictly idempotent",
+      "PUT can only be sent over HTTP, while PATCH requires HTTPS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_ts_01",
+    "skillNode": "typescript",
+    "difficulty": 950,
+    "prompt": "What is the primary benefit of TypeScript over standard JavaScript?",
+    "options": [
+      "Faster runtime execution in browsers",
+      "Compile-time static type checking and enhanced developer tooling",
+      "Automatic garbage collection tuning",
+      "Direct execution without JS transpilation"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_ts_02",
+    "skillNode": "typescript",
+    "difficulty": 1200,
+    "prompt": "What is the difference between `unknown` and `any` types in TypeScript?",
+    "options": [
+      "any is type-safe while unknown turns off all type checking",
+      "unknown requires explicit type checking or casting before performing operations, whereas any bypasses checks",
+      "unknown can only store primitive values, any stores objects",
+      "There is no difference"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_ts_03",
+    "skillNode": "typescript",
+    "difficulty": 1450,
+    "prompt": "How does `ReturnType<T>` utility type work in TypeScript?",
+    "options": [
+      "It returns a string representing the typeof T",
+      "It constructs a type consisting of the return type of function type T",
+      "It converts async return types into synchronous types",
+      "It validates API response schema at runtime"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_resp_01",
+    "skillNode": "responsive-design",
+    "difficulty": 900,
+    "prompt": "Which CSS feature allows styling rules to apply conditionally based on viewport width or device features?",
+    "options": ["CSS Grid", "Media Queries", "Flexbox", "CSS Variables"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_resp_02",
+    "skillNode": "responsive-design",
+    "difficulty": 1150,
+    "prompt": "What is the purpose of `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">`?",
+    "options": [
+      "It enables JavaScript screen scaling",
+      "It sets layout viewport width to screen width and prevents default mobile scaling zoom",
+      "It compresses images for mobile networks",
+      "It forces desktop resolution on mobile devices"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_perf_01",
+    "skillNode": "web-performance",
+    "difficulty": 1050,
+    "prompt": "Which Core Web Vital metric measures visual stability and unexpected layout shifts?",
+    "options": ["LCP (Largest Contentful Paint)", "FID (First Input Delay)", "CLS (Cumulative Layout Shift)", "TTFB (Time to First Byte)"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_perf_02",
+    "skillNode": "web-performance",
+    "difficulty": 1350,
+    "prompt": "How does `loading=\"lazy\"` attribute on an `<img>` element improve web performance?",
+    "options": [
+      "It reduces image file size before download",
+      "It defers image loading until the image reaches a calculated distance from the viewport",
+      "It renders the image in low resolution black and white",
+      "It caches images in LocalStorage"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_state_01",
+    "skillNode": "state-management",
+    "difficulty": 1000,
+    "prompt": "In state management architectures like Redux, what is the core role of a 'reducer'?",
+    "options": [
+      "To perform async HTTP network requests",
+      "A pure function that calculates the next state tree given current state and an action",
+      "To serialize component props to JSON",
+      "To mutate state directly in memory"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_jest_01",
+    "skillNode": "jest",
+    "difficulty": 1000,
+    "prompt": "In Jest testing framework, which matchers assert that a mock function was called with specific parameters?",
+    "options": ["expect().toEqual()", "expect().toHaveBeenCalledWith()", "expect().toBeTruthy()", "expect().toContain()"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_gql_01",
+    "skillNode": "graphql",
+    "difficulty": 1100,
+    "prompt": "What main problem of traditional REST APIs does GraphQL solve by letting clients request specific fields?",
+    "options": ["CORS constraints", "Over-fetching and under-fetching of data", "SSL handshake latency", "JSON payload serialization"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_vite_01",
+    "skillNode": "vite",
+    "difficulty": 950,
+    "prompt": "Why does Vite provide faster server start times during development compared to traditional bundlers?",
+    "options": [
+      "It pre-compiles all JavaScript into WebAssembly",
+      "It leverages native ES Modules (ESM) in modern browsers without bundling everything up-front",
+      "It runs only in Node.js runtime without browser rendering",
+      "It disables CSS processing in development"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_tw_01",
+    "skillNode": "tailwind",
+    "difficulty": 900,
+    "prompt": "What paradigm does Tailwind CSS follow?",
+    "options": ["BEM methodology", "Utility-first CSS framework", "CSS Modules", "CSS-in-JS component library"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_dom_01",
+    "skillNode": "dom",
+    "difficulty": 950,
+    "prompt": "Which DOM API method returns the first element matching a specified CSS selector?",
+    "options": ["document.getElementById", "document.querySelector", "document.getElementsByClassName", "document.all"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_dom_02",
+    "skillNode": "dom",
+    "difficulty": 1200,
+    "prompt": "What is event delegation in DOM manipulation?",
+    "options": [
+      "Binding event listeners to every individual child node",
+      "Attaching a single event listener to a common parent to handle events on child elements via event bubbling",
+      "Preventing event propagation entirely across all elements",
+      "Running event listeners inside web workers"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_wp_01",
+    "skillNode": "webpack",
+    "difficulty": 1150,
+    "prompt": "In Webpack configuration, what are 'Loaders' primarily used for?",
+    "options": [
+      "Transforming non-JavaScript files (e.g. CSS, images, JSX) into valid modules",
+      "Optimizing production bundle output chunks",
+      "Serving static assets over HTTP/2",
+      "Managing environment variables"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_a11y_01",
+    "skillNode": "a11y",
+    "difficulty": 1000,
+    "prompt": "What does WAI-ARIA stand for and what is its main role in web accessibility?",
+    "options": [
+      "Web Automated Rendering Interface; optimizes screen resolution",
+      "Accessible Rich Internet Applications; defines attributes to make web content and applications accessible",
+      "Automated Readable Image Attributes; formats alt text for pictures",
+      "Advanced Responsive Interactive Animations; manages keyframe timings"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_next_01",
+    "skillNode": "nextjs",
+    "difficulty": 1100,
+    "prompt": "What rendering strategy does Next.js perform when using Server Components in App Router?",
+    "options": [
+      "Client-side rendering exclusively",
+      "Server-side rendering to stream HTML to the browser without client JS overhead for those components",
+      "Static file download via FTP",
+      "Compiling React into PHP"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_npm_01",
+    "skillNode": "npm",
+    "difficulty": 850,
+    "prompt": "What is the main role of `package-lock.json` in NPM ecosystems?",
+    "options": [
+      "Stores database connection credentials",
+      "Locks exact versions of installed packages and dependency tree for reproducible builds",
+      "Defines application routing configuration",
+      "Encrypts source code before deployment"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_sec_01",
+    "skillNode": "web-security",
+    "difficulty": 1150,
+    "prompt": "Which browser security mechanism blocks unauthorized web pages from making requests to a different domain?",
+    "options": ["CORS (Cross-Origin Resource Sharing)", "Same-Origin Policy (SOP)", "CSRF Tokens", "XSS Filters"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_pwa_01",
+    "skillNode": "pwa",
+    "difficulty": 1100,
+    "prompt": "Which key component enables Progressive Web Apps to function offline by intercepting network requests?",
+    "options": ["WebSockets", "Service Workers", "Web Workers", "LocalStorage"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_dt_01",
+    "skillNode": "chrome-devtools",
+    "difficulty": 900,
+    "prompt": "Which Chrome DevTools tab is used to inspect DOM element layout, CSS styles, and event listeners?",
+    "options": ["Console", "Elements", "Sources", "Network"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_async_01",
+    "skillNode": "async-js",
+    "difficulty": 1050,
+    "prompt": "What is returned by an `async` function in JavaScript?",
+    "options": ["The raw return value directly", "A Promise that resolves with the returned value", "An Observable", "A callback function"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_async_02",
+    "skillNode": "async-js",
+    "difficulty": 1300,
+    "prompt": "What happens if a Promise passed to `await` rejects inside an async function without a `try...catch` block?",
+    "options": [
+      "The error is silently ignored and execution continues",
+      "An unhandled promise rejection error is thrown and halts function execution",
+      "The promise automatically retries 3 times",
+      "The return value defaults to null"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_bs_01",
+    "skillNode": "bootstrap",
+    "difficulty": 850,
+    "prompt": "How many columns does the standard Bootstrap grid system contain per row?",
+    "options": ["8", "10", "12", "16"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_sass_01",
+    "skillNode": "sass",
+    "difficulty": 950,
+    "prompt": "In SASS/SCSS, which directive allows including reusable blocks of CSS styles?",
+    "options": ["@import", "@mixin", "@extend", "@use"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_cij_01",
+    "skillNode": "css-in-js",
+    "difficulty": 1050,
+    "prompt": "What is a major advantage of using CSS-in-JS libraries like Styled Components?",
+    "options": [
+      "Styles are scoped to components, avoiding global class name collisions",
+      "Bypasses browser rendering engine",
+      "Removes CSS from bundle entirely",
+      "Converts HTML tags to canvas elements"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_ws_01",
+    "skillNode": "websockets",
+    "difficulty": 1100,
+    "prompt": "What type of communication channel does the WebSocket protocol establish?",
+    "options": ["Half-duplex request-response", "Full-duplex bidirectional persistent TCP connection", "Unidirectional UDP stream", "Polling HTTP connection"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_bs_storage_01",
+    "skillNode": "browser-storage",
+    "difficulty": 950,
+    "prompt": "What is the key difference between `localStorage` and `sessionStorage` in Web Storage API?",
+    "options": [
+      "localStorage persists until explicitly cleared, whereas sessionStorage clears when page session/tab ends",
+      "sessionStorage stores up to 5GB, localStorage stores 5MB",
+      "localStorage data is sent automatically with HTTP headers",
+      "sessionStorage cannot store strings"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_sb_01",
+    "skillNode": "storybook",
+    "difficulty": 1000,
+    "prompt": "What is the primary purpose of Storybook in modern frontend development?",
+    "options": [
+      "To deploy backend microservices",
+      "To build and test UI components in isolation outside of the main app",
+      "To optimize database queries",
+      "To replace Webpack build configs"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_vue_01",
+    "skillNode": "vue",
+    "difficulty": 950,
+    "prompt": "Which Vue.js directive is used for two-way data binding on form input elements?",
+    "options": ["v-bind", "v-on", "v-model", "v-if"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_d3_01",
+    "skillNode": "d3",
+    "difficulty": 1150,
+    "prompt": "What is the fundamental operation pattern of D3.js when connecting data to DOM elements?",
+    "options": ["Select -> Data -> Enter / Update / Exit", "Fetch -> Parse -> Canvas", "Component -> State -> Render", "Query -> Transform -> Print"],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_figma_01",
+    "skillNode": "figma",
+    "difficulty": 850,
+    "prompt": "In UI design hand-off tools like Figma, what feature helps developers inspect exact layout spacing, typography, and CSS attributes?",
+    "options": ["Dev Mode / Inspection Panel", "Vector Pen Tool", "Boolean Operations", "Prototype Wireframing"],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_mf_01",
+    "skillNode": "micro-frontends",
+    "difficulty": 1300,
+    "prompt": "Which Webpack 5 feature natively enables sharing dependencies and loading independently built micro-frontend applications at runtime?",
+    "options": ["Module Federation", "Tree Shaking", "Code Splitting", "Hot Module Replacement"],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_spa_01",
+    "skillNode": "single-page-apps",
+    "difficulty": 950,
+    "prompt": "How do Single Page Applications (SPAs) navigate between views without triggering full page browser reloads?",
+    "options": [
+      "Using Client-Side Routing and the HTML5 History API (pushState/replaceState)",
+      "Reloading iframe containers",
+      "Using server-side 302 redirects",
+      "Flushing browser cache on route change"
+    ],
+    "correctIndex": 0
+  }
+]
