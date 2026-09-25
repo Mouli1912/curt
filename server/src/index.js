@@ -22,6 +22,7 @@ const graphRoutes = require('./routes/graph.routes');
 const assessmentRoutes = require('./routes/assessment.routes');
 const reportRoutes = require('./routes/report.routes');
 const credentialRoutes = require('./routes/credential.routes');
+const seedDemoSessions = require('../scripts/seedDemo');
 
 // Health Check Endpoint
 app.get('/api/health', (req, res) => {
@@ -39,6 +40,9 @@ app.use('/api/report', reportRoutes);
 
 // Credential API Endpoints
 app.use('/api/credential', credentialRoutes);
+
+// Auto-seed demo user sessions on startup
+seedDemoSessions();
 
 // Start Server
 app.listen(PORT, () => {
