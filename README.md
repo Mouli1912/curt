@@ -1,91 +1,86 @@
-# SkillPath
+# SkillPath — SDG 4 Quality Education Track
 
 **Stop measuring courses completed. Start measuring skills proven.**
 
-SkillPath is a job-demand-driven skill assessment and verification platform. Instead of another content-delivery LMS, it maps real hiring requirements into a skill graph, places learners on that graph using an adaptive (Elo/IRT-based) assessment, routes them to the best free existing resource for each missing skill, and issues a cryptographically signed, instantly-verifiable credential when a skill is proven — **no GPT/LLM API involved anywhere in the pipeline**.
+SkillPath is a job-demand-driven skill assessment and credentialing platform. It maps real hiring requirements into a skill graph, places learners adaptively using an Elo-rating algorithm, routes them to curated free learning resources for missing skills, and issues cryptographically signed credentials verifiable by recruiters in 5 seconds — **with 0% LLM/GPT API calls in the entire pipeline**.
 
 ---
 
-## The Problem
+## Core Pitch Differentiators
 
-- Online course platforms (Coursera, Udemy, LinkedIn Learning) sell **content**, not **proof of skill**.
-- "Personalization" on most platforms is a recommendation carousel, not an actual measurement of what a learner knows.
-- Certificates are unverifiable — recruiters have no way to trust a PDF.
-- Learners don't know which skills actually matter for the job they want; they guess from a course catalog.
-
-## The Solution
-
-| Problem | SkillPath's Answer |
-|---|---|
-| No real personalization | Adaptive placement test (Elo-rating based) estimates true skill level in ~15–20 questions |
-| No link between learning and hiring | Skill graph built from real job posting data, not a curriculum an instructor invented |
-| Unverifiable certificates | Cryptographically signed credentials, verifiable via a public endpoint / QR code |
-| Reinventing content that already exists | SkillPath routes to the best existing free resource per skill gap instead of hosting new courses |
-
-## Core Differentiators
-
-1. **Job-demand skill graph** — built from parsed job postings (NLP-extracted skills + prerequisite structure), not a hand-authored syllabus.
-2. **Elo/IRT-based adaptive assessment** — classical psychometric ML, no LLM calls, defensible and explainable.
-3. **Signed, verifiable credentials** — public/private key signing over (student ID + skill + score + timestamp), verifiable instantly without trusting a PDF.
-
-## Tech Stack
-
-- **Frontend:** React + Vite
-- **Backend:** Node.js / Express (API)
-- **ML / Extraction:** Python (`scikit-learn` TF-IDF, deterministic taxonomy matching)
-- **Database:** MongoDB (User / Assessment data) with static JSON fallback for skill graph
-- **Crypto:** Node `crypto` module — ECDSA key-pair signing for credentials
-
-## Project Docs
-
-- [`CONTEXT.md`](./CONTEXT.md) — full project context, non-goals, glossary
-- [`DOCUMENTATION.md`](./DOCUMENTATION.md) — architecture, data models, algorithms, API design
-- [`FILE_STRUCTURE.md`](./FILE_STRUCTURE.md) — full repository layout
-- [`BUILD_PLAN.md`](./BUILD_PLAN.md) — 5-step build roadmap for the hackathon
+1. **"Built from real job postings, not a curriculum someone invented"** — Extracted via classical NLP term frequency analysis from active hiring postings into a prerequisite-respecting skill taxonomy graph.
+2. **"An adaptive test that actually measures what you know (Elo-based, like chess ratings)"** — Dynamically adjusts item difficulty based on real-time learner accuracy ($K=32$) with breadth-first prerequisite coverage.
+3. **"Cryptographically signed credentials a recruiter can verify in 5 seconds — no GPT, no guesswork"** — Uses standard ECDSA P-256 (SHA-256) asymmetric signatures, allowing third parties to verify authenticity offline without database lookups.
 
 ---
 
-## Getting Started
+## Pre-Seeded Demo Accounts for Judges
 
-### 1. Extract & Build Skill Graph (Python)
+The Express backend automatically pre-seeds 3 demo profiles on startup (or via `npm run seed`):
 
-Install Python dependencies and run the extractor to generate `data/skill_graph.json`:
+| Demo Account ID | Stage | Description | Key Feature to Demo |
+|---|---|---|---|
+| `fresh-user` | 🟢 Fresh Start | 0 questions answered, 0% readiness | Showing initial quiz start & baseline selection |
+| `mid-user` | 🟡 Mid-Progress | 4 proven skills (HTML, CSS, JS, Git) | Showing Topological Gap Report & SVG Skill Graph |
+| `pro-user` | ⭐ Near-Complete | 10+ proven skills, 2 pre-issued credentials | Showing ECDSA Credential QR & Live Tamper Verification |
+
+*Note: Use the "Demo Account Switcher" dropdown in the top navbar to instantly toggle between user profiles.*
+
+---
+
+## Quick Start Guide
+
+### 1. Cryptographic Key Setup (One-Time)
+
+Generate the ECDSA P-256 key pair (writes `/keys/private.pem` and `/keys/public.pem`):
 
 ```bash
-# Set up virtual environment (optional)
-python -m venv venv
-# On Windows: venv\Scripts\activate
-# On Unix: source venv/bin/activate
-
-pip install -r ml-service/requirements.txt
-python ml-service/extractor/graph_builder.py
+cd server
+node scripts/generateKeys.js
 ```
 
-To run the Pytest test suite:
+### 2. Run Test Suites
+
+Execute full unit and integration test suite (21 passing tests):
+
 ```bash
-python -m pytest ml-service/tests/
+cd server
+npm test
 ```
 
-### 2. Run Backend API Server (Node/Express)
+### 3. Start Express Server (Backend)
 
 ```bash
 cd server
 npm install
 npm run dev
-# Express server running on http://localhost:5000
+# Server running on http://localhost:5000
 ```
 
-Check Health: `GET http://localhost:5000/api/health`
-Check Graph: `GET http://localhost:5000/api/graph/frontend-developer`
-
-### 3. Run Frontend Client (Vite + React)
+### 4. Start React Frontend Client
 
 ```bash
 cd client
 npm install
 npm run dev
-# React app running on http://localhost:5173
+# Client running on http://localhost:5173
 ```
+
+---
+
+## Known Limitations & Future Stretch Goals
+
+- **Single Target Role Focus**: Currently pre-populated for the *Frontend Developer* role taxonomy (34 skill nodes). Multi-role switching (e.g. Backend, Data Engineering) is supported via the underlying graph engine.
+- **Pre-Collected Hiring Corpus**: Graph extraction operates on a pre-collected 18-posting dataset rather than a continuous live Web scraper pipeline.
+- **Elo vs Full Item Response Theory (IRT)**: Implements standard 1-parameter Elo rating updates ($K=32$). 3-parameter IRT (accounting for item discrimination and guessing pseudo-chance) is a natural production extension.
+
+---
+
+## Project Documentation
+
+- [`/docs/DEMO_SCRIPT.md`](./docs/DEMO_SCRIPT.md) — 3-5 minute timed judges presentation script
+- [`/docs/architecture-diagram.md`](./docs/architecture-diagram.md) — Mermaid visual system architecture flowchart
+- [`DOCUMENTATION.md`](./DOCUMENTATION.md) — System architecture, data models & algorithms
 
 ---
 
