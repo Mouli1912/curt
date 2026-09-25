@@ -52,3 +52,11 @@ export async function getAssessmentStatus(userId = 'demo-user') {
   }
   return response.json();
 }
+
+export async function fetchGapReport(userId = 'demo-user') {
+  const response = await fetch(`${API_BASE}/report/${userId}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch gap report for user ${userId}: ${response.statusText}`);
+  }
+  return response.json();
+}
