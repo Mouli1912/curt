@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.env.local
+
+# Cryptographic Keys (NEVER COMMIT PRIVATE KEYS)
+/keys/private.pem
+/keys/
+
+# Build Outputs
+dist/
+build/
+.pytest_cache/
+
+# IDE / OS
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,391 @@
+{
+  "role": "frontend-developer",
+  "title": "Frontend Developer Skill Graph",
+  "totalPostingsAnalyzed": 18,
+  "nodes": [
+    {
+      "id": "rest-api",
+      "label": "REST APIs",
+      "category": "Networking",
+      "prerequisites": [
+        "javascript"
+      ],
+      "demandScore": 1.0,
+      "frequency": 17,
+      "resources": []
+    },
+    {
+      "id": "react",
+      "label": "React",
+      "category": "Frameworks",
+      "prerequisites": [
+        "javascript",
+        "dom"
+      ],
+      "demandScore": 0.94,
+      "frequency": 16,
+      "resources": []
+    },
+    {
+      "id": "css",
+      "label": "CSS3",
+      "category": "Fundamentals",
+      "prerequisites": [
+        "html"
+      ],
+      "demandScore": 0.88,
+      "frequency": 15,
+      "resources": []
+    },
+    {
+      "id": "git",
+      "label": "Git & Version Control",
+      "category": "Tooling",
+      "prerequisites": [],
+      "demandScore": 0.88,
+      "frequency": 15,
+      "resources": []
+    },
+    {
+      "id": "html",
+      "label": "HTML5",
+      "category": "Fundamentals",
+      "prerequisites": [],
+      "demandScore": 0.76,
+      "frequency": 13,
+      "resources": []
+    },
+    {
+      "id": "javascript",
+      "label": "JavaScript",
+      "category": "Languages",
+      "prerequisites": [
+        "html"
+      ],
+      "demandScore": 0.76,
+      "frequency": 13,
+      "resources": []
+    },
+    {
+      "id": "typescript",
+      "label": "TypeScript",
+      "category": "Languages",
+      "prerequisites": [
+        "javascript"
+      ],
+      "demandScore": 0.53,
+      "frequency": 9,
+      "resources": []
+    },
+    {
+      "id": "responsive-design",
+      "label": "Responsive Web Design",
+      "category": "Fundamentals",
+      "prerequisites": [
+        "html",
+        "css"
+      ],
+      "demandScore": 0.53,
+      "frequency": 9,
+      "resources": []
+    },
+    {
+      "id": "web-performance",
+      "label": "Web Performance",
+      "category": "Optimization",
+      "prerequisites": [
+        "javascript",
+        "dom"
+      ],
+      "demandScore": 0.53,
+      "frequency": 9,
+      "resources": []
+    },
+    {
+      "id": "state-management",
+      "label": "State Management",
+      "category": "Architecture",
+      "prerequisites": [
+        "react"
+      ],
+      "demandScore": 0.35,
+      "frequency": 6,
+      "resources": []
+    },
+    {
+      "id": "jest",
+      "label": "Jest & Unit Testing",
+      "category": "Testing",
+      "prerequisites": [
+        "javascript",
+        "react"
+      ],
+      "demandScore": 0.35,
+      "frequency": 6,
+      "resources": []
+    },
+    {
+      "id": "graphql",
+      "label": "GraphQL",
+      "category": "Networking",
+      "prerequisites": [
+        "rest-api"
+      ],
+      "demandScore": 0.29,
+      "frequency": 5,
+      "resources": []
+    },
+    {
+      "id": "vite",
+      "label": "Vite",
+      "category": "Tooling",
+      "prerequisites": [
+        "javascript"
+      ],
+      "demandScore": 0.29,
+      "frequency": 5,
+      "resources": []
+    },
+    {
+      "id": "tailwind",
+      "label": "Tailwind CSS",
+      "category": "Styling",
+      "prerequisites": [
+        "css",
+        "responsive-design"
+      ],
+      "demandScore": 0.29,
+      "frequency": 5,
+      "resources": []
+    },
+    {
+      "id": "dom",
+      "label": "DOM Manipulation",
+      "category": "Fundamentals",
+      "prerequisites": [
+        "html",
+        "javascript"
+      ],
+      "demandScore": 0.24,
+      "frequency": 4,
+      "resources": []
+    },
+    {
+      "id": "webpack",
+      "label": "Webpack",
+      "category": "Tooling",
+      "prerequisites": [
+        "javascript"
+      ],
+      "demandScore": 0.24,
+      "frequency": 4,
+      "resources": []
+    },
+    {
+      "id": "a11y",
+      "label": "Web Accessibility (a11y)",
+      "category": "Quality",
+      "prerequisites": [
+        "html",
+        "css"
+      ],
+      "demandScore": 0.24,
+      "frequency": 4,
+      "resources": []
+    },
+    {
+      "id": "nextjs",
+      "label": "Next.js",
+      "category": "Frameworks",
+      "prerequisites": [
+        "react",
+        "typescript"
+      ],
+      "demandScore": 0.18,
+      "frequency": 3,
+      "resources": []
+    },
+    {
+      "id": "npm",
+      "label": "Package Managers (NPM/Yarn)",
+      "category": "Tooling",
+      "prerequisites": [
+        "javascript"
+      ],
+      "demandScore": 0.18,
+      "frequency": 3,
+      "resources": []
+    },
+    {
+      "id": "web-security",
+      "label": "Web Security",
+      "category": "Quality",
+      "prerequisites": [
+        "javascript",
+        "rest-api"
+      ],
+      "demandScore": 0.12,
+      "frequency": 2,
+      "resources": []
+    },
+    {
+      "id": "pwa",
+      "label": "Progressive Web Apps (PWA)",
+      "category": "Architecture",
+      "prerequisites": [
+        "javascript",
+        "browser-storage"
+      ],
+      "demandScore": 0.12,
+      "frequency": 2,
+      "resources": []
+    },
+    {
+      "id": "chrome-devtools",
+      "label": "Browser DevTools",
+      "category": "Tooling",
+      "prerequisites": [
+        "javascript",
+        "dom"
+      ],
+      "demandScore": 0.12,
+      "frequency": 2,
+      "resources": []
+    },
+    {
+      "id": "async-js",
+      "label": "Asynchronous JavaScript",
+      "category": "Languages",
+      "prerequisites": [
+        "javascript"
+      ],
+      "demandScore": 0.12,
+      "frequency": 2,
+      "resources": []
+    },
+    {
+      "id": "bootstrap",
+      "label": "Bootstrap",
+      "category": "Styling",
+      "prerequisites": [
+        "css"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "sass",
+      "label": "SASS/SCSS",
+      "category": "Styling",
+      "prerequisites": [
+        "css"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "css-in-js",
+      "label": "CSS-in-JS",
+      "category": "Styling",
+      "prerequisites": [
+        "css",
+        "react"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "websockets",
+      "label": "WebSockets",
+      "category": "Networking",
+      "prerequisites": [
+        "javascript",
+        "rest-api"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "browser-storage",
+      "label": "Browser Storage",
+      "category": "Fundamentals",
+      "prerequisites": [
+        "javascript"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "storybook",
+      "label": "Storybook",
+      "category": "Tooling",
+      "prerequisites": [
+        "react"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "vue",
+      "label": "Vue.js",
+      "category": "Frameworks",
+      "prerequisites": [
+        "javascript"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "d3",
+      "label": "Data Visualization (D3/SVG)",
+      "category": "Specialized",
+      "prerequisites": [
+        "javascript",
+        "dom"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "figma",
+      "label": "Figma & UI Design Hand-off",
+      "category": "UI/UX",
+      "prerequisites": [],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "micro-frontends",
+      "label": "Micro-Frontends",
+      "category": "Architecture",
+      "prerequisites": [
+        "react",
+        "webpack"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    },
+    {
+      "id": "single-page-apps",
+      "label": "Single Page Applications",
+      "category": "Architecture",
+      "prerequisites": [
+        "react",
+        "javascript"
+      ],
+      "demandScore": 0.06,
+      "frequency": 1,
+      "resources": []
+    }
+  ]
+}
