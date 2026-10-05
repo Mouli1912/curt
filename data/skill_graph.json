@@ -10,9 +10,22 @@
       "prerequisites": [
         "javascript"
       ],
-      "demandScore": 1.0,
+      "demandScore": 1,
       "frequency": 17,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN RESTful APIs Guide",
+          "url": "https://developer.mozilla.org/en-US/docs/Glossary/REST",
+          "type": "docs",
+          "free": true
+        },
+        {
+          "title": "RESTful API Design Best Practices",
+          "url": "https://restfulapi.net/",
+          "type": "guide",
+          "free": true
+        }
+      ]
     },
     {
       "id": "react",
@@ -24,7 +37,20 @@
       ],
       "demandScore": 0.94,
       "frequency": 16,
-      "resources": []
+      "resources": [
+        {
+          "title": "Official React Quick Start",
+          "url": "https://react.dev/learn",
+          "type": "docs",
+          "free": true
+        },
+        {
+          "title": "freeCodeCamp React Full Course",
+          "url": "https://www.freecodecamp.org/news/free-react-course-for-beginners/",
+          "type": "interactive",
+          "free": true
+        }
+      ]
     },
     {
       "id": "css",
@@ -35,7 +61,20 @@
       ],
       "demandScore": 0.88,
       "frequency": 15,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN CSS Basics & Flexbox",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn/CSS",
+          "type": "docs",
+          "free": true
+        },
+        {
+          "title": "CSS-Tricks Complete Guide to Flexbox",
+          "url": "https://css-tricks.com/snippets/css/a-guide-to-flexbox/",
+          "type": "guide",
+          "free": true
+        }
+      ]
     },
     {
       "id": "git",
@@ -44,7 +83,20 @@
       "prerequisites": [],
       "demandScore": 0.88,
       "frequency": 15,
-      "resources": []
+      "resources": [
+        {
+          "title": "Pro Git Book (Official Free Book)",
+          "url": "https://git-scm.com/book/en/v2",
+          "type": "docs",
+          "free": true
+        },
+        {
+          "title": "GitHub Git Handbook",
+          "url": "https://guides.github.com/introduction/git-handbook/",
+          "type": "guide",
+          "free": true
+        }
+      ]
     },
     {
       "id": "html",
@@ -53,7 +105,20 @@
       "prerequisites": [],
       "demandScore": 0.76,
       "frequency": 13,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN HTML Structural Elements",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn/HTML",
+          "type": "docs",
+          "free": true
+        },
+        {
+          "title": "W3C HTML5 Specification",
+          "url": "https://www.w3.org/TR/html52/",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "javascript",
@@ -64,7 +129,20 @@
       ],
       "demandScore": 0.76,
       "frequency": 13,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN JavaScript Guide",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+          "type": "docs",
+          "free": true
+        },
+        {
+          "title": "The Modern JavaScript Tutorial",
+          "url": "https://javascript.info/",
+          "type": "interactive",
+          "free": true
+        }
+      ]
     },
     {
       "id": "typescript",
@@ -75,7 +153,20 @@
       ],
       "demandScore": 0.53,
       "frequency": 9,
-      "resources": []
+      "resources": [
+        {
+          "title": "TypeScript Official Handbook",
+          "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+          "type": "docs",
+          "free": true
+        },
+        {
+          "title": "ExecuteProgram TypeScript Course",
+          "url": "https://www.executeprogram.com/courses/typescript",
+          "type": "interactive",
+          "free": true
+        }
+      ]
     },
     {
       "id": "responsive-design",
@@ -87,7 +178,14 @@
       ],
       "demandScore": 0.53,
       "frequency": 9,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN Responsive Web Design Guide",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "web-performance",
@@ -99,7 +197,14 @@
       ],
       "demandScore": 0.53,
       "frequency": 9,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN Web Performance Documentation",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/Performance",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "state-management",
@@ -110,7 +215,14 @@
       ],
       "demandScore": 0.35,
       "frequency": 6,
-      "resources": []
+      "resources": [
+        {
+          "title": "Redux Toolkit Essentials Guide",
+          "url": "https://redux.js.org/tutorials/essentials/part-1-overview",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "jest",
@@ -122,7 +234,14 @@
       ],
       "demandScore": 0.35,
       "frequency": 6,
-      "resources": []
+      "resources": [
+        {
+          "title": "Jest Testing Framework Docs",
+          "url": "https://jestjs.io/docs/getting-started",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "graphql",
@@ -133,7 +252,14 @@
       ],
       "demandScore": 0.29,
       "frequency": 5,
-      "resources": []
+      "resources": [
+        {
+          "title": "Official GraphQL Documentation",
+          "url": "https://graphql.org/learn/",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "vite",
@@ -144,7 +270,14 @@
       ],
       "demandScore": 0.29,
       "frequency": 5,
-      "resources": []
+      "resources": [
+        {
+          "title": "Vite Getting Started Guide",
+          "url": "https://vitejs.dev/guide/",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "tailwind",
@@ -156,7 +289,14 @@
       ],
       "demandScore": 0.29,
       "frequency": 5,
-      "resources": []
+      "resources": [
+        {
+          "title": "Tailwind CSS Official Docs",
+          "url": "https://tailwindcss.com/docs/installation",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "dom",
@@ -168,7 +308,14 @@
       ],
       "demandScore": 0.24,
       "frequency": 4,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN DOM Manipulation Guide",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "webpack",
@@ -179,7 +326,14 @@
       ],
       "demandScore": 0.24,
       "frequency": 4,
-      "resources": []
+      "resources": [
+        {
+          "title": "Webpack Concepts & Setup",
+          "url": "https://webpack.js.org/concepts/",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "a11y",
@@ -191,7 +345,14 @@
       ],
       "demandScore": 0.24,
       "frequency": 4,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN Web Accessibility (a11y) Guide",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "nextjs",
@@ -203,7 +364,14 @@
       ],
       "demandScore": 0.18,
       "frequency": 3,
-      "resources": []
+      "resources": [
+        {
+          "title": "Next.js Official Interactive Learn Course",
+          "url": "https://nextjs.org/learn",
+          "type": "interactive",
+          "free": true
+        }
+      ]
     },
     {
       "id": "npm",
@@ -214,7 +382,14 @@
       ],
       "demandScore": 0.18,
       "frequency": 3,
-      "resources": []
+      "resources": [
+        {
+          "title": "npm Documentation & CLI Commands",
+          "url": "https://docs.npmjs.com/",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "web-security",
@@ -226,7 +401,14 @@
       ],
       "demandScore": 0.12,
       "frequency": 2,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN Web Security Overview",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/Security",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "pwa",
@@ -238,7 +420,14 @@
       ],
       "demandScore": 0.12,
       "frequency": 2,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN Progressive Web Apps Guide",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "chrome-devtools",
@@ -250,7 +439,14 @@
       ],
       "demandScore": 0.12,
       "frequency": 2,
-      "resources": []
+      "resources": [
+        {
+          "title": "Chrome DevTools Overview",
+          "url": "https://developer.chrome.com/docs/devtools/",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "async-js",
@@ -261,7 +457,14 @@
       ],
       "demandScore": 0.12,
       "frequency": 2,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN Asynchronous JavaScript Guide",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "bootstrap",
@@ -272,7 +475,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "Bootstrap 5 Official Documentation",
+          "url": "https://getbootstrap.com/docs/5.3/getting-started/introduction/",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "sass",
@@ -283,7 +493,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "Sass Language Documentation",
+          "url": "https://sass-lang.com/documentation/",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "css-in-js",
@@ -295,7 +512,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "Styled-Components Documentation",
+          "url": "https://styled-components.com/docs",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "websockets",
@@ -307,7 +531,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN WebSockets API Reference",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "browser-storage",
@@ -318,7 +549,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN Window.localStorage API Guide",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "storybook",
@@ -329,7 +567,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "Storybook Component Docs",
+          "url": "https://storybook.js.org/docs",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "vue",
@@ -340,7 +585,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "Vue.js Official Intro Guide",
+          "url": "https://vuejs.org/guide/introduction.html",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "d3",
@@ -352,7 +604,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "D3.js Getting Started Guide",
+          "url": "https://d3js.org/getting-started",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "figma",
@@ -361,7 +620,14 @@
       "prerequisites": [],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "Figma Help Center & Design Basics",
+          "url": "https://help.figma.com/hc/en-us",
+          "type": "docs",
+          "free": true
+        }
+      ]
     },
     {
       "id": "micro-frontends",
@@ -373,7 +639,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "Micro-Frontends Architecture Guide",
+          "url": "https://micro-frontends.org/",
+          "type": "guide",
+          "free": true
+        }
+      ]
     },
     {
       "id": "single-page-apps",
@@ -385,7 +658,14 @@
       ],
       "demandScore": 0.06,
       "frequency": 1,
-      "resources": []
+      "resources": [
+        {
+          "title": "MDN Single Page Application Glossary",
+          "url": "https://developer.mozilla.org/en-US/docs/Glossary/SPA",
+          "type": "docs",
+          "free": true
+        }
+      ]
     }
   ]
 }

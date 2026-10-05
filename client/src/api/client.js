@@ -18,3 +18,44 @@ export async function fetchHealth() {
   }
   return response.json();
 }
+
+export async function startAssessment(userId = 'pro-user', targetRole = 'frontend-developer') {
+  const response = await fetch(`${API_BASE}/assessment/start`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, targetRole })
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to start assessment: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function submitAnswer(userId, questionId, selectedIndex) {
+  const response = await fetch(`${API_BASE}/assessment/answer`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, questionId, selectedIndex })
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Failed to submit answer: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function fetchAssessmentStatus(userId = 'pro-user') {
+  const response = await fetch(`${API_BASE}/assessment/status/${userId}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch status for ${userId}: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function fetchGapReport(userId = 'pro-user') {
+  const response = await fetch(`${API_BASE}/report/${userId}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch gap report for ${userId}: ${response.statusText}`);
+  }
+  return response.json();
+}

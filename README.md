@@ -1,94 +1,113 @@
-# SkillPath
+# SkillPath 🎓 (SDG 4 — Quality Education)
 
-**Stop measuring courses completed. Start measuring skills proven.**
+> **Job-Demand-Driven Skill Assessment & Cryptographic Credentialing Platform**
 
-SkillPath is a job-demand-driven skill assessment and verification platform. Instead of another content-delivery LMS, it maps real hiring requirements into a skill graph, places learners on that graph using an adaptive (Elo/IRT-based) assessment, routes them to the best free existing resource for each missing skill, and issues a cryptographically signed, instantly-verifiable credential when a skill is proven — **no GPT/LLM API involved anywhere in the pipeline**.
-
----
-
-## The Problem
-
-- Online course platforms (Coursera, Udemy, LinkedIn Learning) sell **content**, not **proof of skill**.
-- "Personalization" on most platforms is a recommendation carousel, not an actual measurement of what a learner knows.
-- Certificates are unverifiable — recruiters have no way to trust a PDF.
-- Learners don't know which skills actually matter for the job they want; they guess from a course catalog.
-
-## The Solution
-
-| Problem | SkillPath's Answer |
-|---|---|
-| No real personalization | Adaptive placement test (Elo-rating based) estimates true skill level in ~15–20 questions |
-| No link between learning and hiring | Skill graph built from real job posting data, not a curriculum an instructor invented |
-| Unverifiable certificates | Cryptographically signed credentials, verifiable via a public endpoint / QR code |
-| Reinventing content that already exists | SkillPath routes to the best existing free resource per skill gap instead of hosting new courses |
-
-## Core Differentiators
-
-1. **Job-demand skill graph** — built from parsed job postings (NLP-extracted skills + prerequisite structure), not a hand-authored syllabus.
-2. **Elo/IRT-based adaptive assessment** — classical psychometric ML, no LLM calls, defensible and explainable.
-3. **Signed, verifiable credentials** — public/private key signing over (student ID + skill + score + timestamp), verifiable instantly without trusting a PDF.
-
-## Tech Stack
-
-- **Frontend:** React + Vite
-- **Backend:** Node.js / Express (API)
-- **ML / Extraction:** Python (`scikit-learn` TF-IDF, deterministic taxonomy matching)
-- **Database:** MongoDB (User / Assessment data) with static JSON fallback for skill graph
-- **Crypto:** Node `crypto` module — ECDSA key-pair signing for credentials
-
-## Project Docs
-
-- [`CONTEXT.md`](./CONTEXT.md) — full project context, non-goals, glossary
-- [`DOCUMENTATION.md`](./DOCUMENTATION.md) — architecture, data models, algorithms, API design
-- [`FILE_STRUCTURE.md`](./FILE_STRUCTURE.md) — full repository layout
-- [`BUILD_PLAN.md`](./BUILD_PLAN.md) — 5-step build roadmap for the hackathon
+SkillPath bridges the gap between higher education and industry hiring demand. Instead of another content-delivery LMS, it extracts skill requirements from real job postings, places learners on a prerequisite skill graph using an adaptive Elo psychometric test, routes them to curated free resources for missing skills, and issues cryptographically signed ECDSA credentials when proficiency is proven.
 
 ---
 
-## Getting Started
+### 🌟 Three Core Differentiators
 
-### 1. Extract & Build Skill Graph (Python)
+1. **Built from Real Job Postings**: Skill graphs are derived from real industry job data, not an invented curriculum.
+2. **Adaptive Elo Skill Measurement**: Objective psychometric scoring ($K=32$) measuring skill level like chess ratings.
+3. **Cryptographically Signed Credentials**: ECDSA P-256 digital signatures that recruiters can verify offline in under 5 seconds—tamper-proof and trustless.
 
-Install Python dependencies and run the extractor to generate `data/skill_graph.json`:
-
-```bash
-# Set up virtual environment (optional)
-python -m venv venv
-# On Windows: venv\Scripts\activate
-# On Unix: source venv/bin/activate
-
-pip install -r ml-service/requirements.txt
-python ml-service/extractor/graph_builder.py
-```
-
-To run the Pytest test suite:
-```bash
-python -m pytest ml-service/tests/
-```
-
-### 2. Run Backend API Server (Node/Express)
-
-```bash
-cd server
-npm install
-npm run dev
-# Express server running on http://localhost:5000
-```
-
-Check Health: `GET http://localhost:5000/api/health`
-Check Graph: `GET http://localhost:5000/api/graph/frontend-developer`
-
-### 3. Run Frontend Client (Vite + React)
-
-```bash
-cd client
-npm install
-npm run dev
-# React app running on http://localhost:5173
-```
+> ⚡ **Deterministic & LLM-Free:** Built with zero GPT or LLM API calls for 100% explainable math, fast execution, and zero rate-limit failures during live demos.
 
 ---
 
-## License
+### 🚀 Getting Started
 
-MIT
+#### Prerequisites
+- **Node.js**: v18.0.0 or higher
+- **npm**: v9.0.0 or higher
+
+#### Quickstart Setup
+
+1. **Clone the Repository & Install Dependencies**:
+   ```bash
+   # Install server dependencies
+   cd server
+   npm install
+
+   # Install client dependencies
+   cd ../client
+   npm install
+   ```
+
+2. **Generate Cryptographic Key Pair (One-Time Setup)**:
+   ```bash
+   cd ../server
+   node scripts/generateKeys.js
+   ```
+   *Generates `/keys/private.pem` (gitignored) and `/keys/public.pem`.*
+
+3. **Seed Demo User Accounts**:
+   ```bash
+   node scripts/seedDemo.js
+   ```
+
+4. **Run Server & Client**:
+   ```bash
+   # Start backend API (Port 5000)
+   npm start
+
+   # In a separate terminal, start React dev server (Port 5173)
+   cd ../client
+   npm run dev
+   ```
+
+5. Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+### 👥 Seeded Demo Accounts
+
+Use the **DEMO ACCOUNT** picker in the top navbar to switch between accounts instantly:
+
+| Demo Account | Status Stage | Readiness | Proven Skills | ECDSA Credentials |
+|---|---|---|---|---|
+| 🟢 `fresh-user` | Fresh Start | 0% | 0 skills | None (ready for live start) |
+| 🟡 `mid-user` | Mid-Progress | ~35% | 4 skills (`html`, `css`, `js`, `git`) | 0 (ready for gap report demo) |
+| ⭐ `pro-user` | Near-Complete | ~75% | 10 skills | Signed ECDSA Credential ready |
+
+---
+
+### 🛡️ Cryptographic Credential Verification
+
+Credentials are signed using **ECDSA P-256 (secp256r1)** with SHA-256 hashes.
+
+To verify a credential:
+1. Open the **Verify Credential** tab in the app.
+2. Click **Paste Valid Sample** or paste any issued credential JSON.
+3. Click **Verify Signature**.
+4. To test tamper detection, click **Paste Tampered Sample** (score modified from $1350 \rightarrow 1600$). The verifier will flag the signature as invalid and omit payload data.
+
+---
+
+### 🎯 API Endpoints Summary
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/api/health` | System health check |
+| `GET` | `/api/graph/:role` | Retrieves skill graph topology & demand scores |
+| `POST` | `/api/assessment/start` | Begins adaptive assessment session |
+| `POST` | `/api/assessment/answer` | Submits answer, returns Elo delta & next question |
+| `GET` | `/api/report/:userId` | Generates topological skill gap report & readiness % |
+| `POST` | `/api/credential/issue` | Mints and signs an ECDSA P-256 credential |
+| `POST` | `/api/credential/verify` | Verifies credential signature authenticity |
+| `GET` | `/api/credential/public-key` | Serves PEM public key for offline verifiers |
+
+---
+
+### 📐 Known Limitations & Future Roadmap
+
+* **Single Target Role Scope**: Currently seeded for the *Frontend Developer* role (34 skill nodes). Multi-role expansion (Backend, Data Engineer) is planned for production.
+* **Offline Job Dataset**: Skill graph is built from pre-collected job posting datasets rather than real-time web scraping.
+* **Classical Elo vs. 2-PL IRT**: Uses standard Elo psychometrics ($K=32$) for fast execution; upgrading to a full 2-Parameter Item Response Theory (IRT) model is a future enhancement.
+
+---
+
+### 📄 License
+
+MIT License — Built for College Hackathon (SDG 4 Track).

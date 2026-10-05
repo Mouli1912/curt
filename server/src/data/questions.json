@@ -1,0 +1,540 @@
+[
+  {
+    "id": "q_001",
+    "skillNode": "javascript",
+    "difficulty": 850,
+    "prompt": "Which keyword is used to declare a block-scoped variable that cannot be reassigned in JavaScript?",
+    "options": ["var", "let", "const", "static"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_002",
+    "skillNode": "javascript",
+    "difficulty": 1050,
+    "prompt": "What is the return value of `typeof null` in JavaScript?",
+    "options": ["\"null\"", "\"undefined\"", "\"object\"", "\"boolean\""],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_003",
+    "skillNode": "javascript",
+    "difficulty": 1250,
+    "prompt": "What will `console.log([] + [])` output in JavaScript?",
+    "options": ["\"[]\"", "\"\"", "undefined", "NaN"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_004",
+    "skillNode": "javascript",
+    "difficulty": 1450,
+    "prompt": "Which mechanism in JavaScript enables functions to retain access to variables from their outer lexical scope even after that scope has closed?",
+    "options": ["Hoisting", "Closure", "Prototypal Inheritance", "Event Loop"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_005",
+    "skillNode": "javascript",
+    "difficulty": 1600,
+    "prompt": "In the JavaScript Event Loop, which task queue has higher priority: Microtasks (e.g. Promise.then) or Macrotasks (e.g. setTimeout)?",
+    "options": [
+      "Macrotasks have higher priority",
+      "Microtasks execute all pending jobs before yielding to the next macrotask",
+      "They are executed in alternating order 1:1",
+      "Priority depends on CPU usage"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_006",
+    "skillNode": "react",
+    "difficulty": 850,
+    "prompt": "Which React hook is used to manage local component state?",
+    "options": ["useEffect", "useReducer", "useState", "useRef"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_007",
+    "skillNode": "react",
+    "difficulty": 1050,
+    "prompt": "When passing a key prop to items in a rendered list, why is using item index generally discouraged?",
+    "options": [
+      "It causes syntax errors in JSX",
+      "It breaks list reordering and state persistence across items",
+      "React keys must always be integers",
+      "Keys must be fetched from an API"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_008",
+    "skillNode": "react",
+    "difficulty": 1250,
+    "prompt": "What happens if you omit the dependency array in a `useEffect` hook?",
+    "options": [
+      "The effect runs only once on initial mount",
+      "The effect never runs",
+      "The effect runs after every render",
+      "React throws a compile-time error"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_009",
+    "skillNode": "react",
+    "difficulty": 1450,
+    "prompt": "What is the primary benefit of wrapping expensive component sub-trees in `React.memo`?",
+    "options": [
+      "It makes asynchronous state updates synchronous",
+      "It skips re-rendering when props have not changed by shallow comparison",
+      "It automatically memoizes all internal hook values",
+      "It prevents parent component re-renders"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_010",
+    "skillNode": "react",
+    "difficulty": 1600,
+    "prompt": "In React 18 Concurrent Rendering, which hook allows marking a state update as a non-urgent transition?",
+    "options": ["useDeferredValue", "useTransition", "useId", "useImperativeHandle"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_011",
+    "skillNode": "css",
+    "difficulty": 850,
+    "prompt": "Which CSS property is used to change the background color of an element?",
+    "options": ["color", "background-color", "fill", "bg-color"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_012",
+    "skillNode": "css",
+    "difficulty": 1050,
+    "prompt": "In CSS Box Model, which area is included inside `box-sizing: border-box`?",
+    "options": [
+      "Content only",
+      "Content, padding, and border",
+      "Content and margin",
+      "Border and margin only"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_013",
+    "skillNode": "css",
+    "difficulty": 1250,
+    "prompt": "Which CSS specificity score is highest?",
+    "options": ["Element selector `div` (0,0,0,1)", "Class selector `.card` (0,0,1,0)", "ID selector `#header` (0,1,0,0)", "Inline style `style=\"...\"` (1,0,0,0)"],
+    "correctIndex": 3
+  },
+  {
+    "id": "q_014",
+    "skillNode": "css",
+    "difficulty": 1450,
+    "prompt": "In CSS Flexbox, what does `flex: 1 0 auto` shorthand represent?",
+    "options": [
+      "flex-grow: 1, flex-shrink: 0, flex-basis: auto",
+      "flex-direction: row, flex-wrap: wrap",
+      "flex-shrink: 1, flex-grow: 0, flex-basis: auto",
+      "align-items: center"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_015",
+    "skillNode": "css",
+    "difficulty": 1600,
+    "prompt": "Which CSS property triggers a new Stacking Context without modifying `position` or `z-index`?",
+    "options": ["transform: scale(1)", "color: red", "display: flex", "margin: 0 auto"],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_016",
+    "skillNode": "html",
+    "difficulty": 800,
+    "prompt": "Which HTML tag is correct for creating a hyperlink?",
+    "options": ["<link>", "<a>", "<href>", "<url>"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_017",
+    "skillNode": "html",
+    "difficulty": 1000,
+    "prompt": "Which HTML5 element represents self-contained content, such as a blog post or news article?",
+    "options": ["<section>", "<div>", "<article>", "<aside>"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_018",
+    "skillNode": "html",
+    "difficulty": 1200,
+    "prompt": "What is the purpose of the `alt` attribute on an `<img>` tag?",
+    "options": [
+      "Provides alternative text for accessibility and broken images",
+      "Sets the image alignment",
+      "Defines high-resolution fallback URL",
+      "Animates image transition"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_019",
+    "skillNode": "html",
+    "difficulty": 1400,
+    "prompt": "Which attribute on a `<script>` tag causes the script to download asynchronously and execute immediately upon download completion?",
+    "options": ["defer", "async", "preload", "lazy"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_020",
+    "skillNode": "html",
+    "difficulty": 1550,
+    "prompt": "Which WAI-ARIA attribute indicates to screen readers that an element's content is expanded or collapsed?",
+    "options": ["aria-expanded", "aria-live", "aria-haspopup", "aria-controls"],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_021",
+    "skillNode": "git",
+    "difficulty": 850,
+    "prompt": "Which command stages changes in the current directory for the next Git commit?",
+    "options": ["git push", "git status", "git add .", "git checkout"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_022",
+    "skillNode": "git",
+    "difficulty": 1050,
+    "prompt": "What is the primary function of `git log`?",
+    "options": [
+      "Displays commit history for the current branch",
+      "Logs out of remote repository",
+      "Reverts the last commit",
+      "Shows unstaged file changes"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_023",
+    "skillNode": "git",
+    "difficulty": 1250,
+    "prompt": "How does `git rebase feature` differ from `git merge feature` when merging feature branch into main?",
+    "options": [
+      "Rebase creates a merge commit while merge rewrites history",
+      "Rebase applies commits linearly on top of main, creating a flat commit history",
+      "Merge deletes the feature branch automatically",
+      "There is no functional difference"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_024",
+    "skillNode": "git",
+    "difficulty": 1450,
+    "prompt": "Which Git command isolates a bug by running binary search across commit history?",
+    "options": ["git bisect", "git blame", "git reflog", "git cherry-pick"],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_025",
+    "skillNode": "git",
+    "difficulty": 1600,
+    "prompt": "Where can you recover commits that were lost after a forced reset (`git reset --hard`)?",
+    "options": ["git reflog", "git stash pop", "git status", ".gitignore"],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_026",
+    "skillNode": "rest-api",
+    "difficulty": 850,
+    "prompt": "Which HTTP method is typically used to retrieve data from a RESTful API without side effects?",
+    "options": ["POST", "GET", "PUT", "DELETE"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_027",
+    "skillNode": "rest-api",
+    "difficulty": 1050,
+    "prompt": "What does an HTTP 404 status code signify?",
+    "options": [
+      "Server Internal Error",
+      "Unauthorized Access",
+      "Resource Not Found",
+      "Bad Gateway"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_028",
+    "skillNode": "rest-api",
+    "difficulty": 1250,
+    "prompt": "What makes an HTTP method 'idempotent' in REST architecture?",
+    "options": [
+      "Making multiple identical requests produces the same server state as a single request",
+      "The request must contain an authorization token",
+      "The response is cached permanently",
+      "The body must be JSON formatted"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_029",
+    "skillNode": "rest-api",
+    "difficulty": 1450,
+    "prompt": "Which HTTP header is sent by a browser to indicate allowed domain origins in CORS cross-origin requests?",
+    "options": [
+      "Access-Control-Allow-Origin",
+      "Origin",
+      "Content-Type",
+      "X-Requested-With"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_030",
+    "skillNode": "rest-api",
+    "difficulty": 1600,
+    "prompt": "What HTTP status code should a server return when a request fails client-side validation rate limits (Too Many Requests)?",
+    "options": ["400 Bad Request", "401 Unauthorized", "429 Too Many Requests", "503 Service Unavailable"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_031",
+    "skillNode": "typescript",
+    "difficulty": 900,
+    "prompt": "Which TypeScript utility type converts all properties of a type `T` to optional?",
+    "options": ["Required<T>", "Partial<T>", "Readonly<T>", "Pick<T>"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_032",
+    "skillNode": "typescript",
+    "difficulty": 1100,
+    "prompt": "What is the key difference between `unknown` and `any` types in TypeScript?",
+    "options": [
+      "`unknown` is type-safe because operations require type checking/narrowing before usage",
+      "`any` allows fewer operations than `unknown`",
+      "There is no difference",
+      "`unknown` cannot be assigned to variables"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_033",
+    "skillNode": "typescript",
+    "difficulty": 1300,
+    "prompt": "What does the `never` type represent in TypeScript?",
+    "options": [
+      "A value that might be null or undefined",
+      "Values that never occur, such as a function that always throws an error or infinite loop",
+      "An uninitialized variable",
+      "A type imported from JavaScript"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_034",
+    "skillNode": "typescript",
+    "difficulty": 1500,
+    "prompt": "Which TypeScript concept allows extracting property types from an object type using `T[K]` syntax?",
+    "options": ["Mapped Type", "Indexed Access Type", "Template Literal Type", "Discriminates Type"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_035",
+    "skillNode": "typescript",
+    "difficulty": 1600,
+    "prompt": "In generic constraints `T extends Record<K, V>`, what does `infer R` keyword accomplish inside conditional types?",
+    "options": [
+      "Declares a type variable to be deduced within the true branch of a conditional type",
+      "Infers runtime JS type",
+      "Imports type definitions from node_modules",
+      "Overrides strict null checks"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_036",
+    "skillNode": "dom",
+    "difficulty": 850,
+    "prompt": "Which DOM method selects an element by its ID?",
+    "options": ["document.querySelector('.id')", "document.getElementById('id')", "document.getElementsById('id')", "document.findElement('id')"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_037",
+    "skillNode": "dom",
+    "difficulty": 1050,
+    "prompt": "What is event delegation in DOM manipulation?",
+    "options": [
+      "Attaching a single event listener to a parent element to handle events on descendant elements via bubbling",
+      "Deleting event listeners when elements unmount",
+      "Preventing default browser events",
+      "Capturing events during the capturing phase only"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_038",
+    "skillNode": "dom",
+    "difficulty": 1250,
+    "prompt": "What is the difference between `element.innerHTML` and `element.textContent`?",
+    "options": [
+      "`textContent` parses HTML tags while `innerHTML` returns raw text",
+      "`textContent` returns plain text and escapes HTML, making it safer against XSS",
+      "`innerHTML` is faster than `textContent`",
+      "They behave identically"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_039",
+    "skillNode": "dom",
+    "difficulty": 1450,
+    "prompt": "Which method cancels event propagation through the DOM tree?",
+    "options": ["event.preventDefault()", "event.stopPropagation()", "event.stopImmediatePropagation()", "event.cancel()"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_040",
+    "skillNode": "responsive-design",
+    "difficulty": 850,
+    "prompt": "Which CSS `@` rule is used to apply styles based on viewport dimensions?",
+    "options": ["@import", "@media", "@keyframes", "@supports"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_041",
+    "skillNode": "responsive-design",
+    "difficulty": 1050,
+    "prompt": "What viewport meta tag line is essential for correct mobile scaling?",
+    "options": [
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "<meta name=\"mobile\" content=\"true\">",
+      "<meta name=\"screen\" content=\"responsive\">",
+      "<meta name=\"scale\" content=\"100%\">"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_042",
+    "skillNode": "responsive-design",
+    "difficulty": 1250,
+    "prompt": "In CSS layout, what unit is relative to 1% of the viewport width?",
+    "options": ["rem", "em", "vw", "vh"],
+    "correctIndex": 2
+  },
+  {
+    "id": "q_043",
+    "skillNode": "responsive-design",
+    "difficulty": 1450,
+    "prompt": "What is the core principle of a Mobile-First responsive CSS strategy?",
+    "options": [
+      "Writing desktop CSS first and overriding with `max-width` queries",
+      "Writing base CSS for small screens first and enhancing with `min-width` queries",
+      "Building mobile native apps instead of web apps",
+      "Disabling desktop styles on mobile devices"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_044",
+    "skillNode": "state-management",
+    "difficulty": 900,
+    "prompt": "In state management architectures (like Redux), what is an 'action'?",
+    "options": [
+      "A pure function that computes new state",
+      "A plain JavaScript object describing a change with a `type` property",
+      "A component hook that renders UI",
+      "A side-effect middleware"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_045",
+    "skillNode": "state-management",
+    "difficulty": 1100,
+    "prompt": "What rule MUST reducers follow in state management libraries?",
+    "options": [
+      "They must be pure functions without side-effects or direct mutations",
+      "They must make async API calls",
+      "They must mutate state directly for speed",
+      "They must return JSX components"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_046",
+    "skillNode": "state-management",
+    "difficulty": 1300,
+    "prompt": "What problem does React Context API solve, and what is its primary limitation compared to state stores like Redux?",
+    "options": [
+      "Avoids prop drilling, but any context value change re-renders all consuming components",
+      "Improves DOM rendering speed",
+      "Replaces all server APIs",
+      "Persists state automatically to LocalStorage"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_047",
+    "skillNode": "state-management",
+    "difficulty": 1500,
+    "prompt": "In Zustand or Redux Toolkit, what is the role of selectors?",
+    "options": [
+      "Select HTML elements from DOM",
+      "Extract specific slices of state to minimize unnecessary re-renders",
+      "Filter API results before dispatch",
+      "Configure routing paths"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_048",
+    "skillNode": "web-performance",
+    "difficulty": 950,
+    "prompt": "What Core Web Vitals metric measures loading performance of the largest visible content block?",
+    "options": ["CLS (Cumulative Layout Shift)", "LCP (Largest Contentful Paint)", "INP (Interaction to Next Paint)", "FID (First Input Delay)"],
+    "correctIndex": 1
+  },
+  {
+    "id": "q_049",
+    "skillNode": "web-performance",
+    "difficulty": 1150,
+    "prompt": "How does code-splitting with `React.lazy()` and dynamic `import()` improve performance?",
+    "options": [
+      "Reduces initial JavaScript bundle size by loading code on demand",
+      "Compresses images on server",
+      "Removes CSS styles",
+      "Bypasses DNS lookups"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_050",
+    "skillNode": "web-performance",
+    "difficulty": 1350,
+    "prompt": "Which strategy prevents Cumulative Layout Shift (CLS) when loading remote images?",
+    "options": [
+      "Always specifying explicit `width` and `height` attributes or aspect-ratio CSS",
+      "Using animated GIF images",
+      "Disabling images on mobile",
+      "Loading images synchronously in main thread"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "q_051",
+    "skillNode": "web-performance",
+    "difficulty": 1550,
+    "prompt": "What is the main benefit of using a Content Delivery Network (CDN) for static frontend assets?",
+    "options": [
+      "Serves cached assets from edge servers physically closer to the user, reducing latency",
+      "Automatically fixes JavaScript runtime bugs",
+      "Eliminates the need for SSL certificates",
+      "Translates frontend code to WebAssembly"
+    ],
+    "correctIndex": 0
+  }
+]

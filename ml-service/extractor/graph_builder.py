@@ -49,6 +49,50 @@ PREREQUISITE_MAP = {
     "single-page-apps": ["react", "javascript"]
 }
 
+# Curated free learning resources per skill node
+RESOURCE_MAP = {
+    "javascript": [
+        { "title": "MDN JavaScript Guide", "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide", "type": "Documentation", "free": True },
+        { "title": "javascript.info Tutorial", "url": "https://javascript.info/", "type": "Interactive Guide", "free": True }
+    ],
+    "react": [
+        { "title": "Official React Documentation", "url": "https://react.dev/learn", "type": "Documentation", "free": True },
+        { "title": "freeCodeCamp React Course", "url": "https://www.freecodecamp.org/news/free-react-course-for-beginners/", "type": "Course", "free": True }
+    ],
+    "html": [
+        { "title": "MDN HTML Structural Elements", "url": "https://developer.mozilla.org/en-US/docs/Learn/HTML", "type": "Documentation", "free": True }
+    ],
+    "css": [
+        { "title": "MDN CSS Layout & Flexbox", "url": "https://developer.mozilla.org/en-US/docs/Learn/CSS", "type": "Documentation", "free": True },
+        { "title": "CSS Tricks Flexbox Guide", "url": "https://css-tricks.com/snippets/css/a-guide-to-flexbox/", "type": "Guide", "free": True }
+    ],
+    "git": [
+        { "title": "Pro Git Book (Free)", "url": "https://git-scm.com/book/en/v2", "type": "Book", "free": True },
+        { "title": "GitHub Git Handbook", "url": "https://guides.github.com/introduction/git-handbook/", "type": "Guide", "free": True }
+    ],
+    "typescript": [
+        { "title": "TypeScript Official Handbook", "url": "https://www.typescriptlang.org/docs/handbook/intro.html", "type": "Documentation", "free": True }
+    ],
+    "rest-api": [
+        { "title": "RESTful API Design & Fetch Guide", "url": "https://restfulapi.net/", "type": "Guide", "free": True }
+    ],
+    "state-management": [
+        { "title": "Redux Toolkit Essentials Guide", "url": "https://redux.js.org/tutorials/essentials/part-1-overview", "type": "Documentation", "free": True }
+    ],
+    "nextjs": [
+        { "title": "Next.js Learn Course", "url": "https://nextjs.org/learn", "type": "Interactive Course", "free": True }
+    ],
+    "jest": [
+        { "title": "Jest Testing Framework Docs", "url": "https://jestjs.io/docs/getting-started", "type": "Documentation", "free": True }
+    ],
+    "tailwind": [
+        { "title": "Tailwind CSS Official Docs", "url": "https://tailwindcss.com/docs/installation", "type": "Documentation", "free": True }
+    ],
+    "dom": [
+        { "title": "MDN DOM Manipulation Guide", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model", "type": "Documentation", "free": True }
+    ]
+}
+
 def build_skill_graph(raw_postings_path: str, taxonomy_path: str, output_path: str) -> dict:
     """Build skill_graph.json from raw job postings and taxonomy."""
     with open(raw_postings_path, "r", encoding="utf-8") as f:
@@ -61,8 +105,10 @@ def build_skill_graph(raw_postings_path: str, taxonomy_path: str, output_path: s
 
     nodes = []
     for skill_id, skill_data in extracted_skills.items():
-        # Only include skills that have non-zero demand or are foundational
         prereqs = PREREQUISITE_MAP.get(skill_id, [])
+        resources = RESOURCE_MAP.get(skill_id, [
+            { "title": f"MDN {skill_data['name']} Documentation", "url": "https://developer.mozilla.org/en-US/", "type": "Documentation", "free": True }
+        ])
         node = {
             "id": skill_id,
             "label": skill_data["name"],
@@ -70,7 +116,7 @@ def build_skill_graph(raw_postings_path: str, taxonomy_path: str, output_path: s
             "prerequisites": prereqs,
             "demandScore": skill_data["demandScore"],
             "frequency": skill_data["frequency"],
-            "resources": []  # Populated in Step 3
+            "resources": resources
         }
         nodes.append(node)
 

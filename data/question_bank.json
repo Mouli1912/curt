@@ -1,0 +1,182 @@
+[
+  {
+    "id": "q-html-01",
+    "skillNode": "html",
+    "question": "Which semantic HTML5 element should be used for the primary navigation links of a website?",
+    "options": ["<section>", "<nav>", "<aside>", "<header>"],
+    "correctIndex": 1,
+    "difficulty": 900,
+    "explanation": "The <nav> element is specifically intended for major navigation block links."
+  },
+  {
+    "id": "q-css-01",
+    "skillNode": "css",
+    "question": "In CSS Flexbox, which property controls the alignment of items along the main axis?",
+    "options": ["align-items", "justify-content", "align-content", "flex-direction"],
+    "correctIndex": 1,
+    "difficulty": 950,
+    "explanation": "justify-content defines how space is distributed between and around content items along the main axis of a flex container."
+  },
+  {
+    "id": "q-js-01",
+    "skillNode": "javascript",
+    "question": "What will `console.log(typeof NaN)` evaluate to in JavaScript?",
+    "options": ["\"number\"", "\"nan\"", "\"undefined\"", "\"object\""],
+    "correctIndex": 0,
+    "difficulty": 1000,
+    "explanation": "In JavaScript, NaN (Not-a-Number) is technically classified as a numeric type representation."
+  },
+  {
+    "id": "q-js-02",
+    "skillNode": "javascript",
+    "question": "Which array method creates a new array populated with the results of calling a provided function on every element?",
+    "options": ["forEach()", "filter()", "map()", "reduce()"],
+    "correctIndex": 2,
+    "difficulty": 1050,
+    "explanation": "map() transforms each element and returns a new array without mutating the original."
+  },
+  {
+    "id": "q-dom-01",
+    "skillNode": "dom",
+    "question": "Which data structure is most suitable for implementing a priority queue?",
+    "options": ["Array", "Linked List", "Binary Heap", "Stack"],
+    "correctIndex": 2,
+    "difficulty": 1100,
+    "explanation": "A Binary Heap provides O(log n) insertions and deletions, making it ideal for priority queues."
+  },
+  {
+    "id": "q-react-01",
+    "skillNode": "react",
+    "question": "What is the primary purpose of the `useEffect` hook in React?",
+    "options": ["Managing local component state", "Performing side effects in function components", "Memoizing expensive calculations", "Directly manipulating the browser DOM"],
+    "correctIndex": 1,
+    "difficulty": 1100,
+    "explanation": "useEffect lets you synchronize a component with an external system or perform side effects like data fetching and subscriptions."
+  },
+  {
+    "id": "q-react-02",
+    "skillNode": "react",
+    "question": "Why should keys be provided to elements when rendering lists in React?",
+    "options": ["To style individual list items", "To help React identify which items have changed, been added, or removed", "To automatically sort list elements", "To make elements accessible"],
+    "correctIndex": 1,
+    "difficulty": 1150,
+    "explanation": "Keys give elements a stable identity so React can efficiently update and reorder DOM nodes during reconciliation."
+  },
+  {
+    "id": "q-ts-01",
+    "skillNode": "typescript",
+    "question": "What is the difference between `interface` and `type` in TypeScript?",
+    "options": ["Interfaces cannot be extended", "Types cannot describe object shapes", "Interfaces support declaration merging, whereas types do not", "Types are only evaluated at runtime"],
+    "correctIndex": 2,
+    "difficulty": 1200,
+    "explanation": "Multiple interface declarations with the same name automatically merge, whereas type aliases cannot be reopened."
+  },
+  {
+    "id": "q-git-01",
+    "skillNode": "git",
+    "question": "Which Git command creates a new local branch and switches to it immediately?",
+    "options": ["git branch -new <name>", "git checkout -b <name>", "git merge <name>", "git commit -b <name>"],
+    "correctIndex": 1,
+    "difficulty": 1000,
+    "explanation": "git checkout -b creates the branch if it doesn't exist and switches your HEAD to it."
+  },
+  {
+    "id": "q-rest-01",
+    "skillNode": "rest-api",
+    "question": "Which HTTP status code signifies that a resource was successfully created?",
+    "options": ["200 OK", "201 Created", "204 No Content", "301 Moved Permanently"],
+    "correctIndex": 1,
+    "difficulty": 950,
+    "explanation": "201 Created indicates that the request succeeded and a new resource has been created."
+  },
+  {
+    "id": "q-state-01",
+    "skillNode": "state-management",
+    "question": "In Redux, what must a Reducer function remain?",
+    "options": ["Asynchronous", "A Pure function with no side effects", "A mutable object consumer", "A direct state mutator"],
+    "correctIndex": 1,
+    "difficulty": 1250,
+    "explanation": "Reducers must be pure functions that compute the next state based solely on (state, action) without side effects."
+  },
+  {
+    "id": "q-next-01",
+    "skillNode": "nextjs",
+    "question": "What is the key advantage of Server-Side Rendering (SSR) in Next.js?",
+    "options": ["Smaller initial JavaScript bundle and instant SEO friendly HTML", "Zero network requests", "Client-side only rendering", "Disabling server caching"],
+    "correctIndex": 0,
+    "difficulty": 1300,
+    "explanation": "SSR pre-renders HTML per request on the server, boosting initial load speeds and search engine indexing."
+  },
+  {
+    "id": "q-perf-01",
+    "skillNode": "web-performance",
+    "question": "What does Core Web Vitals metric 'LCP' stand for?",
+    "options": ["Low Content Processing", "Largest Contentful Paint", "Layout Change Performance", "Loaded Component Path"],
+    "correctIndex": 1,
+    "difficulty": 1350,
+    "explanation": "Largest Contentful Paint (LCP) measures perceived loading speed by marking when the main content of a page has likely loaded."
+  },
+  {
+    "id": "q-jest-01",
+    "skillNode": "jest",
+    "question": "Which Jest function is used to create a mock function for tracking calls and parameters?",
+    "options": ["jest.fn()", "jest.spy()", "jest.mock()", "jest.track()"],
+    "correctIndex": 0,
+    "difficulty": 1150,
+    "explanation": "jest.fn() creates a new, standalone mock function to inspect invocations."
+  },
+  {
+    "id": "q-tailwind-01",
+    "skillNode": "tailwind",
+    "question": "Which utility class in Tailwind CSS sets `display: flex`?",
+    "options": ["d-flex", "flex", "display-flex", "flexbox"],
+    "correctIndex": 1,
+    "difficulty": 900,
+    "explanation": "The utility class `flex` applies display: flex in Tailwind CSS."
+  },
+  {
+    "id": "q-a11y-01",
+    "skillNode": "a11y",
+    "question": "What does ARIA stand for in web accessibility?",
+    "options": ["Accessible Rich Internet Applications", "Automated Resource Integration Architecture", "Application Rendering Interface Access", "Advanced Responsive Interactive Elements"],
+    "correctIndex": 0,
+    "difficulty": 1100,
+    "explanation": "WAI-ARIA stands for Web Accessibility Initiative – Accessible Rich Internet Applications."
+  },
+  {
+    "id": "q-js-03",
+    "skillNode": "javascript",
+    "question": "What is the event loop's microtask queue responsible for handling first before the macrotask queue?",
+    "options": ["setTimeout callbacks", "Promise handlers (.then/.catch) and queueMicrotask", "DOM click events", "setInterval callbacks"],
+    "correctIndex": 1,
+    "difficulty": 1400,
+    "explanation": "Microtasks (Promises, process.nextTick) are processed to completion before yielding to the next macrotask (timers, I/O)."
+  },
+  {
+    "id": "q-react-03",
+    "skillNode": "react",
+    "question": "What problem does `useCallback` solve in React?",
+    "options": ["Prevents re-renders of child components by memoizing callback function references", "Memoizes heavy array filter operations", "Stores persistent mutable values", "Fetches data asynchronously"],
+    "correctIndex": 0,
+    "difficulty": 1350,
+    "explanation": "useCallback returns a memoized version of the callback function that only changes if dependencies change."
+  },
+  {
+    "id": "q-ts-02",
+    "skillNode": "typescript",
+    "question": "Which TypeScript utility type constructs a type with all properties of T set to optional?",
+    "options": ["Required<T>", "Partial<T>", "Readonly<T>", "Record<K, T>"],
+    "correctIndex": 1,
+    "difficulty": 1200,
+    "explanation": "Partial<T> returns a type with all fields marked optional (?."
+  },
+  {
+    "id": "q-graphql-01",
+    "skillNode": "graphql",
+    "question": "What is the primary benefit of GraphQL over traditional REST APIs?",
+    "options": ["Client can request exactly the fields it needs, preventing over-fetching", "Automatic database indexing", "Faster binary protocol", "Built-in server security"],
+    "correctIndex": 0,
+    "difficulty": 1250,
+    "explanation": "GraphQL lets clients query specific nested fields in a single request, eliminating over-fetching and under-fetching."
+  }
+]

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const fs = require('fs');
 const connectDB = require('./config/db');
 
 // Load environment variables from root .env or default
@@ -19,6 +20,9 @@ app.use(express.json());
 
 // Routes
 const graphRoutes = require('./routes/graph.routes');
+const assessmentRoutes = require('./routes/assessment.routes');
+const reportRoutes = require('./routes/report.routes');
+const credentialRoutes = require('./routes/credential.routes');
 
 // Health Check Endpoint
 app.get('/api/health', (req, res) => {
@@ -28,11 +32,35 @@ app.get('/api/health', (req, res) => {
 // Graph API Endpoint
 app.use('/api/graph', graphRoutes);
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`[SkillPath Server] Running on http://localhost:${PORT}`);
-  console.log(`[SkillPath Server] Health check: http://localhost:${PORT}/api/health`);
-  console.log(`[SkillPath Server] Skill graph API: http://localhost:${PORT}/api/graph/frontend-developer`);
-});
+// Assessment API Endpoints
+app.use('/api/assessment', assessmentRoutes);
+
+// Gap Report API Endpoints
+app.use('/api/report', reportRoutes);
+
+// Credential API Endpoints
+app.use('/api/credential', credentialRoutes);
+
+// Serve static React frontend files if public folder exists (Docker single-port container)
+const publicDir = path.join(__dirname, '../public');
+if (fs.existsSync(publicDir)) {
+  app.use(express.static(publicDir));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(publicDir, 'index.html'));
+  });
+}
+
+// Start Server if executed directly
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`[SkillPath Server] Running on http://localhost:${PORT}`);
+    console.log(`[SkillPath Server] Health check: http://localhost:${PORT}/api/health`);
+    console.log(`[SkillPath Server] Skill graph API: http://localhost:${PORT}/api/graph/frontend-developer`);
+    console.log(`[SkillPath Server] Assessment API: http://localhost:${PORT}/api/assessment/start`);
+    console.log(`[SkillPath Server] Gap Report API: http://localhost:${PORT}/api/report/pro-user`);
+    console.log(`[SkillPath Server] Credential API: http://localhost:${PORT}/api/credential/public-key`);
+  });
+}
 
 module.exports = app;
