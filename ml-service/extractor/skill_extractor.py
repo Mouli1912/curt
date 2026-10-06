@@ -89,12 +89,17 @@ def extract_skills_from_postings(postings: List[Dict[str, Any]], taxonomy: List[
     for skill_id, data in skill_counts.items():
         # Demand score normalized to [0, 1] rounded to 2 decimal places
         demand_score = round(data["frequency"] / max_freq, 2)
+        # Sample reliability confidence score (0.0 to 1.0)
+        sample_threshold = max(1, total_postings * 0.4)
+        confidence = round(min(1.0, data["frequency"] / sample_threshold), 2)
+        
         extracted_skills[skill_id] = {
             "id": data["id"],
             "name": data["name"],
             "category": data["category"],
             "frequency": data["frequency"],
-            "demandScore": demand_score
+            "demandScore": demand_score,
+            "confidence": confidence
         }
         
     return extracted_skills

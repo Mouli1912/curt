@@ -5,7 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { getAssessmentStatus } = require('./eloService');
+const { getAssessmentStatus, calculateStandardError } = require('./eloService');
 
 const PROFICIENCY_THRESHOLD = 1100;
 const GRAPH_PATH = path.join(__dirname, '../../../data/skill_graph.json');
@@ -15,6 +15,9 @@ const GRAPH_PATH = path.join(__dirname, '../../../data/skill_graph.json');
  */
 function getSkillGraph(role = 'frontend-developer') {
   const possiblePaths = [
+    path.join(__dirname, `../../../data/skill_graph_${role}.json`),
+    path.join(__dirname, `../../data/skill_graph_${role}.json`),
+    path.join(process.cwd(), `data/skill_graph_${role}.json`),
     GRAPH_PATH,
     path.join(__dirname, '../../data/skill_graph.json'),
     path.join(process.cwd(), 'data/skill_graph.json')
@@ -111,14 +114,15 @@ function sortSkillsTopologically(nodes) {
 }
 
 /**
- * Pure Function: Generates a skill gap report given a skill graph and learner ratings.
+ * Pure Function: Generates a skill gap report given a skill graph, learner ratings, and history.
  * 
  * @param {Object} skillGraph - Skill graph containing `nodes` array
  * @param {Object} learnerRatings - Object mapping skillNode IDs to numeric Elo ratings
  * @param {number} threshold - Elo threshold for proficiency (default 1100)
+ * @param {Array} history - Optional assessment response history
  * @returns {Object} Gap report payload
  */
-function generateGapReportPure(skillGraph, learnerRatings = {}, threshold = PROFICIENCY_THRESHOLD) {
+function generateGapReportPure(skillGraph, learnerRatings = {}, threshold = PROFICIENCY_THRESHOLD, history = []) {
   const nodes = skillGraph?.nodes || [];
   if (nodes.length === 0) {
     return {
@@ -150,6 +154,8 @@ function generateGapReportPure(skillGraph, learnerRatings = {}, threshold = PROF
       }
     }
 
+    const seInfo = calculateStandardError ? calculateStandardError(node.id, history, rating || 1000) : { se: 100, label: 'Low Confidence' };
+
     const nodeItem = {
       id: node.id,
       label: node.label || node.id,
@@ -159,7 +165,10 @@ function generateGapReportPure(skillGraph, learnerRatings = {}, threshold = PROF
       resources: node.resources || [],
       status,
       isProven,
-      currentRating: rating !== undefined ? rating : null
+      currentRating: rating !== undefined ? rating : null,
+      standardError: seInfo.se,
+      confidenceLabel: seInfo.label,
+      confidenceBounds: rating !== undefined ? { lower: seInfo.lower, upper: seInfo.upper } : null
     };
 
     if (isProven) {
@@ -197,9 +206,11 @@ function generateGapReport(userId = 'pro-user', targetRole = 'frontend-developer
   // 1. Check if user has an active assessment session
   const status = getAssessmentStatus(userId);
   let learnerRatings = {};
+  let history = [];
 
   if (status && status.exists && status.ratings) {
     learnerRatings = status.ratings;
+    history = status.history || [];
   } else {
     // Demo fallback default ratings
     if (userId === 'pro-user') {
@@ -228,7 +239,7 @@ function generateGapReport(userId = 'pro-user', targetRole = 'frontend-developer
     }
   }
 
-  return generateGapReportPure(skillGraph, learnerRatings, PROFICIENCY_THRESHOLD);
+  return generateGapReportPure(skillGraph, learnerRatings, PROFICIENCY_THRESHOLD, history);
 }
 
 module.exports = {

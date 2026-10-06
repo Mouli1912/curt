@@ -24,7 +24,7 @@ const handleStartAssessment = async (req, res) => {
  */
 const handleSubmitAnswer = async (req, res) => {
   try {
-    const { userId, sessionId, questionId, selectedIndex, selectedOption } = req.body || {};
+    const { userId, sessionId, questionId, selectedIndex, selectedOption, timeSpentMs, tabSwitchCount } = req.body || {};
     const identifier = userId || sessionId;
     const index = selectedIndex !== undefined ? selectedIndex : selectedOption;
 
@@ -39,7 +39,7 @@ const handleSubmitAnswer = async (req, res) => {
       return res.status(400).json({ error: 'selectedIndex must be an integer between 0 and 3.' });
     }
 
-    const result = submitAnswer(identifier, questionId, numericIndex);
+    const result = submitAnswer(identifier, questionId, numericIndex, timeSpentMs, tabSwitchCount);
     return res.status(200).json(result);
   } catch (error) {
     console.error('[AssessmentController Answer Error]:', error);

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "da-job-01",
+    "title": "Senior Data Analyst",
+    "company": "Insight Analytics Corp",
+    "description": "We are seeking a Senior Data Analyst proficient in Python, Pandas, NumPy, SQL, and PostgreSQL. You will perform exploratory data analysis (EDA), data cleaning, build Tableau dashboards, execute A/B testing hypotheses, and present KPIs and business metrics to executive stakeholders. Git version control and advanced Excel skills required."
+  },
+  {
+    "id": "da-job-02",
+    "title": "BI & Data Analyst",
+    "company": "Growth Metrics Inc",
+    "description": "Join our analytics team to build Power BI dashboards and business intelligence reports. Key requirements include SQL queries, Joins, Subqueries, Excel Pivot Tables, Data Visualization principles, Cohort Analysis, and statistical analysis using Python or R. Experience with Google Analytics is a plus."
+  },
+  {
+    "id": "da-job-03",
+    "title": "Product Data Analyst",
+    "company": "SaaS Platform Inc",
+    "description": "Looking for a Product Data Analyst skilled in Python, Pandas, SQL, A/B testing, hypothesis testing, data cleaning, cohort analysis, and product analytics metrics (churn, retention, conversion rates). Must be comfortable with Jupyter Notebooks, Git, and Snowflake data warehousing."
+  },
+  {
+    "id": "da-job-04",
+    "title": "Quantitative Data Analyst",
+    "company": "FinData Analytics",
+    "description": "Role requires strong foundation in statistics, descriptive and inferential statistics, probability distributions, Python, NumPy, Pandas, SQL, and Scikit-Learn machine learning basics (linear & logistic regression). Experience building ETL pipelines and Airflow workflows is a plus."
+  },
+  {
+    "id": "da-job-05",
+    "title": "Junior Data Analyst",
+    "company": "Retail Insights Hub",
+    "description": "Great opportunity for early career analysts! Requires strong proficiency in SQL, Excel (Pivot Tables, VLOOKUP), Data Visualization (Tableau or Power BI), basic Python, and exploratory data analysis. Knowledge of statistics and data cleaning is required."
+  },
+  {
+    "id": "da-job-06",
+    "title": "Data Analyst - Marketing & Growth",
+    "company": "AdTech Global",
+    "description": "Analyze campaign performance, user acquisition, and conversion funnels. Requirements: SQL, PostgreSQL, Python, Pandas, Tableau dashboards, Google Analytics, A/B testing, statistics, and Excel."
+  },
+  {
+    "id": "da-job-07",
+    "title": "Operations Data Analyst",
+    "company": "SupplyChain Tech",
+    "description": "Build operational reporting dashboards and automated data pipelines. Skills needed: SQL queries, PostgreSQL, Python, Pandas, Data Warehousing (BigQuery / Snowflake), Airflow, Power BI, and data cleaning."
+  },
+  {
+    "id": "da-job-08",
+    "title": "Data Visualization & BI Specialist",
+    "company": "Media Metrics",
+    "description": "Design interactive charts and executive reporting dashboards using Tableau, Power BI, SQL, Python, Matplotlib, Seaborn, and Excel. Strong emphasis on data visualization best practices and business metrics (KPIs)."
+  },
+  {
+    "id": "da-job-09",
+    "title": "Statistical Data Analyst",
+    "company": "BioHealth Analytics",
+    "description": "Responsibilities: Perform hypothesis testing, A/B testing, regression analysis, and exploratory data analysis using Python, R programming, Pandas, NumPy, Scikit-Learn, SQL, and Jupyter Notebooks."
+  },
+  {
+    "id": "da-job-10",
+    "title": "Database Query & Reporting Analyst",
+    "company": "DataHub Systems",
+    "description": "Focus on complex SQL queries, JOINs, subqueries, PostgreSQL, data warehousing, data cleaning, Excel macros, and automated Power BI reporting. Git workflow experience is expected."
+  },
+  {
+    "id": "da-job-11",
+    "title": "Business Intelligence Engineer",
+    "company": "CloudScale Analytics",
+    "description": "Build scalable data warehouses and BI dashboards using Snowflake, SQL, ETL pipelines, Airflow, Python, Pandas, Power BI, and Tableau. Define key business metrics and cohort retention models."
+  },
+  {
+    "id": "da-job-12",
+    "title": "Customer Insights Data Analyst",
+    "company": "E-Commerce Digital",
+    "description": "Analyze customer behavioral data using SQL, Python, Pandas, Cohort Analysis, Retention models, Tableau, Google Analytics, and A/B testing. Present findings in Jupyter Notebooks."
+  },
+  {
+    "id": "da-job-13",
+    "title": "Machine Learning & Data Analyst",
+    "company": "Predictive Labs",
+    "description": "Combine data analytics with machine learning basics. Skills required: Python, Pandas, NumPy, Scikit-Learn, SQL, EDA, Data Cleaning, Statistics, probability, and Tableau visualization."
+  },
+  {
+    "id": "da-job-14",
+    "title": "Financial Data Analyst",
+    "company": "PayMetrics Corp",
+    "description": "Analyze financial metrics, revenue forecasts, and risk models using Advanced Excel, SQL, PostgreSQL, Python, Pandas, statistics, and Power BI dashboards."
+  },
+  {
+    "id": "da-job-15",
+    "title": "Lead Data Analyst",
+    "company": "Apex Intelligence",
+    "description": "Lead data analytics strategy. Requirements: Python, Pandas, SQL, PostgreSQL, Tableau, Power BI, A/B testing, Hypothesis testing, Data Warehousing (Snowflake/BigQuery), ETL pipelines, and business metrics."
+  },
+  {
+    "id": "da-job-16",
+    "title": "Data Analyst (R & Python)",
+    "company": "Research Analytics",
+    "description": "Conduct quantitative research using R programming, Python, Pandas, NumPy, SQL, statistics, probability, exploratory data analysis, and ggplot2 / Seaborn data visualization."
+  },
+  {
+    "id": "da-job-17",
+    "title": "ETL & Analytics Engineer",
+    "company": "DataFlow Networks",
+    "description": "Build reliable ETL data pipelines using Python, SQL, Airflow, Snowflake, PostgreSQL, Pandas, data cleaning, and automated Power BI reporting."
+  },
+  {
+    "id": "da-job-18",
+    "title": "Product Analytics & Growth Lead",
+    "company": "InnoTech Data",
+    "description": "Drive product growth through data insights. Skills: SQL, Python, Pandas, A/B testing, cohort analysis, Google Analytics, Tableau, business metrics (KPIs), and Jupyter Notebooks."
+  }
+]

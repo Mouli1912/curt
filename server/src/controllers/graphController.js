@@ -8,20 +8,26 @@ const path = require('path');
 const getSkillGraph = async (req, res) => {
   try {
     const { role } = req.params;
-    // Currently supports frontend-developer
-    const graphFilePath = path.join(__dirname, '../../../data/skill_graph.json');
+    const targetRole = role || 'frontend-developer';
+
+    const roleSpecificPath = path.join(__dirname, `../../../data/skill_graph_${targetRole}.json`);
+    const fallbackPath = path.join(__dirname, '../../../data/skill_graph.json');
+
+    let graphFilePath = roleSpecificPath;
+    if (!fs.existsSync(graphFilePath)) {
+      graphFilePath = fallbackPath;
+    }
 
     if (!fs.existsSync(graphFilePath)) {
-      return res.status(444).json({
-        error: 'Skill graph data file not found. Please run graph_builder.py first.',
-        role
+      return res.status(404).json({
+        error: `Skill graph data file not found for role '${targetRole}'. Please run graph_builder.py.`,
+        role: targetRole
       });
     }
 
     const rawData = fs.readFileSync(graphFilePath, 'utf-8');
     const skillGraph = JSON.parse(rawData);
 
-    // Filter by role if needed (matches role or defaults to primary graph)
     return res.status(200).json(skillGraph);
   } catch (error) {
     console.error('[GraphController Error]:', error);

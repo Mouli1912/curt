@@ -1,0 +1,110 @@
+[
+  {
+    "id": "be-job-01",
+    "title": "Senior Backend Engineer (Node.js)",
+    "company": "ServerScale Systems",
+    "description": "We are seeking a Senior Backend Engineer proficient in Node.js, Express.js, TypeScript, PostgreSQL, and Redis. You will design REST API endpoints, implement microservices architecture, optimize SQL queries, and deploy containers via Docker and AWS. Experience with OAuth, JWT, and unit testing is mandatory."
+  },
+  {
+    "id": "be-job-02",
+    "title": "Python Backend Developer",
+    "company": "DataCloud Labs",
+    "description": "Join our backend infrastructure team building high-performance services with Python, Django, FastAPI, and PostgreSQL. Responsibilities include building REST APIs, asynchronous message queue handlers using Kafka, Redis caching layers, Docker containerization, and Git CI/CD pipelines."
+  },
+  {
+    "id": "be-job-03",
+    "title": "Java Spring Boot Engineer",
+    "company": "Enterprise Tech Corp",
+    "description": "Looking for a Java Backend Developer experienced in Java 17+, Spring Boot, Hibernate ORM, SQL, PostgreSQL, microservices, gRPC, and JUnit automated testing. Must understand system design, load balancing, OAuth security, and CI/CD integration."
+  },
+  {
+    "id": "be-job-04",
+    "title": "Cloud Backend Services Lead",
+    "company": "FinTech Cloud",
+    "description": "Lead the development of scalable microservices using Node.js, TypeScript, Express, PostgreSQL, Redis, and AWS (S3, EC2, Lambda). Deep expertise in system design, distributed systems, OAuth authentication, Docker, Kubernetes, and Linux shell environments."
+  },
+  {
+    "id": "be-job-05",
+    "title": "Junior Python / Django Developer",
+    "company": "SaaS Launchpad",
+    "description": "Great role for junior engineers! Requires proficiency in Python, Django REST framework, SQL database queries, Git version control, REST API fundamentals, and basic Linux commands. Docker and Redis knowledge is a plus."
+  },
+  {
+    "id": "be-job-06",
+    "title": "Distributed Systems Engineer",
+    "company": "StreamEngine Inc",
+    "description": "We are building event-driven systems using Java, Spring Boot, Kafka message queues, gRPC, Redis, PostgreSQL, Elasticsearch, and Kubernetes. Strong knowledge of data structures, algorithms, and microservices resilience is essential."
+  },
+  {
+    "id": "be-job-07",
+    "title": "Backend Web API Developer",
+    "company": "WebServices Global",
+    "description": "Seeking a backend engineer skilled in Node.js, Express.js, Prisma ORM, MongoDB, REST API design, WebSockets, and JWT authentication. Must be adept with Git, unit testing, and deployment to AWS."
+  },
+  {
+    "id": "be-job-08",
+    "title": "Python FastAPI Developer",
+    "company": "AI Platform Co",
+    "description": "Develop high-throughput REST APIs and GraphQL interfaces using Python, FastAPI, SQLAlchemy ORM, PostgreSQL, Redis, and Docker. Experience with Linux, CI/CD, and asynchronous I/O is required."
+  },
+  {
+    "id": "be-job-09",
+    "title": "Node.js Microservices Architect",
+    "company": "Logistics Systems",
+    "description": "Architect cloud microservices using Node.js, TypeScript, Express, gRPC, Docker, Kubernetes, AWS, and PostgreSQL. Deep focus on OAuth security, REST API standards, and system design patterns."
+  },
+  {
+    "id": "be-job-10",
+    "title": "Database & Backend Developer",
+    "company": "DataStore Inc",
+    "description": "Focus on database optimization, complex SQL queries, PostgreSQL, Redis caching, Elasticsearch indexing, and Python backend services. Git workflow and Linux administration skills are necessary."
+  },
+  {
+    "id": "be-job-11",
+    "title": "Backend Reliability Engineer",
+    "company": "CloudOps Solutions",
+    "description": "Maintain high availability for microservices written in Python and Java. Key skills: AWS, Kubernetes, Docker, CI/CD, PostgreSQL, Redis, Linux, system design, and monitoring pipelines."
+  },
+  {
+    "id": "be-job-12",
+    "title": "Full-Stack / Backend Node Developer",
+    "company": "Appify Backend",
+    "description": "Build server-side logic using Node.js, Express, MongoDB, REST APIs, WebSockets, Redis, and TypeScript. Version control with Git and experience writing unit tests using Jest is required."
+  },
+  {
+    "id": "be-job-13",
+    "title": "Senior Python Backend Developer",
+    "company": "HealthTech Systems",
+    "description": "Requirements: Python, Django, PostgreSQL, REST API security, OAuth, Docker, AWS, unit testing with PyTest, and Kafka message processing. Focus on data structures and scalability."
+  },
+  {
+    "id": "be-job-14",
+    "title": "Java API Microservices Engineer",
+    "company": "Payment Gateway Corp",
+    "description": "Design transaction processing APIs with Java, Spring Boot, PostgreSQL, Redis, gRPC, microservices architecture, and Docker. Deep emphasis on OAuth authentication and security protocols."
+  },
+  {
+    "id": "be-job-15",
+    "title": "Backend API Developer (Node/TS)",
+    "company": "Digital Media Backend",
+    "description": "Seeking a developer skilled in Node.js, TypeScript, Express, REST APIs, GraphQL, MongoDB, Redis, WebSockets, Git, and Docker. Must write robust unit and integration tests."
+  },
+  {
+    "id": "be-job-16",
+    "title": "Platform Infrastructure Developer",
+    "company": "Scalable Networks",
+    "description": "Build backend automation and cloud services using Python, Linux bash scripting, Docker, Kubernetes, AWS, CI/CD pipelines, and PostgreSQL. System design and DSA proficiency expected."
+  },
+  {
+    "id": "be-job-17",
+    "title": "Backend Developer - Real-Time Systems",
+    "company": "Gaming Stream Co",
+    "description": "High frequency backend engineering with Node.js, WebSockets, Redis, Go/Python, PostgreSQL, message queues, gRPC, and Docker. Experience with data structures and performance tuning."
+  },
+  {
+    "id": "be-job-18",
+    "title": "Lead Backend Software Engineer",
+    "company": "Apex Cloud Systems",
+    "description": "Lead engineering team building cloud services in Python, Node.js, Java, Spring Boot, PostgreSQL, Microservices, AWS, Docker, Kubernetes, system design, and OAuth security standards."
+  }
+]

@@ -18,18 +18,18 @@ export default function CredentialVerify() {
   }, []);
 
   // Pre-load demo credential helper
-  const handleLoadSample = async (tampered = false) => {
+  const handleLoadSample = async (persona = 'pro-user', tampered = false) => {
     try {
       setLoading(true);
       const res = await fetch('/api/credential/issue', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: 'pro-user', skillNode: 'react' })
+        body: JSON.stringify({ userId: persona, skillNode: 'react' })
       });
       const cred = await res.json();
 
       if (tampered) {
-        cred.score = 1600; // Modify score to simulate tampering!
+        cred.score = 1850; // Tamper score value to fail signature verification!
       }
 
       const formatted = JSON.stringify(cred, null, 2);
@@ -60,7 +60,7 @@ export default function CredentialVerify() {
     } catch (err) {
       setResult({
         valid: false,
-        error: 'JSON Parsing Error: Invalid JSON string format.'
+        error: 'JSON Syntax Error: Unparseable JSON input object.'
       });
     } finally {
       setLoading(false);
@@ -68,44 +68,51 @@ export default function CredentialVerify() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: '900px', margin: '0 auto' }}>
+    <div className="max-w-4xl mx-auto space-y-8">
       {/* Page Header */}
-      <div className="page-header">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="header-title-group">
-            <div className="header-icon-box" style={{ background: '#ecfdf5', color: '#10b981' }}>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-success-50 dark:bg-success-950/80 text-success-600 dark:text-success-400 flex items-center justify-center text-xl font-extrabold border border-success-200 dark:border-success-800">
               🛡️
             </div>
-            <h1 className="page-title">Credential Verification Portal</h1>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+              Public Credential Verifier
+            </h1>
           </div>
-          <p className="page-subtitle">
-            Cryptographically verify the authenticity of SkillPath credentials using ECDSA P-256 signatures.
+          <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+            Recruiter verification portal for ECDSA P-256 digital skill signatures.
           </p>
         </div>
       </div>
 
-      {/* Main Form & Demo Triggers */}
-      <div className="card-white" style={{ padding: '2rem', marginBottom: '2rem' }}>
+      {/* Main Form & Preset Quick Triggers */}
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
         
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-          <label style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <label className="text-sm font-extrabold text-neutral-900 dark:text-white">
             Paste Signed Credential JSON:
           </label>
 
-          <div style={{ display: 'flex', gap: '0.6rem' }}>
+          <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              className="btn-secondary"
-              style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }}
-              onClick={() => handleLoadSample(false)}
+              onClick={() => handleLoadSample('pro-user', false)}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
             >
-              Paste Valid Sample
+              Paste Pro Sample
             </button>
             <button
               type="button"
-              className="btn-secondary"
-              style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem', color: '#b91c1c', borderColor: '#fca5a5' }}
-              onClick={() => handleLoadSample(true)}
+              onClick={() => handleLoadSample('mid-user', false)}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+            >
+              Paste Mid Sample
+            </button>
+            <button
+              type="button"
+              onClick={() => handleLoadSample('pro-user', true)}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-danger-50 dark:bg-danger-950 text-danger-700 dark:text-danger-300 border border-danger-200 dark:border-danger-800 hover:bg-danger-100 transition-colors"
             >
               Paste Tampered Sample
             </button>
@@ -117,29 +124,22 @@ export default function CredentialVerify() {
           value={inputJson}
           onChange={(e) => setInputJson(e.target.value)}
           placeholder='Paste JSON object containing { credentialId, studentId, studentName, skillNode, score, signature }...'
-          style={{
-            width: '100%',
-            padding: '1rem',
-            borderRadius: '10px',
-            border: '1px solid #cbd5e1',
-            fontFamily: 'monospace',
-            fontSize: '0.85rem',
-            background: '#f8fafc',
-            marginBottom: '1.25rem',
-            resize: 'vertical'
-          }}
+          className="w-full p-4 rounded-xl border border-neutral-300 dark:border-neutral-700 font-mono text-xs bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all resize-y"
         />
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontSize: '0.8rem', color: '#64748b' }}>
-            🔒 Verification runs entirely offline via public key cryptography without DB lookup.
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+          <div className="text-xs text-neutral-500 dark:text-neutral-400">
+            🔒 Offline-ready cryptographic validation using public key matching.
           </div>
 
           <button
-            className="btn-primary"
             onClick={handleVerify}
             disabled={!inputJson.trim() || loading}
-            style={{ padding: '0.75rem 1.75rem', fontSize: '0.95rem' }}
+            className={`px-6 py-3 rounded-xl font-extrabold text-sm text-white shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+              !inputJson.trim() || loading
+                ? 'bg-neutral-400 dark:bg-neutral-700 cursor-not-allowed opacity-60'
+                : 'bg-primary-600 hover:bg-primary-500 shadow-primary-600/25'
+            }`}
           >
             {loading ? 'Verifying Signature...' : 'Verify Signature →'}
           </button>
@@ -148,112 +148,89 @@ export default function CredentialVerify() {
 
       {/* Verification Result Display */}
       {result && (
-        <div className="card-white" style={{
-          padding: '2.25rem',
-          border: result.valid ? '2px solid #10b981' : '2px solid #ef4444',
-          background: result.valid ? '#f0fdf4' : '#fef2f2',
-          marginBottom: '2rem'
-        }}>
+        <div className={`bg-white dark:bg-neutral-900 border-2 rounded-3xl p-6 sm:p-8 shadow-md transition-all animate-pop-in ${
+          result.valid
+            ? 'border-success-500 dark:border-success-600 bg-success-50/40 dark:bg-success-950/20'
+            : 'border-danger-500 dark:border-danger-600 bg-danger-50/40 dark:bg-danger-950/20'
+        }`}>
           {result.valid ? (
-            <div>
-              {/* Valid Banner */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.75rem' }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  background: '#10b981',
-                  color: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.75rem',
-                  fontWeight: 900
-                }}>
+            <div className="space-y-6">
+              {/* Valid Banner Header */}
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-success-600 text-white flex items-center justify-center text-3xl font-black shrink-0 shadow-md">
                   ✓
                 </div>
                 <div>
-                  <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#065f46', margin: 0 }}>
+                  <h2 className="text-xl sm:text-2xl font-black text-success-900 dark:text-success-100">
                     AUTHENTIC CRYPTOGRAPHIC CREDENTIAL
                   </h2>
-                  <p style={{ color: '#047857', fontSize: '0.9rem', margin: 0 }}>
-                    ECDSA P-256 signature verified against public key. No tampering detected.
+                  <p className="text-xs sm:text-sm text-success-700 dark:text-success-300 font-medium">
+                    ECDSA P-256 signature verified against platform public key. Zero tampering detected.
                   </p>
                 </div>
               </div>
 
-              {/* Decoded Credential Details */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 200px', gap: '2rem', background: '#ffffff', padding: '1.5rem', borderRadius: '12px', border: '1px solid #bbf7d0' }}>
+              {/* Decoded Credential Details Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-success-200 dark:border-success-800/60 shadow-sm">
                 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+                <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
                   <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Learner Name</div>
-                    <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>{result.payload?.studentName}</div>
-                  </div>
-
-                  <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Verified Skill</div>
-                    <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#2563eb', textTransform: 'uppercase' }}>{result.payload?.skillNode}</div>
+                    <div className="font-bold text-neutral-400 dark:text-neutral-500 uppercase text-[11px]">Learner Name</div>
+                    <div className="font-black text-neutral-900 dark:text-white text-lg mt-0.5">{result.payload?.studentName}</div>
                   </div>
 
                   <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Elo Score</div>
-                    <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#10b981' }}>{result.payload?.score} Elo</div>
+                    <div className="font-bold text-neutral-400 dark:text-neutral-500 uppercase text-[11px]">Verified Skill</div>
+                    <div className="font-black text-primary-600 dark:text-primary-400 text-lg uppercase mt-0.5">{result.payload?.skillNode}</div>
                   </div>
 
                   <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Target Role</div>
-                    <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>{result.payload?.targetRole}</div>
+                    <div className="font-bold text-neutral-400 dark:text-neutral-500 uppercase text-[11px]">Elo Score</div>
+                    <div className="font-black text-success-600 dark:text-success-400 text-lg mt-0.5">{result.payload?.score} Elo</div>
                   </div>
 
-                  <div style={{ gridColumn: 'span 2' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Credential ID</div>
-                    <div style={{ fontSize: '0.85rem', fontFamily: 'monospace', color: '#475569' }}>{result.payload?.credentialId}</div>
+                  <div>
+                    <div className="font-bold text-neutral-400 dark:text-neutral-500 uppercase text-[11px]">Target Role</div>
+                    <div className="font-bold text-neutral-900 dark:text-white mt-0.5">{result.payload?.targetRole}</div>
                   </div>
 
-                  <div style={{ gridColumn: 'span 2' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Issued Timestamp</div>
-                    <div style={{ fontSize: '0.85rem', color: '#475569' }}>{new Date(result.payload?.issuedAt).toLocaleString()}</div>
+                  <div className="sm:col-span-2">
+                    <div className="font-bold text-neutral-400 dark:text-neutral-500 uppercase text-[11px]">Credential ID</div>
+                    <div className="font-mono text-xs text-neutral-700 dark:text-neutral-300 mt-0.5">{result.payload?.credentialId}</div>
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <div className="font-bold text-neutral-400 dark:text-neutral-500 uppercase text-[11px]">Issued Timestamp</div>
+                    <div className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">{new Date(result.payload?.issuedAt).toLocaleString()}</div>
                   </div>
                 </div>
 
                 {/* QR Code preview */}
-                <div style={{ textAlign: 'center' }}>
+                <div className="md:col-span-4 flex items-center justify-center text-center">
                   <CredentialQR credential={result.payload} size={150} />
                 </div>
 
               </div>
             </div>
           ) : (
-            <div>
-              {/* Invalid Banner */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1rem' }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  background: '#ef4444',
-                  color: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.75rem',
-                  fontWeight: 900
-                }}>
+            <div className="space-y-4">
+              {/* Invalid Banner Header */}
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-danger-600 text-white flex items-center justify-center text-3xl font-black shrink-0 shadow-md">
                   ✕
                 </div>
                 <div>
-                  <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#991b1b', margin: 0 }}>
+                  <h2 className="text-xl sm:text-2xl font-black text-danger-900 dark:text-danger-100">
                     INVALID OR TAMPERED CREDENTIAL
                   </h2>
-                  <p style={{ color: '#b91c1c', fontSize: '0.9rem', margin: 0 }}>
+                  <p className="text-xs sm:text-sm text-danger-700 dark:text-danger-300 font-medium">
                     {result.error || 'Cryptographic signature verification failed.'}
                   </p>
                 </div>
               </div>
 
-              <p style={{ color: '#7f1d1d', fontSize: '0.85rem', lineHeight: 1.4 }}>
-                This credential could not be verified against the platform public key. Either the payload data (e.g. score or name) was altered after signing, or it was signed with an untrusted private key.
+              <p className="text-xs sm:text-sm text-danger-800 dark:text-danger-200 leading-relaxed bg-danger-100/50 dark:bg-danger-950/60 p-4 rounded-xl border border-danger-200 dark:border-danger-900">
+                This credential payload could not be verified against the platform public key. Either payload attributes (e.g. score or name) were altered after signing, or it was signed with an untrusted private key.
               </p>
             </div>
           )}
@@ -262,22 +239,14 @@ export default function CredentialVerify() {
 
       {/* Public Key Inspector Drawer */}
       {publicKey && (
-        <div className="card-white" style={{ padding: '1.5rem' }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
-            🔑 Platform Public Key (ECDSA P-256)
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 space-y-3">
+          <h3 className="text-sm font-extrabold text-neutral-900 dark:text-white flex items-center gap-2">
+            <span>🔑</span> Platform Public Key (ECDSA P-256)
           </h3>
-          <p style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.75rem' }}>
-            Recruiters and external systems use this public key to verify credentials completely offline.
+          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+            Recruiters and external platforms use this public key to verify student credentials offline without database access.
           </p>
-          <pre style={{
-            background: '#f8fafc',
-            padding: '0.75rem 1rem',
-            borderRadius: '8px',
-            border: '1px solid #cbd5e1',
-            fontSize: '0.75rem',
-            color: '#334155',
-            overflowX: 'auto'
-          }}>
+          <pre className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 text-[11px] font-mono text-neutral-700 dark:text-neutral-300 overflow-x-auto">
             {publicKey}
           </pre>
         </div>

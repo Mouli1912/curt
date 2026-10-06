@@ -14,15 +14,23 @@ const PORT = process.env.PORT || 5000;
 // Connect Database (non-blocking fallback)
 connectDB();
 
+const { requestLoggerMiddleware } = require('./middleware/requestLogger');
+const { verifyAuthToken } = require('./middleware/auth');
+
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(requestLoggerMiddleware);
+app.use('/api', verifyAuthToken);
 
 // Routes
 const graphRoutes = require('./routes/graph.routes');
 const assessmentRoutes = require('./routes/assessment.routes');
 const reportRoutes = require('./routes/report.routes');
 const credentialRoutes = require('./routes/credential.routes');
+const adminRoutes = require('./routes/admin.routes');
+const recruiterRoutes = require('./routes/recruiter.routes');
+const userRoutes = require('./routes/user.routes');
 
 // Health Check Endpoint
 app.get('/api/health', (req, res) => {
@@ -40,6 +48,15 @@ app.use('/api/report', reportRoutes);
 
 // Credential API Endpoints
 app.use('/api/credential', credentialRoutes);
+
+// Admin API Endpoints
+app.use('/api/admin', adminRoutes);
+
+// Recruiter API Endpoints
+app.use('/api/recruiters', recruiterRoutes);
+
+// User Profile API Endpoints
+app.use('/api/profile', userRoutes);
 
 // Serve static React frontend files if public folder exists (Docker single-port container)
 const publicDir = path.join(__dirname, '../public');

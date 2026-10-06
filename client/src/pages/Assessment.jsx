@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { startAssessment, submitAnswer } from '../api/client';
 import QuestionCard from '../components/QuestionCard';
+import AnimatedCounter from '../components/AnimatedCounter';
+import { QuestionSkeleton } from '../components/SkeletonLoader';
 
-export default function Assessment({ userId = 'pro-user', onFinish }) {
+export default function Assessment({ userId = 'pro-user', targetRole = 'frontend-developer', onFinish }) {
   const [session, setSession] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -10,11 +12,17 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
   const [totalQuestions, setTotalQuestions] = useState(15);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Integrity & IRT timing states
+  const [tabSwitchCount, setTabSwitchCount] = useState(0);
+  const questionStartTimeRef = React.useRef(Date.now());
 
   // Live Overall Rating & Ratings per skill
   const [overallRating, setOverallRating] = useState(1000);
   const [ratings, setRatings] = useState({});
   const [ratingToast, setRatingToast] = useState(null);
+  const [scoreDeltaAnim, setScoreDeltaAnim] = useState(null); // { delta: number, key: number }
 
   // Answer feedback overlay state
   const [feedback, setFeedback] = useState(null);
@@ -22,17 +30,36 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
   // History of answered questions in this session
   const [history, setHistory] = useState([]);
 
-  // Start Session on mount or userId change
+  // Track tab visibility changes for integrity logging
   useEffect(() => {
-    let isMounted = true;
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        setTabSwitchCount((prev) => prev + 1);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
+  // Reset timer on question change
+  useEffect(() => {
+    if (currentQuestion) {
+      questionStartTimeRef.current = Date.now();
+    }
+  }, [currentQuestion]);
+
+  const initAssessment = () => {
     setLoading(true);
+    setError(null);
     setHistory([]);
     setSelectedIndex(null);
     setFeedback(null);
+    setTabSwitchCount(0);
 
-    startAssessment(userId, 'frontend-developer')
+    startAssessment(userId, targetRole)
       .then((data) => {
-        if (!isMounted) return;
         setSession(data);
         setCurrentQuestion(data.currentQuestion);
         setQuestionNumber(data.questionNumber || 1);
@@ -40,25 +67,28 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
         setRatings(data.ratings || {});
         setOverallRating(data.overallRating || 1000);
         setLoading(false);
+        questionStartTimeRef.current = Date.now();
       })
       .catch((err) => {
-        if (!isMounted) return;
         console.error('Failed to start assessment session:', err);
+        setError('Failed to connect to adaptive assessment engine. Ensure backend is running.');
         setLoading(false);
       });
+  };
 
-    return () => {
-      isMounted = false;
-    };
-  }, [userId]);
+  useEffect(() => {
+    initAssessment();
+  }, [userId, targetRole]);
 
   // Submit selected option
   const handleSubmitAnswer = async () => {
     if (selectedIndex === null || !currentQuestion || submitting) return;
 
     setSubmitting(true);
+    const timeSpentMs = Date.now() - questionStartTimeRef.current;
+
     try {
-      const res = await submitAnswer(userId, currentQuestion.id, selectedIndex);
+      const res = await submitAnswer(userId, currentQuestion.id, selectedIndex, timeSpentMs, tabSwitchCount);
 
       const isCorrect = res.correct !== undefined ? res.correct : res.isCorrect;
       const delta = res.ratingDelta || 0;
@@ -69,6 +99,12 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
       setFeedback({
         isCorrect,
         correctIndex: res.correctIndex
+      });
+
+      // Trigger animated delta score badge
+      setScoreDeltaAnim({
+        delta,
+        key: Date.now()
       });
 
       // Show live Elo adjustment badge toast
@@ -95,7 +131,7 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
         }
       ]);
 
-      // Brief delay so user sees feedback before advancing
+      // Delay to view answer feedback before advancing
       setTimeout(() => {
         setFeedback(null);
         setSelectedIndex(null);
@@ -107,25 +143,36 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
           setCurrentQuestion(res.nextQuestion);
           setQuestionNumber(res.questionNumber || questionNumber + 1);
         }
-      }, 1100);
+      }, 1000);
 
     } catch (err) {
       console.error('Error submitting answer:', err);
+      setError(`Submission error: ${err.message}`);
       setSubmitting(false);
     }
   };
 
   if (loading) {
     return (
-      <div className="container" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
-        <div className="card-white" style={{ maxWidth: '500px', margin: '0 auto', padding: '3rem 2rem' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '1rem', animation: 'spin 1s linear infinite' }}>⚙️</div>
-          <h2 style={{ fontSize: '1.25rem', color: '#0f172a', fontWeight: 700 }}>
-            Initializing Adaptive Assessment Engine...
-          </h2>
-          <p style={{ color: '#64748b', fontSize: '0.9rem', marginTop: '0.5rem' }}>
-            Preparing deterministic Elo scoring & skill node graph...
-          </p>
+      <div className="max-w-4xl mx-auto space-y-6 pt-4">
+        <QuestionSkeleton />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-md mx-auto text-center py-12 space-y-4">
+        <div className="bg-danger-50 dark:bg-danger-950/40 border border-danger-200 dark:border-danger-900/60 rounded-2xl p-8 space-y-4">
+          <div className="text-4xl">⚠️</div>
+          <h2 className="text-xl font-bold text-danger-800 dark:text-danger-200">Assessment Failure</h2>
+          <p className="text-sm text-danger-600 dark:text-danger-300">{error}</p>
+          <button
+            onClick={initAssessment}
+            className="px-6 py-2.5 bg-danger-600 hover:bg-danger-500 text-white rounded-xl text-sm font-bold shadow-md transition-colors"
+          >
+            Restart Assessment
+          </button>
         </div>
       </div>
     );
@@ -137,66 +184,55 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
     const accuracyPercent = history.length > 0 ? Math.round((totalCorrect / history.length) * 100) : 0;
 
     return (
-      <div className="container" style={{ maxWidth: '850px', margin: '0 auto' }}>
-        <div className="card-white" style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-          <div style={{
-            width: '72px',
-            height: '72px',
-            borderRadius: '50%',
-            background: '#ecfdf5',
-            color: '#10b981',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '2.25rem',
-            margin: '0 auto 1.5rem auto'
-          }}>
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 sm:p-12 text-center shadow-lg space-y-8 animate-pop-in">
+          <div className="w-20 h-20 rounded-full bg-success-50 dark:bg-success-950/80 text-success-600 dark:text-success-400 flex items-center justify-center text-4xl mx-auto border border-success-200 dark:border-success-800 animate-celebrate-bounce">
             ✓
           </div>
 
-          <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
-            Assessment Complete!
-          </h1>
-          <p style={{ color: '#64748b', fontSize: '1.05rem', marginBottom: '2.5rem' }}>
-            Your real-time Elo skill ratings have stabilized based on your adaptive performance.
-          </p>
+          <div className="space-y-2">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white">
+              Assessment Complete!
+            </h1>
+            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-lg mx-auto">
+              Your real-time Elo psychometric ratings have stabilized across touched skill domains.
+            </p>
+          </div>
 
           {/* Metric Summary Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', marginBottom: '2.5rem' }}>
-            <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-              <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Overall Rating</div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#2563eb', marginTop: '0.25rem' }}>{overallRating} Elo</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-neutral-50 dark:bg-neutral-800/60 p-5 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+              <div className="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">Overall Rating</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-primary-600 dark:text-primary-400 mt-1">
+                <AnimatedCounter value={overallRating} /> Elo
+              </div>
             </div>
 
-            <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-              <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Questions Answered</div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', marginTop: '0.25rem' }}>{history.length} / {totalQuestions}</div>
+            <div className="bg-neutral-50 dark:bg-neutral-800/60 p-5 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+              <div className="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">Questions Answered</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white mt-1">
+                {history.length} / {totalQuestions}
+              </div>
             </div>
 
-            <div style={{ background: '#f8fafc', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-              <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Accuracy Score</div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#10b981', marginTop: '0.25rem' }}>{accuracyPercent}%</div>
+            <div className="bg-neutral-50 dark:bg-neutral-800/60 p-5 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+              <div className="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">Accuracy Score</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-success-600 dark:text-success-400 mt-1">
+                {accuracyPercent}%
+              </div>
             </div>
           </div>
 
           {/* Final Per-Skill Ratings List */}
-          <div style={{ textAlign: 'left', marginBottom: '2.5rem', background: '#f8fafc', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0f172a', marginBottom: '1rem' }}>
-              📊 Measured Per-Skill Elo Ratings
+          <div className="text-left bg-neutral-50 dark:bg-neutral-800/40 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-700 space-y-4">
+            <h3 className="text-base font-extrabold text-neutral-900 dark:text-white flex items-center gap-2">
+              <span>📊</span> Measured Per-Skill Elo Ratings
             </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '0.75rem' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {Object.entries(ratings).map(([skill, score]) => (
-                <div key={skill} style={{
-                  background: '#ffffff',
-                  padding: '0.75rem 1rem',
-                  borderRadius: '8px',
-                  border: '1px solid #cbd5e1',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}>
-                  <span style={{ fontWeight: 700, textTransform: 'capitalize', color: '#334155' }}>{skill}</span>
-                  <span style={{ fontWeight: 800, color: score >= 1200 ? '#10b981' : score >= 1000 ? '#2563eb' : '#d97706' }}>
+                <div key={skill} className="bg-white dark:bg-neutral-900 p-3.5 rounded-xl border border-neutral-200 dark:border-neutral-700 flex justify-between items-center text-xs sm:text-sm">
+                  <span className="font-bold capitalize text-neutral-700 dark:text-neutral-300">{skill}</span>
+                  <span className={`font-extrabold ${score >= 1200 ? 'text-success-600 dark:text-success-400' : score >= 1000 ? 'text-primary-600 dark:text-primary-400' : 'text-warning-600 dark:text-warning-400'}`}>
                     {score} Elo
                   </span>
                 </div>
@@ -206,9 +242,8 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
 
           {onFinish && (
             <button
-              className="btn-primary"
-              style={{ padding: '0.85rem 2rem', fontSize: '1.05rem' }}
               onClick={onFinish}
+              className="px-8 py-4 rounded-xl font-bold text-base text-white bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-500 hover:to-accent-500 shadow-lg shadow-primary-500/25 transition-all focus:outline-none focus:ring-2 focus:ring-primary-500"
             >
               Continue to Skill Gap Report →
             </button>
@@ -221,64 +256,61 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
   const progressPercent = Math.round(((questionNumber - 1) / totalQuestions) * 100);
 
   return (
-    <div className="container">
+    <div className="space-y-6">
       {/* Toast Notification for Elo Rating Changes */}
       {ratingToast && (
-        <div style={{
-          position: 'fixed',
-          top: '80px',
-          right: '24px',
-          background: ratingToast.isCorrect ? '#ecfdf5' : '#fef2f2',
-          border: ratingToast.isCorrect ? '1px solid #a7f3d0' : '1px solid #fecaca',
-          color: ratingToast.isCorrect ? '#047857' : '#b91c1c',
-          padding: '0.85rem 1.25rem',
-          borderRadius: '12px',
-          boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
-          fontWeight: 700,
-          fontSize: '0.925rem',
-          zIndex: 1000,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.6rem',
-          transition: 'all 0.3s ease'
-        }}>
-          <span>{ratingToast.isCorrect ? '🎉' : '💡'}</span>
+        <div
+          className={`fixed top-20 right-4 sm:right-8 z-50 p-4 rounded-2xl border shadow-xl font-bold text-sm flex items-center gap-3 transition-all animate-pop-in ${
+            ratingToast.isCorrect
+              ? 'bg-success-50 dark:bg-success-950 text-success-900 dark:text-success-100 border-success-300 dark:border-success-700'
+              : 'bg-danger-50 dark:bg-danger-950 text-danger-900 dark:text-danger-100 border-danger-300 dark:border-danger-700'
+          }`}
+          role="alert"
+          aria-live="polite"
+        >
+          <span className="text-xl">{ratingToast.isCorrect ? '🎉' : '💡'}</span>
           <span>{ratingToast.text}</span>
         </div>
       )}
 
       {/* Page Header */}
-      <div className="page-header">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="header-title-group">
-            <div className="header-icon-box" style={{ background: '#ecfdf5', color: '#10b981' }}>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-success-50 dark:bg-success-950/80 text-success-600 dark:text-success-400 flex items-center justify-center text-xl font-extrabold border border-success-200 dark:border-success-800">
               ⚡
             </div>
-            <h1 className="page-title">Adaptive Skill Assessment</h1>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+              Adaptive Skill Assessment
+            </h1>
           </div>
-          <p className="page-subtitle">
-            Questions dynamically adapt to your performance using deterministic Elo scoring.
+          <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+            Questions dynamically adapt to your answers using chess-like Elo psychometrics.
           </p>
         </div>
       </div>
 
-      {/* Main Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '2rem' }}>
+      {/* Main Responsive Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* Left Column - Question Card */}
-        <div>
+        <div className="lg:col-span-8 space-y-4">
           {/* Progress Bar & Header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#475569' }}>
-              Question {questionNumber} of {totalQuestions}
-            </span>
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#2563eb' }}>
-              {progressPercent}% Complete
-            </span>
-          </div>
-
-          <div style={{ height: '8px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden', marginBottom: '1.5rem' }}>
-            <div style={{ height: '100%', width: `${progressPercent}%`, background: '#2563eb', borderRadius: '4px', transition: 'width 0.3s ease' }} />
+          <div className="bg-white dark:bg-neutral-900 p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 space-y-2">
+            <div className="flex justify-between items-center text-xs font-bold">
+              <span className="text-neutral-600 dark:text-neutral-400">
+                Question {questionNumber} of {totalQuestions}
+              </span>
+              <span className="text-primary-600 dark:text-primary-400">
+                {progressPercent}% Complete
+              </span>
+            </div>
+            <div className="h-2.5 bg-neutral-100 dark:bg-neutral-800 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-primary-600 dark:bg-primary-500 rounded-full transition-all duration-300"
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
           </div>
 
           <QuestionCard
@@ -290,76 +322,88 @@ export default function Assessment({ userId = 'pro-user', onFinish }) {
           />
 
           {/* Action Button Bar */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+          <div className="flex justify-end">
             <button
-              className="btn-primary"
               onClick={handleSubmitAnswer}
               disabled={selectedIndex === null || submitting}
-              style={{
-                padding: '0.85rem 2rem',
-                fontSize: '1rem',
-                opacity: selectedIndex === null || submitting ? 0.6 : 1,
-                cursor: selectedIndex === null || submitting ? 'not-allowed' : 'pointer'
-              }}
+              className={`px-8 py-3.5 rounded-xl font-extrabold text-sm text-white shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                selectedIndex === null || submitting
+                  ? 'bg-neutral-400 dark:bg-neutral-700 cursor-not-allowed opacity-60'
+                  : 'bg-primary-600 hover:bg-primary-500 hover:-translate-y-0.5 active:translate-y-0 shadow-primary-600/25'
+              }`}
             >
-              {submitting ? 'Submitting & Updating Elo...' : 'Submit Answer →'}
+              {submitting ? 'Updating Elo Ratings...' : 'Submit Answer →'}
             </button>
           </div>
         </div>
 
         {/* Right Sidebar - Live Elo Badge & Progress */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div className="lg:col-span-4 space-y-4">
           
-          {/* Live Overall Rating Badge */}
-          <div className="card-white" style={{ padding: '1.75rem', textAlign: 'center', border: '2px solid #3b82f6' }}>
-            <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          {/* Live Overall Rating Badge with Wow-Factor Animation */}
+          <div className="relative bg-white dark:bg-neutral-900 border-2 border-primary-500 dark:border-primary-600 rounded-2xl p-6 text-center shadow-lg overflow-hidden">
+            <div className="text-[11px] font-black text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
               ⚡ LIVE OVERALL ELO RATING
             </div>
             
-            <div style={{
-              fontSize: '2.5rem',
-              fontWeight: 900,
-              color: '#1e40af',
-              margin: '0.5rem 0',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.5rem'
-            }}>
-              <span>{overallRating}</span>
-              <span style={{ fontSize: '1rem', color: '#64748b', fontWeight: 600 }}>pts</span>
+            <div className="relative flex items-center justify-center gap-1.5 my-3">
+              <span className="text-4xl sm:text-5xl font-black text-primary-700 dark:text-primary-300">
+                <AnimatedCounter value={overallRating} />
+              </span>
+              <span className="text-sm font-bold text-neutral-500 dark:text-neutral-400 self-end mb-1">
+                pts
+              </span>
+
+              {/* Animated Floating Delta Pop Pill */}
+              {scoreDeltaAnim && (
+                <span
+                  key={scoreDeltaAnim.key}
+                  className={`absolute -top-3 right-4 px-2 py-0.5 rounded-full text-xs font-black animate-pop-in ${
+                    scoreDeltaAnim.delta >= 0
+                      ? 'bg-success-100 text-success-800 dark:bg-success-950 dark:text-success-200 border border-success-300'
+                      : 'bg-danger-100 text-danger-800 dark:bg-danger-950 dark:text-danger-200 border border-danger-300'
+                  }`}
+                >
+                  {scoreDeltaAnim.delta >= 0 ? `+${scoreDeltaAnim.delta}` : scoreDeltaAnim.delta}
+                </span>
+              )}
             </div>
 
-            <div style={{ fontSize: '0.85rem', color: '#10b981', fontWeight: 700 }}>
-              ● Real-time Adaptive Engine
+            <div className="text-xs font-extrabold text-success-600 dark:text-success-400 flex items-center justify-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-success-500 animate-ping inline-block" />
+              <span>Real-time Elo Engine</span>
             </div>
           </div>
 
           {/* Current Skill Ratings Breakdown */}
-          <div className="card-white" style={{ padding: '1.5rem' }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#0f172a', marginBottom: '1rem' }}>
-              🎯 Touched Skill Node Ratings
+          <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 space-y-3">
+            <h3 className="text-sm font-extrabold text-neutral-900 dark:text-white flex items-center gap-1.5">
+              <span>🎯</span> Touched Skill Ratings
             </h3>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', maxHeight: '300px', overflowY: 'auto' }}>
-              {Object.entries(ratings).map(([skill, score]) => (
-                <div key={skill} style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '0.5rem 0.75rem',
-                  background: currentQuestion?.skillNode === skill ? '#eff6ff' : '#f8fafc',
-                  border: currentQuestion?.skillNode === skill ? '1px solid #93c5fd' : '1px solid #e2e8f0',
-                  borderRadius: '8px'
-                }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#334155', textTransform: 'capitalize' }}>
-                    {skill}
-                  </span>
-                  <span style={{ fontSize: '0.9rem', fontWeight: 800, color: '#2563eb' }}>
-                    {score}
-                  </span>
+            <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
+              {Object.entries(ratings).length === 0 ? (
+                <div className="text-xs text-neutral-400 dark:text-neutral-500 text-center py-4 italic">
+                  Answer questions to see domain rating updates.
                 </div>
-              ))}
+              ) : (
+                Object.entries(ratings).map(([skill, score]) => {
+                  const isCurrentSkill = currentQuestion?.skillNode === skill;
+                  return (
+                    <div
+                      key={skill}
+                      className={`flex justify-between items-center p-3 rounded-xl border text-xs transition-all ${
+                        isCurrentSkill
+                          ? 'bg-primary-50 dark:bg-primary-950/60 border-primary-300 dark:border-primary-700 font-bold'
+                          : 'bg-neutral-50 dark:bg-neutral-800/50 border-neutral-200 dark:border-neutral-700'
+                      }`}
+                    >
+                      <span className="capitalize text-neutral-800 dark:text-neutral-200">{skill}</span>
+                      <span className="font-black text-primary-600 dark:text-primary-400">{score} Elo</span>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
 

@@ -47,7 +47,7 @@ function loadQuestionBank() {
 }
 
 /**
- * Pure Function: Calculates expected score EA for a learner against question difficulty
+ * Pure Function: Calculates expected score EA for a learner against question difficulty (1PL/Elo)
  * @param {number} learnerRating 
  * @param {number} questionDifficulty 
  * @returns {number} Expected score between 0 and 1
@@ -57,18 +57,114 @@ function calculateExpectedScore(learnerRating, questionDifficulty) {
 }
 
 /**
- * Pure Function: Computes new Elo rating and delta
+ * Pure Function: Calculates 2-Parameter Logistic (2PL) IRT probability
+ * Formula: P(correct) = 1 / (1 + e^(-a * (theta - b)))
+ * where theta = (learnerRating - 1000)/400, b = (questionDifficulty - 1000)/400, a = discrimination
+ * 
+ * @param {number} learnerRating 
+ * @param {number} questionDifficulty 
+ * @param {number} discrimination - Discrimination parameter 'a' (default 1.0)
+ * @returns {number} Expected probability of correct answer (0 to 1)
+ */
+function calculate2PLProbability(learnerRating, questionDifficulty, discrimination = 1.0) {
+  const theta = (learnerRating - 1000) / 400;
+  const b = (questionDifficulty - 1000) / 400;
+  const a = typeof discrimination === 'number' && !isNaN(discrimination) ? discrimination : 1.0;
+  
+  const exponent = -a * (theta - b);
+  return 1 / (1 + Math.exp(exponent));
+}
+
+/**
+ * Pure Function: Computes new Elo / 2PL IRT rating and delta
  * @param {number} learnerRating 
  * @param {number} questionDifficulty 
  * @param {boolean} isCorrect 
+ * @param {number} discrimination - Item discrimination parameter
+ * @param {string} mode - '2pl' or 'elo'
  * @returns {{ newRating: number, delta: number, expectedScore: number }}
  */
-function updateEloRating(learnerRating, questionDifficulty, isCorrect) {
+function updateEloRating(learnerRating, questionDifficulty, isCorrect, discrimination = 1.0, mode = 'elo') {
   const actualScore = isCorrect ? 1 : 0;
-  const expectedScore = calculateExpectedScore(learnerRating, questionDifficulty);
-  const delta = Math.round(K_FACTOR * (actualScore - expectedScore));
+  
+  let expectedScore;
+  let effectiveK = K_FACTOR;
+
+  if (mode === '2pl') {
+    expectedScore = calculate2PLProbability(learnerRating, questionDifficulty, discrimination);
+    effectiveK = K_FACTOR * (typeof discrimination === 'number' && !isNaN(discrimination) ? discrimination : 1.0);
+  } else {
+    expectedScore = calculateExpectedScore(learnerRating, questionDifficulty);
+  }
+
+  const delta = Math.round(effectiveK * (actualScore - expectedScore));
   const newRating = Math.max(0, Math.round(learnerRating + delta));
   return { newRating, delta, expectedScore };
+}
+
+/**
+ * Alias for updateEloRating with explicit 2PL mode parameter order
+ */
+function update2PLRating(learnerRating, questionDifficulty, isCorrect, discrimination = 1.0) {
+  return updateEloRating(learnerRating, questionDifficulty, isCorrect, discrimination, '2pl');
+}
+
+/**
+ * Pure Function: Computes Standard Error (SE) and Confidence Interval for a given skill node
+ * based on IRT Fisher Information.
+ * 
+ * @param {string} skillNode 
+ * @param {Array} history - List of answered question history items
+ * @param {number} currentRating - Current rating for the skill node
+ * @returns {{ se: number, lower: number, upper: number, label: string, questionsAnswered: number }}
+ */
+function calculateStandardError(skillNode, history = [], currentRating = DEFAULT_RATING) {
+  const nodeHistory = (history || []).filter(h => h.skillNode === skillNode);
+  const questionsAnswered = nodeHistory.length;
+
+  // Base Fisher Information prior
+  let fisherInfo = 0.15;
+  const theta = (currentRating - 1000) / 400;
+
+  for (const item of nodeHistory) {
+    const a = item.discrimination || 1.0;
+    const b = ((item.difficulty || DEFAULT_RATING) - 1000) / 400;
+    const P = 1 / (1 + Math.exp(-a * (theta - b)));
+    const itemInfo = Math.pow(a, 2) * P * (1 - P);
+    fisherInfo += itemInfo;
+  }
+
+  const seTheta = 1 / Math.sqrt(fisherInfo);
+  const seElo = Math.round(seTheta * 100);
+
+  const lower = Math.max(0, currentRating - seElo);
+  const upper = currentRating + seElo;
+
+  let label = 'Low Confidence';
+  if (questionsAnswered === 0) {
+    label = 'Unassessed';
+  } else if (seElo <= 50) {
+    label = 'High Confidence';
+  } else if (seElo <= 80) {
+    label = 'Medium Confidence';
+  }
+
+  return {
+    se: seElo,
+    lower,
+    upper,
+    label,
+    questionsAnswered
+  };
+}
+
+/**
+ * Integrity Helper: Flags implausibly fast answer submissions (< 2000ms)
+ * @param {number} timeSpentMs 
+ * @returns {boolean} True if flagged as implausibly fast
+ */
+function detectFastAnswer(timeSpentMs) {
+  return typeof timeSpentMs === 'number' && timeSpentMs > 0 && timeSpentMs < 2000;
 }
 
 /**
@@ -128,16 +224,23 @@ function selectNextAdaptiveQuestion(ratings, answeredQuestionIds, questionBank, 
 
 /**
  * Pure Function: Evaluates stopping condition.
- * Stops if 15 questions answered OR overall rating changed by < 15 over last 3 questions.
+ * Upgraded IRT stopping rule:
+ * - Stops if 15 questions answered (MAX_QUESTIONS)
+ * - OR if overall rating changed by < 15 over last 3 questions (stabilization)
+ * - OR if average standard error across tested skills <= 50 AND at least 5 questions answered
  * 
  * @param {number} historyLength - Number of questions answered so far
  * @param {number[]} overallRatingHistory - Array of overall ratings at each step
+ * @param {Array} history - Response history array
+ * @param {Object} ratings - Current skill ratings
  * @returns {boolean} True if stopping condition met
  */
-function shouldStopAssessment(historyLength, overallRatingHistory) {
+function shouldStopAssessment(historyLength, overallRatingHistory, history = [], ratings = {}) {
   if (historyLength >= MAX_QUESTIONS) {
     return true;
   }
+
+  // Stabilization check
   if (historyLength >= 3 && overallRatingHistory && overallRatingHistory.length >= 4) {
     const currentRating = overallRatingHistory[overallRatingHistory.length - 1];
     const rating3Ago = overallRatingHistory[overallRatingHistory.length - 4];
@@ -145,6 +248,23 @@ function shouldStopAssessment(historyLength, overallRatingHistory) {
       return true;
     }
   }
+
+  // SE-based stopping rule check (after at least 5 questions)
+  if (historyLength >= 5 && history.length >= 5) {
+    const touchedSkillNodes = Object.keys(ratings);
+    if (touchedSkillNodes.length > 0) {
+      let totalSE = 0;
+      for (const node of touchedSkillNodes) {
+        const { se } = calculateStandardError(node, history, ratings[node]);
+        totalSE += se;
+      }
+      const avgSE = totalSE / touchedSkillNodes.length;
+      if (avgSE <= 50) {
+        return true;
+      }
+    }
+  }
+
   return false;
 }
 
@@ -223,7 +343,7 @@ function startSession(userId = 'pro-user', targetRole = 'frontend-developer') {
 /**
  * Submits answer for current question and advances assessment state
  */
-function submitAnswer(userIdOrSessionId, questionId, selectedIndex) {
+function submitAnswer(userIdOrSessionId, questionId, selectedIndex, timeSpentMs, tabSwitchCount) {
   const session = sessionsStore.get(userIdOrSessionId);
   if (!session) {
     throw new Error('Assessment session not found. Please start a new session.');
@@ -252,10 +372,18 @@ function submitAnswer(userIdOrSessionId, questionId, selectedIndex) {
     ? session.ratings[currentSkillNode]
     : DEFAULT_RATING;
 
-  // Calculate Elo update
-  const { newRating, delta } = updateEloRating(currentRating, fullQuestionObj.difficulty, isCorrect);
+  const discrimination = fullQuestionObj.discrimination !== undefined ? fullQuestionObj.discrimination : 1.0;
+
+  // Calculate 2PL IRT update
+  const { newRating, delta, expectedScore } = updateEloRating(
+    currentRating,
+    fullQuestionObj.difficulty,
+    isCorrect,
+    discrimination,
+    '2pl'
+  );
   
-  // Update state
+  // Update ratings state
   session.ratings[currentSkillNode] = newRating;
   if (!session.touchedSkills.includes(currentSkillNode)) {
     session.touchedSkills.push(currentSkillNode);
@@ -266,7 +394,13 @@ function submitAnswer(userIdOrSessionId, questionId, selectedIndex) {
   session.overallRating = updatedOverall;
   session.overallRatingHistory.push(updatedOverall);
 
-  session.history.push({
+  // Integrity checks
+  const isFastAnswer = detectFastAnswer(timeSpentMs);
+  if (tabSwitchCount !== undefined && typeof tabSwitchCount === 'number') {
+    session.tabSwitchCount = Math.max(session.tabSwitchCount || 0, tabSwitchCount);
+  }
+
+  const historyEntry = {
     questionId: fullQuestionObj.id,
     skillNode: currentSkillNode,
     prompt: fullQuestionObj.prompt,
@@ -276,11 +410,26 @@ function submitAnswer(userIdOrSessionId, questionId, selectedIndex) {
     ratingBefore: currentRating,
     ratingAfter: newRating,
     delta,
+    discrimination,
+    difficulty: fullQuestionObj.difficulty,
+    expectedScore,
+    timeSpentMs: typeof timeSpentMs === 'number' ? timeSpentMs : 0,
+    flaggedFastAnswer: isFastAnswer,
     timestamp: Date.now()
-  });
+  };
 
-  // Evaluate stopping condition
-  const isComplete = shouldStopAssessment(session.history.length, session.overallRatingHistory);
+  session.history.push(historyEntry);
+
+  // Calculate standard error for the updated skill node
+  const seInfo = calculateStandardError(currentSkillNode, session.history, newRating);
+
+  // Evaluate upgraded stopping condition
+  const isComplete = shouldStopAssessment(
+    session.history.length,
+    session.overallRatingHistory,
+    session.history,
+    session.ratings
+  );
   session.isComplete = isComplete;
 
   let nextQuestion = null;
@@ -298,6 +447,8 @@ function submitAnswer(userIdOrSessionId, questionId, selectedIndex) {
 
   session.currentQuestion = nextQuestion;
 
+  const totalFastAnswers = session.history.filter(h => h.flaggedFastAnswer).length;
+
   return {
     sessionId: session.sessionId,
     userId: session.userId,
@@ -309,6 +460,12 @@ function submitAnswer(userIdOrSessionId, questionId, selectedIndex) {
     newRating,
     ratings: session.ratings,
     overallRating: session.overallRating,
+    standardError: seInfo,
+    integrityFlags: {
+      flaggedFastAnswer: isFastAnswer,
+      totalFastAnswers,
+      tabSwitchCount: session.tabSwitchCount || 0
+    },
     isComplete: session.isComplete,
     questionNumber: session.history.length + (session.isComplete ? 0 : 1),
     totalQuestions: MAX_QUESTIONS,
@@ -330,6 +487,15 @@ function getAssessmentStatus(userId) {
     };
   }
 
+  // Calculate standard error summary per touched skill
+  const seSummary = {};
+  for (const node of session.touchedSkills || []) {
+    const r = session.ratings[node] !== undefined ? session.ratings[node] : DEFAULT_RATING;
+    seSummary[node] = calculateStandardError(node, session.history, r);
+  }
+
+  const totalFastAnswers = (session.history || []).filter(h => h.flaggedFastAnswer).length;
+
   return {
     exists: true,
     sessionId: session.sessionId,
@@ -337,11 +503,123 @@ function getAssessmentStatus(userId) {
     targetRole: session.targetRole,
     ratings: session.ratings,
     overallRating: session.overallRating,
+    standardErrorSummary: seSummary,
+    integrityFlags: {
+      totalFastAnswers,
+      tabSwitchCount: session.tabSwitchCount || 0
+    },
     isComplete: session.isComplete,
     questionNumber: session.history.length + (session.isComplete ? 0 : 1),
     totalQuestions: MAX_QUESTIONS,
     history: session.history,
     currentQuestion: sanitizeQuestion(session.currentQuestion)
+  };
+}
+
+/**
+ * Admin Helper: Returns calibration metrics of question bank
+ */
+function getCalibrationHealth() {
+  const questionBank = loadQuestionBank();
+  if (!questionBank || questionBank.length === 0) {
+    return { totalQuestions: 0, calibratedCount: 0, meanDifficulty: 0, meanDiscrimination: 0 };
+  }
+
+  let totalDifficulty = 0;
+  let totalDiscrimination = 0;
+  let calibratedCount = 0;
+  let minDisc = Infinity;
+  let maxDisc = -Infinity;
+
+  for (const q of questionBank) {
+    totalDifficulty += q.difficulty || DEFAULT_RATING;
+    const a = q.discrimination !== undefined ? q.discrimination : 1.0;
+    if (q.discrimination !== undefined) calibratedCount++;
+    totalDiscrimination += a;
+    if (a < minDisc) minDisc = a;
+    if (a > maxDisc) maxDisc = a;
+  }
+
+  return {
+    totalQuestions: questionBank.length,
+    calibratedCount,
+    meanDifficulty: Math.round(totalDifficulty / questionBank.length),
+    meanDiscrimination: parseFloat((totalDiscrimination / questionBank.length).toFixed(2)),
+    minDiscrimination: minDisc === Infinity ? 1.0 : minDisc,
+    maxDiscrimination: maxDisc === -Infinity ? 1.0 : maxDisc
+  };
+}
+
+/**
+ * Admin Helper: Returns aggregated test-taking metrics
+ */
+function getAdminMetrics() {
+  const uniqueSessions = new Set();
+  const sessions = [];
+
+  for (const [key, session] of sessionsStore.entries()) {
+    if (session && session.sessionId && !uniqueSessions.has(session.sessionId)) {
+      uniqueSessions.add(session.sessionId);
+      sessions.push(session);
+    }
+  }
+
+  const totalSessions = sessions.length;
+  const completedSessions = sessions.filter(s => s.isComplete).length;
+  const totalQuestionsAnswered = sessions.reduce((sum, s) => sum + (s.history ? s.history.length : 0), 0);
+  const avgQuestionsPerSession = totalSessions > 0 ? parseFloat((totalQuestionsAnswered / totalSessions).toFixed(1)) : 0;
+  const completionRate = totalSessions > 0 ? parseFloat(((completedSessions / totalSessions) * 100).toFixed(1)) : 0;
+
+  const calibrationHealth = getCalibrationHealth();
+
+  return {
+    totalSessions,
+    completedSessions,
+    activeSessions: totalSessions - completedSessions,
+    totalQuestionsAnswered,
+    avgQuestionsPerSession,
+    completionRate,
+    calibrationHealth,
+    timestamp: new Date().toISOString()
+  };
+}
+
+/**
+ * Admin Helper: Returns integrity flags log across all sessions
+ */
+function getIntegrityReport() {
+  const uniqueSessions = new Set();
+  const flaggedSessions = [];
+
+  for (const [key, session] of sessionsStore.entries()) {
+    if (session && session.sessionId && !uniqueSessions.has(session.sessionId)) {
+      uniqueSessions.add(session.sessionId);
+      
+      const fastAnswers = (session.history || []).filter(h => h.flaggedFastAnswer);
+      const tabSwitches = session.tabSwitchCount || 0;
+
+      if (fastAnswers.length > 0 || tabSwitches > 0) {
+        flaggedSessions.push({
+          sessionId: session.sessionId,
+          userId: session.userId,
+          targetRole: session.targetRole,
+          questionsAnswered: session.history ? session.history.length : 0,
+          fastAnswersCount: fastAnswers.length,
+          tabSwitchCount: tabSwitches,
+          fastAnswersDetails: fastAnswers.map(f => ({
+            questionId: f.questionId,
+            skillNode: f.skillNode,
+            timeSpentMs: f.timeSpentMs
+          }))
+        });
+      }
+    }
+  }
+
+  return {
+    flaggedSessionsCount: flaggedSessions.length,
+    flaggedSessions,
+    timestamp: new Date().toISOString()
   };
 }
 
@@ -352,11 +630,19 @@ module.exports = {
   STABILIZATION_THRESHOLD,
   loadQuestionBank,
   calculateExpectedScore,
+  calculate2PLProbability,
   updateEloRating,
+  update2PLRating,
+  calculateStandardError,
+  detectFastAnswer,
   calculateOverallRating,
   selectNextAdaptiveQuestion,
   shouldStopAssessment,
   startSession,
   submitAnswer,
-  getAssessmentStatus
+  getAssessmentStatus,
+  getCalibrationHealth,
+  getAdminMetrics,
+  getIntegrityReport
 };
+

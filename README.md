@@ -6,11 +6,12 @@ SkillPath bridges the gap between higher education and industry hiring demand. I
 
 ---
 
-### 🌟 Three Core Differentiators
+### 🌟 Four Core Differentiators
 
-1. **Built from Real Job Postings**: Skill graphs are derived from real industry job data, not an invented curriculum.
-2. **Adaptive Elo Skill Measurement**: Objective psychometric scoring ($K=32$) measuring skill level like chess ratings.
-3. **Cryptographically Signed Credentials**: ECDSA P-256 digital signatures that recruiters can verify offline in under 5 seconds—tamper-proof and trustless.
+1. **Built from Real Job Market Pipelines**: Skill graphs and taxonomies are derived from raw industry job data, not an arbitrary curriculum.
+2. **Classical 2PL IRT & Elo Psychometric Measurement**: Objective psychometric scoring with item discrimination ($a \in [0.8, 2.2]$) and Fisher Information Standard Error confidence bounds.
+3. **Cryptographically Signed Credentials & Revocation**: ECDSA P-256 digital signatures with an active revocation registry—tamper-proof, trustless, and revocable.
+4. **Two-Sided Recruiter Talent Registry**: Privacy-first candidate discovery by proven skill competency and bulk credential verification.
 
 > ⚡ **Deterministic & LLM-Free:** Built with zero GPT or LLM API calls for 100% explainable math, fast execution, and zero rate-limit failures during live demos.
 
@@ -21,6 +22,7 @@ SkillPath bridges the gap between higher education and industry hiring demand. I
 #### Prerequisites
 - **Node.js**: v18.0.0 or higher
 - **npm**: v9.0.0 or higher
+- **Python**: 3.10+ (for ML pipeline)
 
 #### Quickstart Setup
 
@@ -65,15 +67,16 @@ SkillPath bridges the gap between higher education and industry hiring demand. I
 
 Use the **DEMO ACCOUNT** picker in the top navbar to switch between accounts instantly:
 
-| Demo Account | Status Stage | Readiness | Proven Skills | ECDSA Credentials |
-|---|---|---|---|---|
-| 🟢 `fresh-user` | Fresh Start | 0% | 0 skills | None (ready for live start) |
-| 🟡 `mid-user` | Mid-Progress | ~35% | 4 skills (`html`, `css`, `js`, `git`) | 0 (ready for gap report demo) |
-| ⭐ `pro-user` | Near-Complete | ~75% | 10 skills | Signed ECDSA Credential ready |
+| Demo Account | Status Stage | Role | Readiness | Proven Skills | Feature Focus |
+|---|---|---|---|---|---|
+| 🟢 `fresh-user` | Fresh Start | Learner | 0% | 0 skills | Inviting onboarding slate |
+| 🟡 `mid-user` | Mid-Progress | Learner | ~35% | 4 skills | Prerequisite topological path |
+| ⭐ `pro-user` | Near-Complete | Learner | ~75% | 10 skills | ECDSA Signed Credential & Public Profile |
+| 💼 `recruiter-user` | Recruiter | Recruiter | N/A | N/A | Talent Discovery & Bulk Verification |
 
 ---
 
-### 🛡️ Cryptographic Credential Verification
+### 🛡️ Cryptographic Credential Verification & Revocation
 
 Credentials are signed using **ECDSA P-256 (secp256r1)** with SHA-256 hashes.
 
@@ -82,6 +85,7 @@ To verify a credential:
 2. Click **Paste Valid Sample** or paste any issued credential JSON.
 3. Click **Verify Signature**.
 4. To test tamper detection, click **Paste Tampered Sample** (score modified from $1350 \rightarrow 1600$). The verifier will flag the signature as invalid and omit payload data.
+5. To test revocation, revoke a credential in the backend/test suite and verify that `/verify` flags it as `REVOKED`.
 
 ---
 
@@ -92,11 +96,16 @@ To verify a credential:
 | `GET` | `/api/health` | System health check |
 | `GET` | `/api/graph/:role` | Retrieves skill graph topology & demand scores |
 | `POST` | `/api/assessment/start` | Begins adaptive assessment session |
-| `POST` | `/api/assessment/answer` | Submits answer, returns Elo delta & next question |
-| `GET` | `/api/report/:userId` | Generates topological skill gap report & readiness % |
+| `POST` | `/api/assessment/answer` | Submits answer with timing & tab-switch telemetry |
+| `GET` | `/api/report/:userId` | Generates topological skill gap report with SE bounds |
 | `POST` | `/api/credential/issue` | Mints and signs an ECDSA P-256 credential |
-| `POST` | `/api/credential/verify` | Verifies credential signature authenticity |
-| `GET` | `/api/credential/public-key` | Serves PEM public key for offline verifiers |
+| `POST` | `/api/credential/verify` | Verifies credential signature & revocation status |
+| `POST` | `/api/credential/revoke/:id` | Revokes an issued credential |
+| `GET` | `/api/credential/audit` | Returns append-only security audit logs |
+| `GET` | `/api/recruiters/search` | Searches discoverable learners by proven skill/role |
+| `POST` | `/api/recruiters/bulk-verify` | Batch verifies candidate credential IDs |
+| `GET` | `/api/profile/:username` | Returns shareable public profile for discoverable learners |
+| `GET` | `/api/admin/analytics` | Returns aggregate market demand trends & readiness tiers |
 
 ---
 

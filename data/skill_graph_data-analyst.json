@@ -1,0 +1,515 @@
+{
+  "role": "data-analyst",
+  "title": "Data Analyst Skill Graph",
+  "totalPostingsAnalyzed": 18,
+  "nodes": [
+    {
+      "id": "sql",
+      "label": "SQL & Relational Databases",
+      "category": "Database Queries",
+      "prerequisites": [],
+      "demandScore": 1.0,
+      "confidence": 1.0,
+      "frequency": 18,
+      "resources": [
+        {
+          "title": "Mode Analytics SQL Tutorial",
+          "url": "https://mode.com/sql-tutorial/",
+          "type": "Interactive Tutorial",
+          "free": true
+        },
+        {
+          "title": "PostgreSQL Official Documentation",
+          "url": "https://www.postgresql.org/docs/",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "python",
+      "label": "Python for Data Analysis",
+      "category": "Languages",
+      "prerequisites": [],
+      "demandScore": 0.94,
+      "confidence": 1.0,
+      "frequency": 17,
+      "resources": [
+        {
+          "title": "Python Official Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "type": "Documentation",
+          "free": true
+        },
+        {
+          "title": "Automate the Boring Stuff with Python",
+          "url": "https://automatetheboringstuff.com/",
+          "type": "Book",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "pandas",
+      "label": "Pandas",
+      "category": "Data Manipulation",
+      "prerequisites": [
+        "python"
+      ],
+      "demandScore": 0.78,
+      "confidence": 1.0,
+      "frequency": 14,
+      "resources": [
+        {
+          "title": "Pandas User Guide & Tutorials",
+          "url": "https://pandas.pydata.org/docs/user_guide/index.html",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "tableau",
+      "label": "Tableau",
+      "category": "Data Visualization",
+      "prerequisites": [
+        "excel"
+      ],
+      "demandScore": 0.5,
+      "confidence": 1.0,
+      "frequency": 9,
+      "resources": [
+        {
+          "title": "Tableau Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=tableau",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "power-bi",
+      "label": "Power BI",
+      "category": "Data Visualization",
+      "prerequisites": [
+        "excel"
+      ],
+      "demandScore": 0.5,
+      "confidence": 1.0,
+      "frequency": 9,
+      "resources": [
+        {
+          "title": "Power BI Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=power-bi",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "business-intelligence",
+      "label": "Business Intelligence (BI)",
+      "category": "Business",
+      "prerequisites": [
+        "sql",
+        "tableau"
+      ],
+      "demandScore": 0.5,
+      "confidence": 1.0,
+      "frequency": 9,
+      "resources": [
+        {
+          "title": "Business Intelligence (BI) Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=business-intelligence",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "postgresql",
+      "label": "PostgreSQL",
+      "category": "Database Queries",
+      "prerequisites": [
+        "sql"
+      ],
+      "demandScore": 0.39,
+      "confidence": 0.97,
+      "frequency": 7,
+      "resources": [
+        {
+          "title": "PostgreSQL Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=postgresql",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "excel",
+      "label": "Advanced Excel & Pivot Tables",
+      "category": "Spreadsheets",
+      "prerequisites": [],
+      "demandScore": 0.39,
+      "confidence": 0.97,
+      "frequency": 7,
+      "resources": [
+        {
+          "title": "Advanced Excel & Pivot Tables Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=excel",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "statistics",
+      "label": "Descriptive & Inferential Statistics",
+      "category": "Mathematics",
+      "prerequisites": [
+        "python"
+      ],
+      "demandScore": 0.39,
+      "confidence": 0.97,
+      "frequency": 7,
+      "resources": [
+        {
+          "title": "Descriptive & Inferential Statistics Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=statistics",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "ab-testing",
+      "label": "A/B Testing & Hypothesis Testing",
+      "category": "Analytics",
+      "prerequisites": [
+        "statistics",
+        "probability"
+      ],
+      "demandScore": 0.39,
+      "confidence": 0.97,
+      "frequency": 7,
+      "resources": [
+        {
+          "title": "A/B Testing & Hypothesis Testing Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=ab-testing",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "data-cleaning",
+      "label": "Data Cleaning & Wrangling",
+      "category": "Data Manipulation",
+      "prerequisites": [
+        "python",
+        "pandas"
+      ],
+      "demandScore": 0.39,
+      "confidence": 0.97,
+      "frequency": 7,
+      "resources": [
+        {
+          "title": "Data Cleaning & Wrangling Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=data-cleaning",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "kpis",
+      "label": "KPIs & Business Metrics",
+      "category": "Business",
+      "prerequisites": [
+        "business-intelligence"
+      ],
+      "demandScore": 0.39,
+      "confidence": 0.97,
+      "frequency": 7,
+      "resources": [
+        {
+          "title": "KPIs & Business Metrics Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=kpis",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "numpy",
+      "label": "NumPy",
+      "category": "Data Manipulation",
+      "prerequisites": [
+        "python"
+      ],
+      "demandScore": 0.28,
+      "confidence": 0.69,
+      "frequency": 5,
+      "resources": [
+        {
+          "title": "NumPy Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=numpy",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "eda",
+      "label": "Exploratory Data Analysis (EDA)",
+      "category": "Analytics",
+      "prerequisites": [
+        "python",
+        "pandas"
+      ],
+      "demandScore": 0.28,
+      "confidence": 0.69,
+      "frequency": 5,
+      "resources": [
+        {
+          "title": "Exploratory Data Analysis (EDA) Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=eda",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "data-warehousing",
+      "label": "Data Warehousing (Snowflake/BigQuery)",
+      "category": "Data Architecture",
+      "prerequisites": [
+        "sql"
+      ],
+      "demandScore": 0.28,
+      "confidence": 0.69,
+      "frequency": 5,
+      "resources": [
+        {
+          "title": "Data Warehousing (Snowflake/BigQuery) Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=data-warehousing",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "data-visualization",
+      "label": "Data Visualization Principles",
+      "category": "Data Visualization",
+      "prerequisites": [
+        "pandas"
+      ],
+      "demandScore": 0.22,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "Data Visualization Principles Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=data-visualization",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "etl-pipelines",
+      "label": "ETL & Data Pipelines",
+      "category": "Data Architecture",
+      "prerequisites": [
+        "sql",
+        "python"
+      ],
+      "demandScore": 0.22,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "ETL & Data Pipelines Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=etl-pipelines",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "airflow",
+      "label": "Apache Airflow",
+      "category": "Data Architecture",
+      "prerequisites": [
+        "etl-pipelines",
+        "python"
+      ],
+      "demandScore": 0.22,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "Apache Airflow Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=airflow",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "jupyter",
+      "label": "Jupyter Notebooks",
+      "category": "Tooling",
+      "prerequisites": [
+        "python"
+      ],
+      "demandScore": 0.22,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "Jupyter Notebooks Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=jupyter",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "cohort-analysis",
+      "label": "Cohort & Retention Analysis",
+      "category": "Analytics",
+      "prerequisites": [
+        "kpis",
+        "sql"
+      ],
+      "demandScore": 0.22,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "Cohort & Retention Analysis Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=cohort-analysis",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "google-analytics",
+      "label": "Google Analytics / Product Analytics",
+      "category": "Analytics",
+      "prerequisites": [
+        "kpis"
+      ],
+      "demandScore": 0.22,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "Google Analytics / Product Analytics Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=google-analytics",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "probability",
+      "label": "Probability & Distributions",
+      "category": "Mathematics",
+      "prerequisites": [
+        "statistics"
+      ],
+      "demandScore": 0.17,
+      "confidence": 0.42,
+      "frequency": 3,
+      "resources": [
+        {
+          "title": "Probability & Distributions Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=probability",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "scikit-learn",
+      "label": "Scikit-Learn Basics",
+      "category": "Machine Learning",
+      "prerequisites": [
+        "python",
+        "numpy",
+        "pandas"
+      ],
+      "demandScore": 0.17,
+      "confidence": 0.42,
+      "frequency": 3,
+      "resources": [
+        {
+          "title": "Scikit-Learn Basics Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=scikit-learn",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "git",
+      "label": "Git & Version Control",
+      "category": "Tooling",
+      "prerequisites": [],
+      "demandScore": 0.17,
+      "confidence": 0.42,
+      "frequency": 3,
+      "resources": [
+        {
+          "title": "Git & Version Control Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=git",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "r-programming",
+      "label": "R Programming",
+      "category": "Languages",
+      "prerequisites": [
+        "statistics"
+      ],
+      "demandScore": 0.17,
+      "confidence": 0.42,
+      "frequency": 3,
+      "resources": [
+        {
+          "title": "R Programming Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=r-programming",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "machine-learning-basics",
+      "label": "Intro to Machine Learning",
+      "category": "Machine Learning",
+      "prerequisites": [
+        "scikit-learn",
+        "statistics"
+      ],
+      "demandScore": 0.11,
+      "confidence": 0.28,
+      "frequency": 2,
+      "resources": [
+        {
+          "title": "Intro to Machine Learning Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=machine-learning-basics",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    }
+  ]
+}

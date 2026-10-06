@@ -1,0 +1,98 @@
+{
+  "frontend-developer": [
+    {
+      "posting_id": "job-01",
+      "title": "Senior Frontend Developer",
+      "description": "We are looking for a Senior Frontend Developer proficient in React, TypeScript, and modern JavaScript (ES6+). You will build scalable single page applications, manage complex state with Redux Toolkit, consume REST APIs, and optimize web performance. Strong experience with HTML5, CSS3, Flexbox, Grid, and Git version control is required. Unit testing experience using Jest and React Testing Library is a plus.",
+      "expected_skills": ["react", "typescript", "javascript", "single-page-apps", "state-management", "rest-api", "web-performance", "html", "css", "git", "jest"]
+    },
+    {
+      "posting_id": "job-02",
+      "title": "Frontend Engineer - UI/UX",
+      "description": "Join our product team to craft visually stunning user interfaces. Key requirements include HTML, CSS, JavaScript, Responsive Design, Tailwind CSS, DOM manipulation, and cross-browser compatibility. Experience with Figma, web accessibility (a11y), semantic HTML, and CSS Animations is required. Basic knowledge of React or Vue is desirable.",
+      "expected_skills": ["html", "css", "javascript", "responsive-design", "tailwind", "dom", "figma", "a11y", "react", "vue"]
+    },
+    {
+      "posting_id": "job-03",
+      "title": "React Developer",
+      "description": "CloudScale Systems is hiring a React Developer with strong expertise in React Hooks, Context API, JavaScript, REST API integration, and asynchronous JS (Promises/async-await). You will collaborate with backend teams to integrate endpoints, manage state, and maintain component libraries. Experience with Git, Webpack, Vite, and npm package management is expected.",
+      "expected_skills": ["react", "javascript", "rest-api", "async-js", "state-management", "git", "webpack", "vite", "npm"]
+    },
+    {
+      "posting_id": "job-04",
+      "title": "Full Stack Frontend Specialist",
+      "description": "Role requires deep expertise in Next.js, React, TypeScript, Server-Side Rendering (SSR), and Static Site Generation (SSG). Must be comfortable with Node.js basics, REST APIs, GraphQL, CSS Modules, Tailwind CSS, and version control using Git. Performance optimization and lighthouse scoring experience will stand out.",
+      "expected_skills": ["nextjs", "react", "typescript", "rest-api", "graphql", "tailwind", "git", "web-performance"]
+    },
+    {
+      "posting_id": "job-05",
+      "title": "Junior Frontend Web Developer",
+      "description": "Great opportunity for entry-level developers! Requires strong fundamentals in HTML5, CSS3, Vanilla JavaScript, DOM API, fetch/AJAX, Git, GitHub, and responsive web design. Familiarity with React, Bootstrap, or Tailwind is beneficial but willingness to learn modern JS frameworks is essential.",
+      "expected_skills": ["html", "css", "javascript", "dom", "rest-api", "git", "responsive-design", "react", "bootstrap", "tailwind"]
+    }
+  ],
+  "backend-developer": [
+    {
+      "posting_id": "be-job-01",
+      "title": "Senior Backend Engineer (Node.js)",
+      "description": "We are seeking a Senior Backend Engineer proficient in Node.js, Express.js, TypeScript, PostgreSQL, and Redis. You will design REST API endpoints, implement microservices architecture, optimize SQL queries, and deploy containers via Docker and AWS. Experience with OAuth, JWT, and unit testing is mandatory.",
+      "expected_skills": ["nodejs", "express", "typescript", "postgresql", "redis", "rest-api", "microservices", "sql", "docker", "aws", "oauth", "unit-testing-backend"]
+    },
+    {
+      "posting_id": "be-job-02",
+      "title": "Python Backend Developer",
+      "description": "Join our backend infrastructure team building high-performance services with Python, Django, FastAPI, and PostgreSQL. Responsibilities include building REST APIs, asynchronous message queue handlers using Kafka, Redis caching layers, Docker containerization, and Git CI/CD pipelines.",
+      "expected_skills": ["python", "django", "fastapi", "postgresql", "rest-api", "message-queues", "redis", "docker", "git", "ci-cd"]
+    },
+    {
+      "posting_id": "be-job-03",
+      "title": "Java Spring Boot Engineer",
+      "description": "Looking for a Java Backend Developer experienced in Java 17+, Spring Boot, Hibernate ORM, SQL, PostgreSQL, microservices, gRPC, and JUnit automated testing. Must understand system design, load balancing, OAuth security, and CI/CD integration.",
+      "expected_skills": ["java", "spring-boot", "orm", "sql", "postgresql", "microservices", "grpc", "unit-testing-backend", "system-design", "oauth", "ci-cd"]
+    },
+    {
+      "posting_id": "be-job-04",
+      "title": "Cloud Backend Services Lead",
+      "description": "Lead the development of scalable microservices using Node.js, TypeScript, Express, PostgreSQL, Redis, and AWS (S3, EC2, Lambda). Deep expertise in system design, distributed systems, OAuth authentication, Docker, Kubernetes, and Linux shell environments.",
+      "expected_skills": ["microservices", "nodejs", "typescript", "express", "postgresql", "redis", "aws", "system-design", "oauth", "docker", "kubernetes", "linux"]
+    },
+    {
+      "posting_id": "be-job-05",
+      "title": "Junior Python / Django Developer",
+      "description": "Great role for junior engineers! Requires proficiency in Python, Django REST framework, SQL database queries, Git version control, REST API fundamentals, and basic Linux commands. Docker and Redis knowledge is a plus.",
+      "expected_skills": ["python", "django", "sql", "git", "rest-api", "linux", "docker", "redis"]
+    }
+  ],
+  "data-analyst": [
+    {
+      "posting_id": "da-job-01",
+      "title": "Senior Data Analyst",
+      "description": "We are seeking a Senior Data Analyst proficient in Python, Pandas, NumPy, SQL, and PostgreSQL. You will perform exploratory data analysis (EDA), data cleaning, build Tableau dashboards, execute A/B testing hypotheses, and present KPIs and business metrics to executive stakeholders. Git version control and advanced Excel skills required.",
+      "expected_skills": ["python", "pandas", "numpy", "sql", "postgresql", "eda", "data-cleaning", "tableau", "ab-testing", "kpis", "git", "excel"]
+    },
+    {
+      "posting_id": "da-job-02",
+      "title": "BI & Data Analyst",
+      "description": "Join our analytics team to build Power BI dashboards and business intelligence reports. Key requirements include SQL queries, Joins, Subqueries, Excel Pivot Tables, Data Visualization principles, Cohort Analysis, and statistical analysis using Python or R. Experience with Google Analytics is a plus.",
+      "expected_skills": ["power-bi", "business-intelligence", "sql", "excel", "data-visualization", "cohort-analysis", "statistics", "python", "r-programming", "google-analytics"]
+    },
+    {
+      "posting_id": "da-job-03",
+      "title": "Product Data Analyst",
+      "description": "Looking for a Product Data Analyst skilled in Python, Pandas, SQL, A/B testing, hypothesis testing, data cleaning, cohort analysis, and product analytics metrics (churn, retention, conversion rates). Must be comfortable with Jupyter Notebooks, Git, and Snowflake data warehousing.",
+      "expected_skills": ["python", "pandas", "sql", "ab-testing", "data-cleaning", "cohort-analysis", "kpis", "jupyter", "git", "data-warehousing"]
+    },
+    {
+      "posting_id": "da-job-04",
+      "title": "Quantitative Data Analyst",
+      "description": "Role requires strong foundation in statistics, descriptive and inferential statistics, probability distributions, Python, NumPy, Pandas, SQL, and Scikit-Learn machine learning basics (linear & logistic regression). Experience building ETL pipelines and Airflow workflows is a plus.",
+      "expected_skills": ["statistics", "probability", "python", "numpy", "pandas", "sql", "scikit-learn", "machine-learning-basics", "etl-pipelines", "airflow"]
+    },
+    {
+      "posting_id": "da-job-05",
+      "title": "Junior Data Analyst",
+      "description": "Great opportunity for early career analysts! Requires strong proficiency in SQL, Excel (Pivot Tables, VLOOKUP), Data Visualization (Tableau or Power BI), basic Python, and exploratory data analysis. Knowledge of statistics and data cleaning is required.",
+      "expected_skills": ["sql", "excel", "data-visualization", "tableau", "power-bi", "python", "eda", "statistics", "data-cleaning"]
+    }
+  ]
+}

@@ -4,32 +4,56 @@
     "skillNode": "javascript",
     "difficulty": 850,
     "prompt": "Which keyword is used to declare a block-scoped variable that cannot be reassigned in JavaScript?",
-    "options": ["var", "let", "const", "static"],
-    "correctIndex": 2
+    "options": [
+      "var",
+      "let",
+      "const",
+      "static"
+    ],
+    "correctIndex": 2,
+    "discrimination": 0.9
   },
   {
     "id": "q_002",
     "skillNode": "javascript",
     "difficulty": 1050,
     "prompt": "What is the return value of `typeof null` in JavaScript?",
-    "options": ["\"null\"", "\"undefined\"", "\"object\"", "\"boolean\""],
-    "correctIndex": 2
+    "options": [
+      "\"null\"",
+      "\"undefined\"",
+      "\"object\"",
+      "\"boolean\""
+    ],
+    "correctIndex": 2,
+    "discrimination": 1.3
   },
   {
     "id": "q_003",
     "skillNode": "javascript",
     "difficulty": 1250,
     "prompt": "What will `console.log([] + [])` output in JavaScript?",
-    "options": ["\"[]\"", "\"\"", "undefined", "NaN"],
-    "correctIndex": 1
+    "options": [
+      "\"[]\"",
+      "\"\"",
+      "undefined",
+      "NaN"
+    ],
+    "correctIndex": 1,
+    "discrimination": 1.6
   },
   {
     "id": "q_004",
     "skillNode": "javascript",
     "difficulty": 1450,
     "prompt": "Which mechanism in JavaScript enables functions to retain access to variables from their outer lexical scope even after that scope has closed?",
-    "options": ["Hoisting", "Closure", "Prototypal Inheritance", "Event Loop"],
-    "correctIndex": 1
+    "options": [
+      "Hoisting",
+      "Closure",
+      "Prototypal Inheritance",
+      "Event Loop"
+    ],
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_005",
@@ -42,15 +66,22 @@
       "They are executed in alternating order 1:1",
       "Priority depends on CPU usage"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_006",
     "skillNode": "react",
     "difficulty": 850,
     "prompt": "Which React hook is used to manage local component state?",
-    "options": ["useEffect", "useReducer", "useState", "useRef"],
-    "correctIndex": 2
+    "options": [
+      "useEffect",
+      "useReducer",
+      "useState",
+      "useRef"
+    ],
+    "correctIndex": 2,
+    "discrimination": 0.9
   },
   {
     "id": "q_007",
@@ -63,7 +94,8 @@
       "React keys must always be integers",
       "Keys must be fetched from an API"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 1.3
   },
   {
     "id": "q_008",
@@ -76,7 +108,8 @@
       "The effect runs after every render",
       "React throws a compile-time error"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "discrimination": 1.6
   },
   {
     "id": "q_009",
@@ -89,23 +122,36 @@
       "It automatically memoizes all internal hook values",
       "It prevents parent component re-renders"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_010",
     "skillNode": "react",
     "difficulty": 1600,
     "prompt": "In React 18 Concurrent Rendering, which hook allows marking a state update as a non-urgent transition?",
-    "options": ["useDeferredValue", "useTransition", "useId", "useImperativeHandle"],
-    "correctIndex": 1
+    "options": [
+      "useDeferredValue",
+      "useTransition",
+      "useId",
+      "useImperativeHandle"
+    ],
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_011",
     "skillNode": "css",
     "difficulty": 850,
     "prompt": "Which CSS property is used to change the background color of an element?",
-    "options": ["color", "background-color", "fill", "bg-color"],
-    "correctIndex": 1
+    "options": [
+      "color",
+      "background-color",
+      "fill",
+      "bg-color"
+    ],
+    "correctIndex": 1,
+    "discrimination": 0.9
   },
   {
     "id": "q_012",
@@ -118,15 +164,22 @@
       "Content and margin",
       "Border and margin only"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 1.3
   },
   {
     "id": "q_013",
     "skillNode": "css",
     "difficulty": 1250,
     "prompt": "Which CSS specificity score is highest?",
-    "options": ["Element selector `div` (0,0,0,1)", "Class selector `.card` (0,0,1,0)", "ID selector `#header` (0,1,0,0)", "Inline style `style=\"...\"` (1,0,0,0)"],
-    "correctIndex": 3
+    "options": [
+      "Element selector `div` (0,0,0,1)",
+      "Class selector `.card` (0,0,1,0)",
+      "ID selector `#header` (0,1,0,0)",
+      "Inline style `style=\"...\"` (1,0,0,0)"
+    ],
+    "correctIndex": 3,
+    "discrimination": 1.6
   },
   {
     "id": "q_014",
@@ -139,31 +192,50 @@
       "flex-shrink: 1, flex-grow: 0, flex-basis: auto",
       "align-items: center"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 2
   },
   {
     "id": "q_015",
     "skillNode": "css",
     "difficulty": 1600,
     "prompt": "Which CSS property triggers a new Stacking Context without modifying `position` or `z-index`?",
-    "options": ["transform: scale(1)", "color: red", "display: flex", "margin: 0 auto"],
-    "correctIndex": 0
+    "options": [
+      "transform: scale(1)",
+      "color: red",
+      "display: flex",
+      "margin: 0 auto"
+    ],
+    "correctIndex": 0,
+    "discrimination": 2
   },
   {
     "id": "q_016",
     "skillNode": "html",
     "difficulty": 800,
     "prompt": "Which HTML tag is correct for creating a hyperlink?",
-    "options": ["<link>", "<a>", "<href>", "<url>"],
-    "correctIndex": 1
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<url>"
+    ],
+    "correctIndex": 1,
+    "discrimination": 0.9
   },
   {
     "id": "q_017",
     "skillNode": "html",
     "difficulty": 1000,
     "prompt": "Which HTML5 element represents self-contained content, such as a blog post or news article?",
-    "options": ["<section>", "<div>", "<article>", "<aside>"],
-    "correctIndex": 2
+    "options": [
+      "<section>",
+      "<div>",
+      "<article>",
+      "<aside>"
+    ],
+    "correctIndex": 2,
+    "discrimination": 1.3
   },
   {
     "id": "q_018",
@@ -176,31 +248,50 @@
       "Defines high-resolution fallback URL",
       "Animates image transition"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.6
   },
   {
     "id": "q_019",
     "skillNode": "html",
     "difficulty": 1400,
     "prompt": "Which attribute on a `<script>` tag causes the script to download asynchronously and execute immediately upon download completion?",
-    "options": ["defer", "async", "preload", "lazy"],
-    "correctIndex": 1
+    "options": [
+      "defer",
+      "async",
+      "preload",
+      "lazy"
+    ],
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_020",
     "skillNode": "html",
     "difficulty": 1550,
     "prompt": "Which WAI-ARIA attribute indicates to screen readers that an element's content is expanded or collapsed?",
-    "options": ["aria-expanded", "aria-live", "aria-haspopup", "aria-controls"],
-    "correctIndex": 0
+    "options": [
+      "aria-expanded",
+      "aria-live",
+      "aria-haspopup",
+      "aria-controls"
+    ],
+    "correctIndex": 0,
+    "discrimination": 2
   },
   {
     "id": "q_021",
     "skillNode": "git",
     "difficulty": 850,
     "prompt": "Which command stages changes in the current directory for the next Git commit?",
-    "options": ["git push", "git status", "git add .", "git checkout"],
-    "correctIndex": 2
+    "options": [
+      "git push",
+      "git status",
+      "git add .",
+      "git checkout"
+    ],
+    "correctIndex": 2,
+    "discrimination": 0.9
   },
   {
     "id": "q_022",
@@ -213,7 +304,8 @@
       "Reverts the last commit",
       "Shows unstaged file changes"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.3
   },
   {
     "id": "q_023",
@@ -226,31 +318,50 @@
       "Merge deletes the feature branch automatically",
       "There is no functional difference"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 1.6
   },
   {
     "id": "q_024",
     "skillNode": "git",
     "difficulty": 1450,
     "prompt": "Which Git command isolates a bug by running binary search across commit history?",
-    "options": ["git bisect", "git blame", "git reflog", "git cherry-pick"],
-    "correctIndex": 0
+    "options": [
+      "git bisect",
+      "git blame",
+      "git reflog",
+      "git cherry-pick"
+    ],
+    "correctIndex": 0,
+    "discrimination": 2
   },
   {
     "id": "q_025",
     "skillNode": "git",
     "difficulty": 1600,
     "prompt": "Where can you recover commits that were lost after a forced reset (`git reset --hard`)?",
-    "options": ["git reflog", "git stash pop", "git status", ".gitignore"],
-    "correctIndex": 0
+    "options": [
+      "git reflog",
+      "git stash pop",
+      "git status",
+      ".gitignore"
+    ],
+    "correctIndex": 0,
+    "discrimination": 2
   },
   {
     "id": "q_026",
     "skillNode": "rest-api",
     "difficulty": 850,
     "prompt": "Which HTTP method is typically used to retrieve data from a RESTful API without side effects?",
-    "options": ["POST", "GET", "PUT", "DELETE"],
-    "correctIndex": 1
+    "options": [
+      "POST",
+      "GET",
+      "PUT",
+      "DELETE"
+    ],
+    "correctIndex": 1,
+    "discrimination": 0.9
   },
   {
     "id": "q_027",
@@ -263,7 +374,8 @@
       "Resource Not Found",
       "Bad Gateway"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "discrimination": 1.3
   },
   {
     "id": "q_028",
@@ -276,7 +388,8 @@
       "The response is cached permanently",
       "The body must be JSON formatted"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.6
   },
   {
     "id": "q_029",
@@ -289,23 +402,36 @@
       "Content-Type",
       "X-Requested-With"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_030",
     "skillNode": "rest-api",
     "difficulty": 1600,
     "prompt": "What HTTP status code should a server return when a request fails client-side validation rate limits (Too Many Requests)?",
-    "options": ["400 Bad Request", "401 Unauthorized", "429 Too Many Requests", "503 Service Unavailable"],
-    "correctIndex": 2
+    "options": [
+      "400 Bad Request",
+      "401 Unauthorized",
+      "429 Too Many Requests",
+      "503 Service Unavailable"
+    ],
+    "correctIndex": 2,
+    "discrimination": 2
   },
   {
     "id": "q_031",
     "skillNode": "typescript",
     "difficulty": 900,
     "prompt": "Which TypeScript utility type converts all properties of a type `T` to optional?",
-    "options": ["Required<T>", "Partial<T>", "Readonly<T>", "Pick<T>"],
-    "correctIndex": 1
+    "options": [
+      "Required<T>",
+      "Partial<T>",
+      "Readonly<T>",
+      "Pick<T>"
+    ],
+    "correctIndex": 1,
+    "discrimination": 0.9
   },
   {
     "id": "q_032",
@@ -318,7 +444,8 @@
       "There is no difference",
       "`unknown` cannot be assigned to variables"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.3
   },
   {
     "id": "q_033",
@@ -331,15 +458,22 @@
       "An uninitialized variable",
       "A type imported from JavaScript"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 1.6
   },
   {
     "id": "q_034",
     "skillNode": "typescript",
     "difficulty": 1500,
     "prompt": "Which TypeScript concept allows extracting property types from an object type using `T[K]` syntax?",
-    "options": ["Mapped Type", "Indexed Access Type", "Template Literal Type", "Discriminates Type"],
-    "correctIndex": 1
+    "options": [
+      "Mapped Type",
+      "Indexed Access Type",
+      "Template Literal Type",
+      "Discriminates Type"
+    ],
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_035",
@@ -352,15 +486,22 @@
       "Imports type definitions from node_modules",
       "Overrides strict null checks"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 2
   },
   {
     "id": "q_036",
     "skillNode": "dom",
     "difficulty": 850,
     "prompt": "Which DOM method selects an element by its ID?",
-    "options": ["document.querySelector('.id')", "document.getElementById('id')", "document.getElementsById('id')", "document.findElement('id')"],
-    "correctIndex": 1
+    "options": [
+      "document.querySelector('.id')",
+      "document.getElementById('id')",
+      "document.getElementsById('id')",
+      "document.findElement('id')"
+    ],
+    "correctIndex": 1,
+    "discrimination": 0.9
   },
   {
     "id": "q_037",
@@ -373,7 +514,8 @@
       "Preventing default browser events",
       "Capturing events during the capturing phase only"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.3
   },
   {
     "id": "q_038",
@@ -386,23 +528,36 @@
       "`innerHTML` is faster than `textContent`",
       "They behave identically"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 1.6
   },
   {
     "id": "q_039",
     "skillNode": "dom",
     "difficulty": 1450,
     "prompt": "Which method cancels event propagation through the DOM tree?",
-    "options": ["event.preventDefault()", "event.stopPropagation()", "event.stopImmediatePropagation()", "event.cancel()"],
-    "correctIndex": 1
+    "options": [
+      "event.preventDefault()",
+      "event.stopPropagation()",
+      "event.stopImmediatePropagation()",
+      "event.cancel()"
+    ],
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_040",
     "skillNode": "responsive-design",
     "difficulty": 850,
     "prompt": "Which CSS `@` rule is used to apply styles based on viewport dimensions?",
-    "options": ["@import", "@media", "@keyframes", "@supports"],
-    "correctIndex": 1
+    "options": [
+      "@import",
+      "@media",
+      "@keyframes",
+      "@supports"
+    ],
+    "correctIndex": 1,
+    "discrimination": 0.9
   },
   {
     "id": "q_041",
@@ -415,15 +570,22 @@
       "<meta name=\"screen\" content=\"responsive\">",
       "<meta name=\"scale\" content=\"100%\">"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.3
   },
   {
     "id": "q_042",
     "skillNode": "responsive-design",
     "difficulty": 1250,
     "prompt": "In CSS layout, what unit is relative to 1% of the viewport width?",
-    "options": ["rem", "em", "vw", "vh"],
-    "correctIndex": 2
+    "options": [
+      "rem",
+      "em",
+      "vw",
+      "vh"
+    ],
+    "correctIndex": 2,
+    "discrimination": 1.6
   },
   {
     "id": "q_043",
@@ -436,7 +598,8 @@
       "Building mobile native apps instead of web apps",
       "Disabling desktop styles on mobile devices"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_044",
@@ -449,7 +612,8 @@
       "A component hook that renders UI",
       "A side-effect middleware"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 0.9
   },
   {
     "id": "q_045",
@@ -462,7 +626,8 @@
       "They must mutate state directly for speed",
       "They must return JSX components"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.3
   },
   {
     "id": "q_046",
@@ -475,7 +640,8 @@
       "Replaces all server APIs",
       "Persists state automatically to LocalStorage"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.6
   },
   {
     "id": "q_047",
@@ -488,15 +654,22 @@
       "Filter API results before dispatch",
       "Configure routing paths"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "discrimination": 2
   },
   {
     "id": "q_048",
     "skillNode": "web-performance",
     "difficulty": 950,
     "prompt": "What Core Web Vitals metric measures loading performance of the largest visible content block?",
-    "options": ["CLS (Cumulative Layout Shift)", "LCP (Largest Contentful Paint)", "INP (Interaction to Next Paint)", "FID (First Input Delay)"],
-    "correctIndex": 1
+    "options": [
+      "CLS (Cumulative Layout Shift)",
+      "LCP (Largest Contentful Paint)",
+      "INP (Interaction to Next Paint)",
+      "FID (First Input Delay)"
+    ],
+    "correctIndex": 1,
+    "discrimination": 0.9
   },
   {
     "id": "q_049",
@@ -509,7 +682,8 @@
       "Removes CSS styles",
       "Bypasses DNS lookups"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.3
   },
   {
     "id": "q_050",
@@ -522,7 +696,8 @@
       "Disabling images on mobile",
       "Loading images synchronously in main thread"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 1.6
   },
   {
     "id": "q_051",
@@ -535,6 +710,245 @@
       "Eliminates the need for SSL certificates",
       "Translates frontend code to WebAssembly"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "discrimination": 2
+  },
+  {
+    "id": "q_052",
+    "skillNode": "nodejs",
+    "difficulty": 950,
+    "prompt": "Which component of the Node.js architecture processes asynchronous non-blocking I/O operations?",
+    "options": [
+      "Event Loop (libuv)",
+      "V8 Engine JIT Compiler",
+      "Thread Synchronizer",
+      "Garbage Collector"
+    ],
+    "correctIndex": 0,
+    "discrimination": 0.9
+  },
+  {
+    "id": "q_053",
+    "skillNode": "express",
+    "difficulty": 1000,
+    "prompt": "What is the primary role of middleware functions in Express.js?",
+    "options": [
+      "Manipulating CSS stylesheets",
+      "Accessing request/response objects and executing logic before ending response cycle",
+      "Compiling TypeScript into WebAssembly",
+      "Creating database indexes"
+    ],
+    "correctIndex": 1,
+    "discrimination": 1.3
+  },
+  {
+    "id": "q_054",
+    "skillNode": "python",
+    "difficulty": 900,
+    "prompt": "Which built-in Python data structure is mutable, ordered, and allows duplicate elements?",
+    "options": [
+      "Tuple",
+      "Set",
+      "List",
+      "Dictionary"
+    ],
+    "correctIndex": 2,
+    "discrimination": 0.9
+  },
+  {
+    "id": "q_055",
+    "skillNode": "django",
+    "difficulty": 1100,
+    "prompt": "In Django MVT architecture, which component interacts directly with the database using ORM?",
+    "options": [
+      "View",
+      "Template",
+      "Model",
+      "URL Router"
+    ],
+    "correctIndex": 2,
+    "discrimination": 1.3
+  },
+  {
+    "id": "q_056",
+    "skillNode": "fastapi",
+    "difficulty": 1150,
+    "prompt": "What enables FastAPI to provide automatic interactive API documentation and high performance?",
+    "options": [
+      "Pydantic data validation & Starlette ASGI engine",
+      "Django ORM",
+      "Flask Jinja2 templates",
+      "Node.js cluster mode"
+    ],
+    "correctIndex": 0,
+    "discrimination": 1.3
+  },
+  {
+    "id": "q_057",
+    "skillNode": "sql",
+    "difficulty": 950,
+    "prompt": "Which SQL clause is used to filter aggregated group records after a GROUP BY operation?",
+    "options": [
+      "WHERE",
+      "HAVING",
+      "ORDER BY",
+      "SELECT"
+    ],
+    "correctIndex": 1,
+    "discrimination": 0.9
+  },
+  {
+    "id": "q_058",
+    "skillNode": "postgresql",
+    "difficulty": 1200,
+    "prompt": "What is the primary benefit of creating a B-Tree index on a frequently queried PostgreSQL table column?",
+    "options": [
+      "Compresses table size on disk",
+      "Accelerates row lookup speed from O(N) to O(log N)",
+      "Prevents null values from being inserted",
+      "Encrypts column values"
+    ],
+    "correctIndex": 1,
+    "discrimination": 1.6
+  },
+  {
+    "id": "q_059",
+    "skillNode": "redis",
+    "difficulty": 1100,
+    "prompt": "Why is Redis commonly used as a caching layer in high-throughput backend applications?",
+    "options": [
+      "Stores data in-memory providing microsecond response times",
+      "Replaces relational SQL databases",
+      "Compiles C++ code automatically",
+      "Renders HTML templates"
+    ],
+    "correctIndex": 0,
+    "discrimination": 1.3
+  },
+  {
+    "id": "q_060",
+    "skillNode": "docker",
+    "difficulty": 1050,
+    "prompt": "What is the main difference between a Docker container and a traditional Virtual Machine (VM)?",
+    "options": [
+      "Containers share the host OS kernel and are lightweight",
+      "Containers require full guest operating system installation",
+      "Containers run slower than VMs",
+      "Containers cannot run Linux"
+    ],
+    "correctIndex": 0,
+    "discrimination": 1.3
+  },
+  {
+    "id": "q_061",
+    "skillNode": "pandas",
+    "difficulty": 950,
+    "prompt": "Which Pandas function is commonly used to read a CSV file into a DataFrame?",
+    "options": [
+      "pd.open_csv()",
+      "pd.read_csv()",
+      "pd.parse_csv()",
+      "pd.load_dataframe()"
+    ],
+    "correctIndex": 1,
+    "discrimination": 0.9
+  },
+  {
+    "id": "q_062",
+    "skillNode": "numpy",
+    "difficulty": 1000,
+    "prompt": "What is the main advantage of NumPy arrays over standard Python lists for numerical computations?",
+    "options": [
+      "Contiguous memory allocation and vectorized C-level performance",
+      "Automatic GUI generation",
+      "Built-in web server",
+      "Requires no memory"
+    ],
+    "correctIndex": 0,
+    "discrimination": 1.3
+  },
+  {
+    "id": "q_063",
+    "skillNode": "tableau",
+    "difficulty": 1050,
+    "prompt": "In Tableau, what distinguishes a Dimension from a Measure?",
+    "options": [
+      "Dimensions are qualitative/categorical fields; Measures are quantitative/numerical metrics",
+      "Dimensions are metrics; Measures are text",
+      "Dimensions only accept date values",
+      "There is no difference"
+    ],
+    "correctIndex": 0,
+    "discrimination": 1.3
+  },
+  {
+    "id": "q_064",
+    "skillNode": "power-bi",
+    "difficulty": 1100,
+    "prompt": "Which expression language is used in Power BI for creating custom calculated columns and measures?",
+    "options": [
+      "DAX (Data Analysis Expressions)",
+      "M Language",
+      "SQL",
+      "VBA"
+    ],
+    "correctIndex": 0,
+    "discrimination": 1.3
+  },
+  {
+    "id": "q_065",
+    "skillNode": "statistics",
+    "difficulty": 1100,
+    "prompt": "What measure of central tendency is least sensitive to extreme outliers in a skewed dataset?",
+    "options": [
+      "Mean",
+      "Median",
+      "Standard Deviation",
+      "Variance"
+    ],
+    "correctIndex": 1,
+    "discrimination": 1.3
+  },
+  {
+    "id": "q_066",
+    "skillNode": "ab-testing",
+    "difficulty": 1250,
+    "prompt": "In A/B testing, what does a p-value less than 0.05 typically indicate?",
+    "options": [
+      "Statistically significant difference between control and variant groups (reject null hypothesis)",
+      "Sample size was too small",
+      "Variant group performed 5% worse",
+      "Experiment failed"
+    ],
+    "correctIndex": 0,
+    "discrimination": 1.6
+  },
+  {
+    "id": "q_067",
+    "skillNode": "scikit-learn",
+    "difficulty": 1200,
+    "prompt": "Which Scikit-Learn class is used for binary classification using a logistic regression model?",
+    "options": [
+      "sklearn.linear_model.LogisticRegression",
+      "sklearn.cluster.KMeans",
+      "sklearn.tree.DecisionTreeRegressor",
+      "sklearn.decomposition.PCA"
+    ],
+    "correctIndex": 0,
+    "discrimination": 1.6
+  },
+  {
+    "id": "q_068",
+    "skillNode": "eda",
+    "difficulty": 1000,
+    "prompt": "What is the primary objective of Exploratory Data Analysis (EDA)?",
+    "options": [
+      "To summarize main characteristics, spot patterns, and check assumptions before formal modeling",
+      "To deploy production REST APIs",
+      "To write unit tests for HTML elements",
+      "To compress video streams"
+    ],
+    "correctIndex": 0,
+    "discrimination": 1.3
   }
 ]

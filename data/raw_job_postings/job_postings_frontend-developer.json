@@ -1,0 +1,110 @@
+[
+  {
+    "id": "job-01",
+    "title": "Senior Frontend Developer",
+    "company": "TechCorp Solutions",
+    "description": "We are looking for a Senior Frontend Developer proficient in React, TypeScript, and modern JavaScript (ES6+). You will build scalable single page applications, manage complex state with Redux Toolkit, consume REST APIs, and optimize web performance. Strong experience with HTML5, CSS3, Flexbox, Grid, and Git version control is required. Unit testing experience using Jest and React Testing Library is a plus."
+  },
+  {
+    "id": "job-02",
+    "title": "Frontend Engineer - UI/UX",
+    "company": "DesignCraft Inc",
+    "description": "Join our product team to craft visually stunning user interfaces. Key requirements include HTML, CSS, JavaScript, Responsive Design, Tailwind CSS, DOM manipulation, and cross-browser compatibility. Experience with Figma, web accessibility (a11y), semantic HTML, and CSS Animations is required. Basic knowledge of React or Vue is desirable."
+  },
+  {
+    "id": "job-03",
+    "title": "React Developer",
+    "company": "CloudScale Systems",
+    "description": "CloudScale Systems is hiring a React Developer with strong expertise in React Hooks, Context API, JavaScript, REST API integration, and asynchronous JS (Promises/async-await). You will collaborate with backend teams to integrate endpoints, manage state, and maintain component libraries. Experience with Git, Webpack, Vite, and npm package management is expected."
+  },
+  {
+    "id": "job-04",
+    "title": "Full Stack Frontend Specialist",
+    "company": "NextGen Software",
+    "description": "Role requires deep expertise in Next.js, React, TypeScript, Server-Side Rendering (SSR), and Static Site Generation (SSG). Must be comfortable with Node.js basics, REST APIs, GraphQL, CSS Modules, Tailwind CSS, and version control using Git. Performance optimization and lighthouse scoring experience will stand out."
+  },
+  {
+    "id": "job-05",
+    "title": "Junior Frontend Web Developer",
+    "company": "StartUp Hub",
+    "description": "Great opportunity for entry-level developers! Requires strong fundamentals in HTML5, CSS3, Vanilla JavaScript, DOM API, fetch/AJAX, Git, GitHub, and responsive web design. Familiarity with React, Bootstrap, or Tailwind is beneficial but willingness to learn modern JS frameworks is essential."
+  },
+  {
+    "id": "job-06",
+    "title": "TypeScript & React Architect",
+    "company": "FinTech Platform",
+    "description": "Seeking an experienced Frontend Architect skilled in TypeScript, React, state management (Zustand/Redux), GraphQL, REST APIs, Micro-frontends, Webpack build configuration, and automated testing with Jest. Emphasis on Web Security, XSS prevention, CORS, and web performance profiling."
+  },
+  {
+    "id": "job-07",
+    "title": "Frontend Interface Developer",
+    "company": "E-Commerce Dynamics",
+    "description": "Build high-conversion web applications using JavaScript, HTML5, SASS/SCSS, Responsive Web Design, RESTful services, and Git. Must understand browser storage (LocalStorage, SessionStorage, Cookies), DOM optimization, accessibility standard WCAG 2.1, and progressive web apps (PWA)."
+  },
+  {
+    "id": "job-08",
+    "title": "Web Application Engineer",
+    "company": "MediaStream Live",
+    "description": "We are seeking a developer with extensive experience in React, JavaScript (ES6), WebSockets, REST APIs, CSS Grid, HTML, and Vite build tooling. You will implement real-time UI components, manage global state, and handle responsive layouts across mobile and desktop browsers."
+  },
+  {
+    "id": "job-09",
+    "title": "UI Developer (React/TypeScript)",
+    "company": "HealthTech Solutions",
+    "description": "Responsibilities include developing reusable React components with TypeScript, integrating GraphQL and REST APIs, enforcing web accessibility (a11y), writing unit tests with Jest, and managing code repositories via Git. Deep knowledge of CSS flexbox and responsive utility frameworks is required."
+  },
+  {
+    "id": "job-10",
+    "title": "Core JavaScript Developer",
+    "company": "WebTools Labs",
+    "description": "Focus on core JavaScript, DOM manipulation, ES6 modules, Web Components, HTML5 APIs, CSS3, and browser rendering pipelines. No reliance on heavy frameworks — deep understanding of event loop, async handling, closures, prototypes, REST API calls, and Git is mandatory."
+  },
+  {
+    "id": "job-11",
+    "title": "Frontend Software Engineer",
+    "company": "DataViz Analytics",
+    "description": "Develop data visualization dashboards using React, D3.js, JavaScript, TypeScript, HTML5 Canvas, SVG, REST APIs, and CSS. Experience with state management (Redux / Context), Git workflow, NPM/PNPM tooling, and responsive design is required."
+  },
+  {
+    "id": "job-12",
+    "title": "Web Developer - Marketing & Apps",
+    "company": "Creative Media Group",
+    "description": "Looking for a Web Developer skilled in HTML, CSS, JavaScript, Responsive Design, Tailwind CSS, Vite, Git, and REST API consumption. Knowledge of React or Next.js and basic SEO standards is highly desirable."
+  },
+  {
+    "id": "job-13",
+    "title": "Frontend Platform Engineer",
+    "company": "Enterprise Software Co",
+    "description": "Seeking a developer to maintain our design system. Skills required: React, TypeScript, Storybook, CSS-in-JS, HTML, Git, Webpack, NPM package publishing, automated testing with Jest, accessibility compliance (WCAG), and RESTful API integrations."
+  },
+  {
+    "id": "job-14",
+    "title": "Senior UI Engineer",
+    "company": "PayGlobal Inc",
+    "description": "Build secure payment UI flows using React, TypeScript, Redux, HTML5, CSS3, REST APIs, Web Security best practices, Git, and Vite. Strong focus on performance, cross-browser debugging, and unit testing."
+  },
+  {
+    "id": "job-15",
+    "title": "Frontend Developer (Mobile First)",
+    "company": "Appify Digital",
+    "description": "Focus on responsive, mobile-first frontend web development. Skills needed: HTML, CSS Flexbox/Grid, JavaScript ES6+, React, REST APIs, PWA features, Git, and performance monitoring."
+  },
+  {
+    "id": "job-16",
+    "title": "Next.js Frontend Engineer",
+    "company": "SaaS Launchpad",
+    "description": "Build high performance Web apps using Next.js, React, TypeScript, Tailwind CSS, REST APIs, GraphQL, Git, and Vercel deployment. Deep understanding of SSR, SSG, and React Server Components."
+  },
+  {
+    "id": "job-17",
+    "title": "Frontend Applications Developer",
+    "company": "InnoTech Works",
+    "description": "Requirements: JavaScript, HTML5, CSS3, React, State Management (Context API / Redux), REST API integration, Git version control, Chrome DevTools profiling, and responsive UI design."
+  },
+  {
+    "id": "job-18",
+    "title": "Lead Client-Side Developer",
+    "company": "Apex Digital",
+    "description": "Lead client-side development using TypeScript, React, modern JavaScript, Webpack, Vite, Jest testing, REST APIs, GraphQL, Git workflow, HTML5, CSS3, and web performance optimization."
+  }
+]

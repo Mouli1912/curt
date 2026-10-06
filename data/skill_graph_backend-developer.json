@@ -1,0 +1,578 @@
+{
+  "role": "backend-developer",
+  "title": "Backend Developer Skill Graph",
+  "totalPostingsAnalyzed": 18,
+  "nodes": [
+    {
+      "id": "postgresql",
+      "label": "PostgreSQL",
+      "category": "Databases",
+      "prerequisites": [
+        "sql"
+      ],
+      "demandScore": 1.0,
+      "confidence": 1.0,
+      "frequency": 14,
+      "resources": [
+        {
+          "title": "PostgreSQL Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=postgresql",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "docker",
+      "label": "Docker",
+      "category": "DevOps",
+      "prerequisites": [
+        "linux"
+      ],
+      "demandScore": 0.93,
+      "confidence": 1.0,
+      "frequency": 13,
+      "resources": [
+        {
+          "title": "Docker Language Guides",
+          "url": "https://docs.docker.com/get-started/",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "redis",
+      "label": "Redis",
+      "category": "Databases",
+      "prerequisites": [
+        "sql"
+      ],
+      "demandScore": 0.86,
+      "confidence": 1.0,
+      "frequency": 12,
+      "resources": [
+        {
+          "title": "Redis Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=redis",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "python",
+      "label": "Python",
+      "category": "Languages",
+      "prerequisites": [],
+      "demandScore": 0.64,
+      "confidence": 1.0,
+      "frequency": 9,
+      "resources": [
+        {
+          "title": "Python Official Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "type": "Documentation",
+          "free": true
+        },
+        {
+          "title": "Automate the Boring Stuff with Python",
+          "url": "https://automatetheboringstuff.com/",
+          "type": "Book",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "rest-api",
+      "label": "REST API Architecture",
+      "category": "Networking",
+      "prerequisites": [
+        "nodejs"
+      ],
+      "demandScore": 0.64,
+      "confidence": 1.0,
+      "frequency": 9,
+      "resources": [
+        {
+          "title": "REST API Architecture Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=rest-api",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "nodejs",
+      "label": "Node.js",
+      "category": "Runtime",
+      "prerequisites": [],
+      "demandScore": 0.57,
+      "confidence": 1.0,
+      "frequency": 8,
+      "resources": [
+        {
+          "title": "Node.js Official Getting Started",
+          "url": "https://nodejs.org/en/docs/guides/getting-started-guide/",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "aws",
+      "label": "AWS",
+      "category": "Cloud",
+      "prerequisites": [
+        "docker"
+      ],
+      "demandScore": 0.57,
+      "confidence": 1.0,
+      "frequency": 8,
+      "resources": [
+        {
+          "title": "AWS Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=aws",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "microservices",
+      "label": "Microservices Architecture",
+      "category": "Architecture",
+      "prerequisites": [
+        "rest-api",
+        "docker"
+      ],
+      "demandScore": 0.57,
+      "confidence": 1.0,
+      "frequency": 8,
+      "resources": [
+        {
+          "title": "Microservices Architecture Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=microservices",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "oauth",
+      "label": "OAuth & JWT Auth",
+      "category": "Security",
+      "prerequisites": [
+        "rest-api"
+      ],
+      "demandScore": 0.57,
+      "confidence": 1.0,
+      "frequency": 8,
+      "resources": [
+        {
+          "title": "OAuth & JWT Auth Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=oauth",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "system-design",
+      "label": "System Design & Scalability",
+      "category": "Architecture",
+      "prerequisites": [
+        "microservices",
+        "sql"
+      ],
+      "demandScore": 0.5,
+      "confidence": 0.97,
+      "frequency": 7,
+      "resources": [
+        {
+          "title": "System Design & Scalability Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=system-design",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "express",
+      "label": "Express.js",
+      "category": "Frameworks",
+      "prerequisites": [
+        "nodejs"
+      ],
+      "demandScore": 0.43,
+      "confidence": 0.83,
+      "frequency": 6,
+      "resources": [
+        {
+          "title": "Express.js Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=express",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "kubernetes",
+      "label": "Kubernetes",
+      "category": "DevOps",
+      "prerequisites": [
+        "docker"
+      ],
+      "demandScore": 0.43,
+      "confidence": 0.83,
+      "frequency": 6,
+      "resources": [
+        {
+          "title": "Kubernetes Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=kubernetes",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "git",
+      "label": "Git Version Control",
+      "category": "Tooling",
+      "prerequisites": [],
+      "demandScore": 0.43,
+      "confidence": 0.83,
+      "frequency": 6,
+      "resources": [
+        {
+          "title": "Git Version Control Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=git",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "linux",
+      "label": "Linux / Bash Shell",
+      "category": "Infrastructure",
+      "prerequisites": [],
+      "demandScore": 0.43,
+      "confidence": 0.83,
+      "frequency": 6,
+      "resources": [
+        {
+          "title": "Linux / Bash Shell Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=linux",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "label": "Java",
+      "category": "Languages",
+      "prerequisites": [],
+      "demandScore": 0.36,
+      "confidence": 0.69,
+      "frequency": 5,
+      "resources": [
+        {
+          "title": "Java Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=java",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "grpc",
+      "label": "gRPC & Protocol Buffers",
+      "category": "Networking",
+      "prerequisites": [
+        "rest-api"
+      ],
+      "demandScore": 0.36,
+      "confidence": 0.69,
+      "frequency": 5,
+      "resources": [
+        {
+          "title": "gRPC & Protocol Buffers Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=grpc",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "ci-cd",
+      "label": "CI/CD Pipelines",
+      "category": "DevOps",
+      "prerequisites": [
+        "git",
+        "docker"
+      ],
+      "demandScore": 0.36,
+      "confidence": 0.69,
+      "frequency": 5,
+      "resources": [
+        {
+          "title": "CI/CD Pipelines Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=ci-cd",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "typescript",
+      "label": "TypeScript Backend",
+      "category": "Languages",
+      "prerequisites": [
+        "nodejs"
+      ],
+      "demandScore": 0.36,
+      "confidence": 0.69,
+      "frequency": 5,
+      "resources": [
+        {
+          "title": "TypeScript Backend Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=typescript",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "spring-boot",
+      "label": "Spring Boot",
+      "category": "Frameworks",
+      "prerequisites": [
+        "java"
+      ],
+      "demandScore": 0.29,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "Spring Boot Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=spring-boot",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "sql",
+      "label": "SQL",
+      "category": "Databases",
+      "prerequisites": [],
+      "demandScore": 0.29,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "Mode Analytics SQL Tutorial",
+          "url": "https://mode.com/sql-tutorial/",
+          "type": "Interactive Tutorial",
+          "free": true
+        },
+        {
+          "title": "PostgreSQL Official Documentation",
+          "url": "https://www.postgresql.org/docs/",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "unit-testing-backend",
+      "label": "Backend Unit Testing",
+      "category": "Testing",
+      "prerequisites": [
+        "nodejs"
+      ],
+      "demandScore": 0.29,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "Backend Unit Testing Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=unit-testing-backend",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "websockets",
+      "label": "WebSockets & Real-time",
+      "category": "Networking",
+      "prerequisites": [
+        "nodejs"
+      ],
+      "demandScore": 0.29,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "WebSockets & Real-time Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=websockets",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "data-structures",
+      "label": "Data Structures & Algorithms",
+      "category": "Fundamentals",
+      "prerequisites": [],
+      "demandScore": 0.29,
+      "confidence": 0.56,
+      "frequency": 4,
+      "resources": [
+        {
+          "title": "Data Structures & Algorithms Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=data-structures",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "django",
+      "label": "Django",
+      "category": "Frameworks",
+      "prerequisites": [
+        "python"
+      ],
+      "demandScore": 0.21,
+      "confidence": 0.42,
+      "frequency": 3,
+      "resources": [
+        {
+          "title": "Django Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=django",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "mongodb",
+      "label": "MongoDB",
+      "category": "Databases",
+      "prerequisites": [
+        "sql"
+      ],
+      "demandScore": 0.21,
+      "confidence": 0.42,
+      "frequency": 3,
+      "resources": [
+        {
+          "title": "MongoDB Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=mongodb",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "message-queues",
+      "label": "Message Queues (Kafka/RabbitMQ)",
+      "category": "Architecture",
+      "prerequisites": [
+        "microservices"
+      ],
+      "demandScore": 0.21,
+      "confidence": 0.42,
+      "frequency": 3,
+      "resources": [
+        {
+          "title": "Message Queues (Kafka/RabbitMQ) Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=message-queues",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "orm",
+      "label": "ORM Libraries",
+      "category": "Databases",
+      "prerequisites": [
+        "sql"
+      ],
+      "demandScore": 0.21,
+      "confidence": 0.42,
+      "frequency": 3,
+      "resources": [
+        {
+          "title": "ORM Libraries Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=orm",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "fastapi",
+      "label": "FastAPI",
+      "category": "Frameworks",
+      "prerequisites": [
+        "python"
+      ],
+      "demandScore": 0.14,
+      "confidence": 0.28,
+      "frequency": 2,
+      "resources": [
+        {
+          "title": "FastAPI Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=fastapi",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "graphql",
+      "label": "GraphQL API",
+      "category": "Networking",
+      "prerequisites": [
+        "rest-api"
+      ],
+      "demandScore": 0.14,
+      "confidence": 0.28,
+      "frequency": 2,
+      "resources": [
+        {
+          "title": "GraphQL API Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=graphql",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    },
+    {
+      "id": "elasticsearch",
+      "label": "Elasticsearch",
+      "category": "Databases",
+      "prerequisites": [
+        "sql"
+      ],
+      "demandScore": 0.14,
+      "confidence": 0.28,
+      "frequency": 2,
+      "resources": [
+        {
+          "title": "Elasticsearch Learning Guide",
+          "url": "https://developer.mozilla.org/en-US/search?q=elasticsearch",
+          "type": "Documentation",
+          "free": true
+        }
+      ]
+    }
+  ]
+}

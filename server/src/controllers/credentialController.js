@@ -1,9 +1,11 @@
 const {
   issueCredentialForUser,
   verifyCredential,
+  revokeCredential,
   getCredentialById,
   getPublicKeyPem
 } = require('../services/credentialService');
+const { getAuditLogs } = require('../services/auditLogger');
 
 /**
  * Mints and cryptographically signs a credential for an eligible user & skill node
@@ -26,7 +28,29 @@ const handleIssueCredential = async (req, res) => {
 };
 
 /**
- * Cryptographically verifies a credential signature without needing server DB
+ * Revokes a credential by ID
+ * POST /api/credential/revoke/:credentialId
+ * Body: { reason } (or { credentialId, reason })
+ */
+const handleRevokeCredential = async (req, res) => {
+  try {
+    const credentialId = req.params.credentialId || req.body?.credentialId;
+    const { reason } = req.body || {};
+
+    if (!credentialId) {
+      return res.status(400).json({ error: 'Missing credentialId parameter.' });
+    }
+
+    const result = revokeCredential(credentialId, reason);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error('[CredentialController Revoke Error]:', error.message);
+    return res.status(400).json({ error: error.message || 'Failed to revoke credential' });
+  }
+};
+
+/**
+ * Cryptographically verifies a credential signature and revocation status
  * POST /api/credential/verify
  * Body: credential object (or { credential })
  */
@@ -38,20 +62,37 @@ const handleVerifyCredential = async (req, res) => {
     const result = verifyCredential(credentialObj);
 
     if (!result.valid) {
-      // SECURITY: Never leak payload when verification fails
+      // SECURITY: Do NOT leak payload when verification fails
       return res.status(200).json({
         valid: false,
+        revoked: result.revoked || false,
+        revokedAt: result.revokedAt,
         error: result.error || 'Cryptographic verification failed.'
       });
     }
 
     return res.status(200).json({
       valid: true,
+      revoked: false,
       payload: result.payload
     });
   } catch (error) {
     console.error('[CredentialController Verify Error]:', error.message);
     return res.status(200).json({ valid: false, error: 'Verification error' });
+  }
+};
+
+/**
+ * Returns security audit logs for credential events
+ * GET /api/credential/audit
+ */
+const handleGetAuditLogs = async (req, res) => {
+  try {
+    const logs = getAuditLogs();
+    return res.status(200).json({ count: logs.length, auditLogs: logs });
+  } catch (error) {
+    console.error('[CredentialController Audit Error]:', error.message);
+    return res.status(500).json({ error: 'Failed to retrieve audit logs' });
   }
 };
 
@@ -97,7 +138,9 @@ const handleGetPublicKey = async (req, res) => {
 
 module.exports = {
   handleIssueCredential,
+  handleRevokeCredential,
   handleVerifyCredential,
+  handleGetAuditLogs,
   handleGetCredential,
   handleGetPublicKey
 };

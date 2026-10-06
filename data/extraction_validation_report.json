@@ -1,0 +1,40 @@
+{
+  "overall": {
+    "total_postings": 15,
+    "true_positives": 152,
+    "false_positives": 3,
+    "false_negatives": 0,
+    "precision": 0.9806,
+    "recall": 1.0,
+    "f1_score": 0.9902
+  },
+  "by_role": {
+    "frontend-developer": {
+      "postings_evaluated": 5,
+      "true_positives": 48,
+      "false_positives": 2,
+      "false_negatives": 0,
+      "precision": 0.96,
+      "recall": 1.0,
+      "f1_score": 0.9796
+    },
+    "backend-developer": {
+      "postings_evaluated": 5,
+      "true_positives": 53,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0
+    },
+    "data-analyst": {
+      "postings_evaluated": 5,
+      "true_positives": 51,
+      "false_positives": 1,
+      "false_negatives": 0,
+      "precision": 0.9808,
+      "recall": 1.0,
+      "f1_score": 0.9903
+    }
+  }
+}

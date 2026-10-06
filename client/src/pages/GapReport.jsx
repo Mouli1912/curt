@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { fetchGapReport, fetchSkillGraph } from '../api/client';
 import GraphCanvas from '../components/GraphCanvas';
 import CredentialQR from '../components/CredentialQR';
+import ConfettiEffect from '../components/ConfettiEffect';
+import { GraphSkeleton, CardGridSkeleton } from '../components/SkeletonLoader';
 
-export default function GapReport({ userId = 'pro-user', onNavigate }) {
+export default function GapReport({ userId = 'pro-user', targetRole = 'frontend-developer', onNavigate }) {
   const [report, setReport] = useState(null);
   const [graphNodes, setGraphNodes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,32 +15,29 @@ export default function GapReport({ userId = 'pro-user', onNavigate }) {
   const [activeCredentialModal, setActiveCredentialModal] = useState(null);
   const [mintingSkill, setMintingSkill] = useState(null);
 
-  useEffect(() => {
-    let isMounted = true;
+  const loadData = () => {
     setLoading(true);
     setError(null);
 
     Promise.all([
       fetchGapReport(userId),
-      fetchSkillGraph('frontend-developer')
+      fetchSkillGraph(targetRole)
     ])
       .then(([reportData, graphData]) => {
-        if (!isMounted) return;
         setReport(reportData);
         setGraphNodes(graphData.nodes || []);
         setLoading(false);
       })
       .catch((err) => {
-        if (!isMounted) return;
         console.error('Failed to load gap report data:', err);
-        setError('Failed to load gap report data. Please check backend server.');
+        setError('Failed to load skill gap report. Ensure backend server is running.');
         setLoading(false);
       });
+  };
 
-    return () => {
-      isMounted = false;
-    };
-  }, [userId]);
+  useEffect(() => {
+    loadData();
+  }, [userId, targetRole]);
 
   const handleClaimCredential = async (skillId) => {
     try {
@@ -62,23 +61,26 @@ export default function GapReport({ userId = 'pro-user', onNavigate }) {
 
   if (loading) {
     return (
-      <div className="container" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
-        <div className="card-white" style={{ maxWidth: '500px', margin: '0 auto', padding: '3rem 2rem' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>📊</div>
-          <h2 style={{ fontSize: '1.25rem', color: '#0f172a', fontWeight: 700 }}>
-            Analyzing Skill Gaps & Topological Paths...
-          </h2>
-        </div>
+      <div className="space-y-6 pt-4">
+        <GraphSkeleton />
+        <CardGridSkeleton count={3} />
       </div>
     );
   }
 
   if (error || !report) {
     return (
-      <div className="container" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
-        <div className="card-white" style={{ maxWidth: '500px', margin: '0 auto', padding: '2rem' }}>
-          <h2 style={{ color: '#ef4444', marginBottom: '1rem' }}>Error Loading Report</h2>
-          <p style={{ color: '#64748b' }}>{error || 'Unable to retrieve user gap report.'}</p>
+      <div className="max-w-md mx-auto text-center py-12">
+        <div className="bg-danger-50 dark:bg-danger-950/40 border border-danger-200 dark:border-danger-900/60 rounded-2xl p-8 space-y-4">
+          <div className="text-4xl">⚠️</div>
+          <h2 className="text-xl font-bold text-danger-800 dark:text-danger-200">Error Loading Gap Report</h2>
+          <p className="text-sm text-danger-600 dark:text-danger-300">{error || 'Unable to retrieve user gap report.'}</p>
+          <button
+            onClick={loadData}
+            className="px-6 py-2.5 bg-danger-600 hover:bg-danger-500 text-white rounded-xl text-sm font-bold shadow-md transition-colors"
+          >
+            Retry Connection
+          </button>
         </div>
       </div>
     );
@@ -87,87 +89,91 @@ export default function GapReport({ userId = 'pro-user', onNavigate }) {
   const readinessPercent = report.readinessPercent || 0;
   const gaps = report.gaps || [];
   const provenNodes = report.provenNodes || report.proven || [];
+  const isFreshUser = userId === 'fresh-user' || (provenNodes.length === 0 && readinessPercent === 0);
 
   return (
-    <div className="container">
+    <div className="space-y-8">
       {/* Page Header */}
-      <div className="page-header">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="header-title-group">
-            <div className="header-icon-box" style={{ background: '#eff6ff', color: '#2563eb' }}>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-950/80 text-primary-600 dark:text-primary-400 flex items-center justify-center text-xl font-extrabold border border-primary-200 dark:border-primary-800">
               🎯
             </div>
-            <h1 className="page-title">Skill Gap Analysis Report</h1>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+              Skill Gap Analysis & Roadmap
+            </h1>
           </div>
-          <p className="page-subtitle">
-            Personalized learning path based on your adaptive Elo ratings and target role requirements.
+          <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+            Prerequisite-ordered learning path customized to your Elo rating profile and target role.
           </p>
         </div>
       </div>
 
       {/* Overview Metric Banner */}
-      <div className="card-white" style={{ padding: '2rem', marginBottom: '2rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: '2.5rem', alignItems: 'center' }}>
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl p-6 sm:p-8 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-center">
           
           {/* Radial Readiness Gauge */}
-          <div style={{ textAlign: 'center' }}>
-            <div style={{
-              position: 'relative',
-              width: '140px',
-              height: '140px',
-              margin: '0 auto 0.75rem auto',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e2e8f0" strokeWidth="3.5" />
+          <div className="md:col-span-4 text-center">
+            <div className="relative w-36 h-36 mx-auto flex items-center justify-center">
+              <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
                 <path
                   d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                   fill="none"
-                  stroke={readinessPercent >= 80 ? '#10b981' : readinessPercent >= 40 ? '#2563eb' : '#f59e0b'}
+                  className="stroke-neutral-200 dark:stroke-neutral-800"
+                  strokeWidth="3.5"
+                />
+                <path
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                  fill="none"
+                  stroke={readinessPercent >= 80 ? '#10b981' : readinessPercent >= 40 ? '#3b82f6' : '#f59e0b'}
                   strokeWidth="3.5"
                   strokeDasharray={`${readinessPercent}, 100`}
-                  style={{ transition: 'stroke-dasharray 0.8s ease' }}
+                  className="transition-all duration-1000 ease-out"
                 />
               </svg>
-              <div style={{ position: 'absolute', textAlign: 'center' }}>
-                <div style={{ fontSize: '1.85rem', fontWeight: 900, color: '#0f172a', lineHeight: 1 }}>
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <span className="text-3xl font-black text-neutral-900 dark:text-white leading-none">
                   {readinessPercent}%
-                </div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', marginTop: '0.2rem' }}>
+                </span>
+                <span className="text-[11px] font-bold text-neutral-500 dark:text-neutral-400 mt-1 uppercase tracking-wider">
                   Readiness
-                </div>
+                </span>
               </div>
             </div>
           </div>
 
           {/* Text Metrics & Details */}
-          <div>
-            <div style={{ display: 'flex', gap: '0.6rem', marginBottom: '0.5rem' }}>
-              <span style={{ background: '#eff6ff', color: '#2563eb', padding: '0.2rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
+          <div className="md:col-span-8 space-y-3">
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 rounded-md text-xs font-extrabold bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-300 border border-primary-200 dark:border-primary-800 uppercase tracking-wide">
                 TARGET ROLE: {report.targetRole?.toUpperCase() || 'FRONTEND DEVELOPER'}
               </span>
-              <span style={{ background: '#f8fafc', color: '#475569', padding: '0.2rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, border: '1px solid #e2e8f0' }}>
-                USER: {userId}
+              <span className="px-3 py-1 rounded-md text-xs font-bold bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 font-mono">
+                ACCOUNT: {userId}
               </span>
             </div>
 
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.75rem' }}>
-              {readinessPercent >= 80 ? '🎉 Exceptional Job Readiness!' : readinessPercent >= 50 ? '⚡ Strong Core Foundation — Few Gaps Remain' : '📚 Priority Skill Upgrades Recommended'}
+            <h2 className="text-xl sm:text-2xl font-extrabold text-neutral-900 dark:text-white">
+              {readinessPercent >= 80
+                ? '🎉 Exceptional Job Readiness!'
+                : readinessPercent >= 40
+                ? '⚡ Strong Core Foundation — Key Gaps Remain'
+                : '🌱 Fresh Onboarding — Ready to Build Skills'}
             </h2>
 
-            <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.5, marginBottom: '1.25rem' }}>
-              Topological analysis shows {provenNodes.length} proven skills out of {report.totalNodes || (provenNodes.length + gaps.length)} total role requirements.
-              Follow the ordered path below to resolve prerequisite gaps.
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Topological DAG analysis shows <strong className="text-neutral-900 dark:text-white">{provenNodes.length} proven skills</strong> out of <strong className="text-neutral-900 dark:text-white">{report.totalNodes || (provenNodes.length + gaps.length)} required skills</strong>.
+              Follow the prerequisite path below to upgrade targeted competencies.
             </p>
 
-            <div style={{ display: 'flex', gap: '1.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', fontWeight: 700, color: '#047857' }}>
-                <span>✓</span> {provenNodes.length} Proven Skills
+            <div className="flex gap-6 pt-2 text-xs sm:text-sm font-bold">
+              <div className="flex items-center gap-1.5 text-success-600 dark:text-success-400">
+                <span>✓</span> {provenNodes.length} Proven Competencies
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', fontWeight: 700, color: '#b45309' }}>
-                <span>⚡</span> {gaps.length} Target Gaps
+              <div className="flex items-center gap-1.5 text-warning-600 dark:text-warning-400">
+                <span>⚡</span> {gaps.length} Actionable Gaps
               </div>
             </div>
           </div>
@@ -178,86 +184,109 @@ export default function GapReport({ userId = 'pro-user', onNavigate }) {
       {/* Visual Skill Graph Topology */}
       <GraphCanvas nodes={graphNodes} provenIds={provenNodes} gaps={gaps} />
 
+      {/* Fresh User Special Inviting State */}
+      {isFreshUser && (
+        <div className="bg-gradient-to-r from-primary-600 via-accent-600 to-primary-700 text-white rounded-3xl p-8 sm:p-10 shadow-lg space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-black uppercase tracking-wider text-white">
+                <span>🌱</span> Fresh Learner Persona Active
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                Start Your Adaptive Assessment Journey
+              </h2>
+              <p className="text-sm opacity-90 leading-relaxed">
+                You have 0 proven skills on record. Complete our 100% deterministic Elo assessment to measure your baseline rating and unlock cryptographically signed credentials!
+              </p>
+            </div>
+
+            <button
+              onClick={() => onNavigate && onNavigate('assessment')}
+              className="px-6 py-4 rounded-2xl bg-white text-primary-700 font-extrabold text-sm sm:text-base hover:bg-neutral-100 shadow-xl shadow-black/10 hover:-translate-y-0.5 transition-all shrink-0 focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              ⚡ Start Assessment Now →
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Section 1: Ordered Learning Path (Gap Nodes) */}
-      <div style={{ marginBottom: '3rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+      <div className="space-y-4">
+        <div className="flex justify-between items-center">
           <div>
-            <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a' }}>
-              📋 Recommended Learning Path (Prerequisite-Ordered)
+            <h2 className="text-lg sm:text-xl font-extrabold text-neutral-900 dark:text-white flex items-center gap-2">
+              <span>📋</span> Prerequisite-Ordered Learning Path
             </h2>
-            <p style={{ fontSize: '0.9rem', color: '#64748b' }}>
-              Skills are ordered topographically so foundational prerequisites are completed first.
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              Sorted topographically so foundational prerequisite skills are mastered first.
             </p>
           </div>
         </div>
 
         {gaps.length === 0 ? (
-          <div className="card-white" style={{ padding: '2rem', textAlign: 'center', color: '#047857', background: '#ecfdf5', border: '1px solid #a7f3d0' }}>
-            🎉 Congratulations! You have no remaining skill gaps for this role!
+          <div className="bg-success-50 dark:bg-success-950/40 border border-success-200 dark:border-success-900/60 rounded-2xl p-6 text-center text-success-800 dark:text-success-200 font-bold">
+            🎉 Congratulations! You have no remaining skill gaps for this target role!
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div className="space-y-4">
             {gaps.map((gap, idx) => {
               const isWeak = gap.status === 'weak';
-              const statusColor = isWeak ? '#d97706' : '#2563eb';
-              const statusBg = isWeak ? '#fef3c7' : '#eff6ff';
 
               return (
-                <div key={gap.id} className="card-white" style={{ padding: '1.5rem', borderLeft: `6px solid ${statusColor}` }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <span style={{
-                        width: '28px',
-                        height: '28px',
-                        borderRadius: '50%',
-                        background: '#0f172a',
-                        color: '#ffffff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontWeight: 800,
-                        fontSize: '0.85rem'
-                      }}>
+                <div
+                  key={gap.id}
+                  className={`bg-white dark:bg-neutral-900 border-l-4 border rounded-2xl p-5 sm:p-6 shadow-sm transition-all hover:shadow-md ${
+                    isWeak
+                      ? 'border-l-warning-500 border-neutral-200 dark:border-neutral-800'
+                      : 'border-l-primary-500 border-neutral-200 dark:border-neutral-800'
+                  }`}
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 flex items-center justify-center font-black text-xs shrink-0">
                         {idx + 1}
                       </span>
-                      <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>
+                      <h3 className="text-base sm:text-lg font-extrabold text-neutral-900 dark:text-white">
                         {gap.label}
                       </h3>
-                      <span style={{
-                        background: statusBg,
-                        color: statusColor,
-                        padding: '0.2rem 0.6rem',
-                        borderRadius: '6px',
-                        fontSize: '0.75rem',
-                        fontWeight: 800,
-                        textTransform: 'uppercase'
-                      }}>
-                        {gap.status === 'weak' ? '⚡ Attempted but Weak' : '○ Untouched'}
+                      <span className={`px-2.5 py-0.5 rounded-md text-[11px] font-extrabold uppercase tracking-wide ${
+                        isWeak
+                          ? 'bg-warning-100 text-warning-800 dark:bg-warning-950 dark:text-warning-300 border border-warning-200 dark:border-warning-800'
+                          : 'bg-primary-100 text-primary-800 dark:bg-primary-950 dark:text-primary-300 border border-primary-200 dark:border-primary-800'
+                      }`}>
+                        {isWeak ? '⚡ Attempted (Weak)' : '○ Untouched'}
                       </span>
                     </div>
 
                     {gap.demandScore && (
-                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748b', background: '#f1f5f9', padding: '0.25rem 0.6rem', borderRadius: '6px' }}>
-                        Market Demand: {Math.round(gap.demandScore * 100)}%
-                      </span>
+                      <div className="flex flex-col items-end gap-1 self-start sm:self-auto">
+                        <span className="text-xs font-bold text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2.5 py-1 rounded-md">
+                          Market Demand: {Math.round(gap.demandScore * 100)}%
+                        </span>
+                        {gap.currentRating !== null && gap.currentRating !== undefined && (
+                          <span className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400">
+                            {gap.currentRating} Elo {gap.standardError ? `(±${gap.standardError} SE)` : ''} • <span className={`font-bold ${gap.confidenceLabel === 'High Confidence' ? 'text-success-600 dark:text-success-400' : gap.confidenceLabel === 'Medium Confidence' ? 'text-primary-600 dark:text-primary-400' : 'text-neutral-400'}`}>{gap.confidenceLabel || 'Low Confidence'}</span>
+                          </span>
+                        )}
+                      </div>
                     )}
                   </div>
 
                   {/* Prerequisites info */}
                   {gap.prerequisites && gap.prerequisites.length > 0 && (
-                    <div style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '1rem' }}>
-                      <span style={{ fontWeight: 700, color: '#475569' }}>Prerequisites: </span>
+                    <div className="text-xs text-neutral-500 dark:text-neutral-400 mb-3">
+                      <span className="font-semibold text-neutral-700 dark:text-neutral-300">Prerequisites: </span>
                       {gap.prerequisites.join(', ')}
                     </div>
                   )}
 
                   {/* Curated Resources List */}
-                  <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <span>📚 Curated Free Resources:</span>
+                  <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800">
+                    <div className="text-xs font-extrabold text-neutral-700 dark:text-neutral-300 mb-2 flex items-center gap-1.5">
+                      <span>📚</span> Curated Free Learning Resources:
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0.75rem' }}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {gap.resources && gap.resources.length > 0 ? (
                         gap.resources.map((res, rIdx) => (
                           <a
@@ -265,32 +294,21 @@ export default function GapReport({ userId = 'pro-user', onNavigate }) {
                             href={res.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={{
-                              padding: '0.75rem 1rem',
-                              borderRadius: '8px',
-                              background: '#f8fafc',
-                              border: '1px solid #e2e8f0',
-                              textDecoration: 'none',
-                              color: '#0f172a',
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                              transition: 'all 0.15s ease'
-                            }}
+                            className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 hover:border-primary-400 dark:hover:border-primary-500 flex justify-between items-center text-xs transition-colors group"
                           >
                             <div>
-                              <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#1e40af' }}>
+                              <div className="font-bold text-primary-700 dark:text-primary-400 group-hover:underline">
                                 {res.title}
                               </div>
-                              <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'capitalize' }}>
+                              <div className="text-[11px] text-neutral-500 dark:text-neutral-400 capitalize mt-0.5">
                                 Type: {res.type || 'docs'} • Free Access
                               </div>
                             </div>
-                            <span style={{ fontSize: '1rem', color: '#2563eb' }}>↗</span>
+                            <span className="text-primary-600 dark:text-primary-400 font-bold ml-2 text-sm">↗</span>
                           </a>
                         ))
                       ) : (
-                        <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>No specific resources attached.</div>
+                        <div className="text-xs text-neutral-400 italic">No specific resources attached.</div>
                       )}
                     </div>
                   </div>
@@ -303,57 +321,41 @@ export default function GapReport({ userId = 'pro-user', onNavigate }) {
       </div>
 
       {/* Section 2: Proven Competencies & Credential Claiming */}
-      <div style={{ marginBottom: '3rem' }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', marginBottom: '1rem' }}>
-          ✅ Proven Competencies & Signed Credentials
+      <div className="space-y-4">
+        <h2 className="text-lg sm:text-xl font-extrabold text-neutral-900 dark:text-white flex items-center gap-2">
+          <span>✅</span> Proven Competencies & Signed Credentials
         </h2>
 
         {provenNodes.length === 0 ? (
-          <div className="card-white" style={{ padding: '1.5rem', color: '#64748b' }}>
-            No proven skills yet. Complete questions in the adaptive assessment to prove skills!
+          <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 text-center text-neutral-500 dark:text-neutral-400 text-sm">
+            No proven skills recorded yet. Complete questions in the adaptive assessment to prove competencies!
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {provenNodes.map(node => {
               const label = typeof node === 'object' ? node.label : node;
               const id = typeof node === 'object' ? node.id : node;
               const isMinting = mintingSkill === id;
 
               return (
-                <div key={id} style={{
-                  background: '#f0fdf4',
-                  border: '1px solid #bbf7d0',
-                  borderRadius: '12px',
-                  padding: '1.1rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  gap: '0.85rem'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#10b981', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.85rem' }}>
+                <div
+                  key={id}
+                  className="bg-success-50/60 dark:bg-success-950/40 border border-success-200 dark:border-success-900/60 rounded-2xl p-5 flex flex-col justify-between gap-4 shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-success-600 text-white flex items-center justify-center font-black text-xs shrink-0 shadow-sm">
                       ✓
                     </div>
                     <div>
-                      <div style={{ fontWeight: 800, color: '#065f46', fontSize: '1rem' }}>{label}</div>
-                      <div style={{ fontSize: '0.75rem', color: '#047857' }}>Proficiency Verified (≥1100 Elo)</div>
+                      <div className="font-extrabold text-success-900 dark:text-success-100 text-base">{label}</div>
+                      <div className="text-xs text-success-700 dark:text-success-300 font-medium">Proficiency Verified (≥1100 Elo)</div>
                     </div>
                   </div>
 
                   <button
-                    className="btn-secondary"
                     onClick={() => handleClaimCredential(id)}
                     disabled={isMinting}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem',
-                      fontSize: '0.825rem',
-                      fontWeight: 700,
-                      background: '#ffffff',
-                      borderColor: '#10b981',
-                      color: '#047857',
-                      cursor: 'pointer'
-                    }}
+                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-white dark:bg-neutral-900 text-success-800 dark:text-success-200 border border-success-300 dark:border-success-700 hover:bg-success-50 dark:hover:bg-neutral-800 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-success-500"
                   >
                     {isMinting ? 'Minting ECDSA Signature...' : '🛡️ View Signed Credential'}
                   </button>
@@ -364,80 +366,69 @@ export default function GapReport({ userId = 'pro-user', onNavigate }) {
         )}
       </div>
 
-      {/* Credential Modal Dialog */}
+      {/* Celebratory Credential Modal Dialog */}
       {activeCredentialModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(15, 23, 42, 0.65)',
-          backdropFilter: 'blur(4px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 2000,
-          padding: '1rem'
-        }}>
-          <div className="card-white" style={{ maxWidth: '640px', width: '100%', padding: '2rem', maxHeight: '90vh', overflowY: 'auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <span style={{ fontSize: '1.5rem' }}>🛡️</span>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0f172a' }}>
+        <div className="fixed inset-0 z-50 bg-neutral-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="relative bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto animate-pop-in">
+            {/* Festive Confetti particles */}
+            <ConfettiEffect />
+
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl animate-celebrate-bounce">🛡️</span>
+                <h3 className="text-xl font-extrabold text-neutral-900 dark:text-white">
                   Signed ECDSA P-256 Credential
                 </h3>
               </div>
               <button
                 onClick={() => setActiveCredentialModal(null)}
-                style={{ background: 'transparent', border: 'none', fontSize: '1.4rem', cursor: 'pointer', color: '#64748b' }}
+                className="text-neutral-400 hover:text-neutral-700 dark:hover:text-white text-xl font-bold p-1"
+                aria-label="Close modal"
               >
                 ✕
               </button>
             </div>
 
-            <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+            <div className="text-center py-2">
               <CredentialQR credential={activeCredentialModal} size={160} />
             </div>
 
-            <div style={{ background: '#f8fafc', padding: '1rem 1.25rem', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
-                <span style={{ fontWeight: 700, color: '#64748b' }}>Student Name:</span>
-                <span style={{ fontWeight: 800, color: '#0f172a' }}>{activeCredentialModal.studentName}</span>
+            <div className="bg-neutral-50 dark:bg-neutral-800/80 p-4 rounded-2xl border border-neutral-200 dark:border-neutral-700 space-y-2 text-xs sm:text-sm">
+              <div className="flex justify-between">
+                <span className="font-semibold text-neutral-500 dark:text-neutral-400">Student Name:</span>
+                <span className="font-bold text-neutral-900 dark:text-white">{activeCredentialModal.studentName}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
-                <span style={{ fontWeight: 700, color: '#64748b' }}>Skill Node:</span>
-                <span style={{ fontWeight: 800, color: '#2563eb', textTransform: 'uppercase' }}>{activeCredentialModal.skillNode}</span>
+              <div className="flex justify-between">
+                <span className="font-semibold text-neutral-500 dark:text-neutral-400">Skill Node:</span>
+                <span className="font-bold text-primary-600 dark:text-primary-400 uppercase">{activeCredentialModal.skillNode}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
-                <span style={{ fontWeight: 700, color: '#64748b' }}>Elo Score:</span>
-                <span style={{ fontWeight: 800, color: '#10b981' }}>{activeCredentialModal.score}</span>
+              <div className="flex justify-between">
+                <span className="font-semibold text-neutral-500 dark:text-neutral-400">Elo Score:</span>
+                <span className="font-extrabold text-success-600 dark:text-success-400">{activeCredentialModal.score} Elo</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
-                <span style={{ fontWeight: 700, color: '#64748b' }}>Credential ID:</span>
-                <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: '#475569' }}>{activeCredentialModal.credentialId}</span>
+              <div className="flex justify-between">
+                <span className="font-semibold text-neutral-500 dark:text-neutral-400">Credential ID:</span>
+                <span className="font-mono text-xs text-neutral-600 dark:text-neutral-300">{activeCredentialModal.credentialId}</span>
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <button
-                className="btn-secondary"
-                style={{ flex: 1 }}
                 onClick={() => {
                   navigator.clipboard.writeText(JSON.stringify(activeCredentialModal, null, 2));
                   alert('Credential JSON copied to clipboard!');
                 }}
+                className="py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-white dark:bg-neutral-800 text-neutral-800 dark:text-white border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
               >
                 📋 Copy Credential JSON
               </button>
               
               <button
-                className="btn-primary"
-                style={{ flex: 1 }}
                 onClick={() => {
                   setActiveCredentialModal(null);
                   if (onNavigate) onNavigate('verify');
                 }}
+                className="py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-primary-600 hover:bg-primary-500 shadow-md transition-colors"
               >
                 🛡️ Open Public Verifier →
               </button>

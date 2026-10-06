@@ -40,13 +40,25 @@ This script is structured for live presentation to hackathon judges (SDG 4 Quali
 
 ---
 
-### ⏱️ SECTION 5: CLOSING & THREE DIFFERENTIATORS (30 seconds)
+### ⏱️ SECTION 5: RECRUITER TALENT SEARCH & BATCH VERIFICATION (45 seconds)
+
+> **Action 1:** Select **`💼 recruiter-user`** in the top navbar demo dropdown. Click **`💼 Recruiter Search`**.
+> **Action 2:** Type **`react`** into the skill search box $\rightarrow$ Click **`Search`**. Point to the candidate cards and click **`View Shareable Public Profile`**.
+> **Action 3:** Click **`⚡ Bulk Verify`** tab $\rightarrow$ Click **`Load Demo Sample Callset`** $\rightarrow$ Click **`Run Bulk Verification`** (Shows Summary Table).
+>
+> **Spoken Script:**
+> "SkillPath isn't just a learner tool — it's a complete two-sided marketplace. On the recruiter portal, hiring managers can search for candidates by proven skill competencies like 'React'. Notice that only candidates who have explicitly opted into public discoverability appear, and only proven competencies are exposed — protecting learner privacy. Recruiters can also bulk-verify an entire candidate callset in one pass, instantly filtering valid, revoked, or forged credentials."
+
+---
+
+### ⏱️ SECTION 6: CLOSING & FOUR DIFFERENTIATORS (30 seconds)
 
 > **Spoken Script:**
-> "To summarize, SkillPath is built on three core pillars:
-> 1. Built from real job postings, not an arbitrary curriculum.
-> 2. Objective Elo-based adaptive skill measurement.
-> 3. ECDSA signed credentials any recruiter can verify instantly.
+> "To summarize, SkillPath is built on four core pillars:
+> 1. Real Job Market Pipeline: Taxonomies built from raw job postings.
+> 2. Classical 2PL IRT & Elo Psychometrics: Objective, adaptive skill measurement with standard errors.
+> 3. ECDSA Cryptographic Credentials & Revocation: Tamper-proof verification.
+> 4. Two-Sided Recruiter Talent Registry: Privacy-first candidate discovery and bulk verification.
 > As a deliberate architectural choice for reliability and trust, there are zero GPT or LLM API calls anywhere in this system—just applied mathematics and cryptography for SDG 4 Quality Education."
 
 ---
@@ -54,5 +66,5 @@ This script is structured for live presentation to hackathon judges (SDG 4 Quali
 ### 🛠️ Quick Demo Checklist for Presenter
 
 - [ ] Ensure server is running (`npm start` in `/server`).
-- [ ] Verify dropdown picks work smoothly (`pro-user`, `mid-user`, `fresh-user`).
-- [ ] Practice the live tamper moment (`1350` $\rightarrow$ `1600`).
+- [ ] Verify dropdown picks work smoothly (`pro-user`, `mid-user`, `fresh-user`, `recruiter-user`).
+- [ ] Practice the live tamper moment (`1350` $\rightarrow$ `1600`) and recruiter search (`react`).
