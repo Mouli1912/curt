@@ -49,6 +49,29 @@ app.use('/api/report', reportRoutes);
 // Credential API Endpoints
 app.use('/api/credential', credentialRoutes);
 
+// Auto-seed demo user sessions on startup
+seedDemoSessions();
+
+// Serve static React frontend files if public folder exists (Docker single-port container)
+const fs = require('fs');
+const publicDir = path.join(__dirname, '../public');
+if (fs.existsSync(publicDir)) {
+  app.use(express.static(publicDir));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(publicDir, 'index.html'));
+  });
+}
+
+// Assessment API Endpoints
+app.use('/api/assessment', assessmentRoutes);
+
+// Gap Report API Endpoints
+app.use('/api/report', reportRoutes);
+
+// Credential API Endpoints
+app.use('/api/credential', credentialRoutes);
+
 // Admin API Endpoints
 app.use('/api/admin', adminRoutes);
 
