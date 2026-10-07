@@ -200,17 +200,24 @@ function generateGapReportPure(skillGraph, learnerRatings = {}, threshold = PROF
  * Service function to retrieve gap report for a specific userId
  * Fetches ratings from active session or fallback profile data.
  */
-function generateGapReport(userId = 'pro-user', targetRole = 'frontend-developer') {
+function generateGapReport(userId = 'pro-user', targetRole = 'frontend-developer', history = []) {
+  if (typeof userId === 'object' && userId !== null) {
+    const skillGraph = userId;
+    const learnerRatings = typeof targetRole === 'object' && targetRole !== null ? targetRole : {};
+    const responseHistory = Array.isArray(history) ? history : [];
+    return generateGapReportPure(skillGraph, learnerRatings, PROFICIENCY_THRESHOLD, responseHistory);
+  }
+
   const skillGraph = getSkillGraph(targetRole);
   
   // 1. Check if user has an active assessment session
   const status = getAssessmentStatus(userId);
   let learnerRatings = {};
-  let history = [];
+  let userHistory = [];
 
   if (status && status.exists && status.ratings) {
     learnerRatings = status.ratings;
-    history = status.history || [];
+    userHistory = status.history || [];
   } else {
     // Demo fallback default ratings
     if (userId === 'pro-user') {
@@ -239,7 +246,7 @@ function generateGapReport(userId = 'pro-user', targetRole = 'frontend-developer
     }
   }
 
-  return generateGapReportPure(skillGraph, learnerRatings, PROFICIENCY_THRESHOLD, history);
+  return generateGapReportPure(skillGraph, learnerRatings, PROFICIENCY_THRESHOLD, userHistory);
 }
 
 module.exports = {
