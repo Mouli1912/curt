@@ -240,8 +240,8 @@ function shouldStopAssessment(historyLength, overallRatingHistory, history = [],
     return true;
   }
 
-  // Stabilization check
-  if (historyLength >= 3 && overallRatingHistory && overallRatingHistory.length >= 4) {
+  // Stabilization check (requires at least 5 questions answered)
+  if (historyLength >= 5 && overallRatingHistory && overallRatingHistory.length >= 6) {
     const currentRating = overallRatingHistory[overallRatingHistory.length - 1];
     const rating3Ago = overallRatingHistory[overallRatingHistory.length - 4];
     if (Math.abs(currentRating - rating3Ago) < STABILIZATION_THRESHOLD) {

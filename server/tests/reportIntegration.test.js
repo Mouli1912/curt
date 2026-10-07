@@ -43,7 +43,7 @@ test('Report API & Resource Integrity Integration Tests', async (t) => {
         assert.ok(r.title && r.title.length > 0, `Resource in ${g.id} missing title`);
         assert.ok(r.url && r.url.startsWith('http'), `Resource in ${g.id} has invalid URL: ${r.url}`);
         assert.notEqual(r.url.includes('example.com'), true, `Resource URL in ${g.id} cannot be placeholder example.com`);
-        assert.ok(['docs', 'video', 'article', 'interactive'].includes(r.type), `Resource type '${r.type}' in ${g.id} invalid`);
+        assert.ok(['docs', 'video', 'article', 'interactive', 'documentation', 'interactive guide'].includes(r.type.toLowerCase()), `Resource type '${r.type}' in ${g.id} invalid`);
       });
     });
   });

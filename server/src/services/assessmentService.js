@@ -11,7 +11,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const { calculateNewRating, DEFAULT_RATING } = require('./eloService');
+const { updateEloRating, DEFAULT_RATING } = require('./eloService');
 
 // Load questions bank
 const questionsPath = path.join(__dirname, '../data/questions.json');
@@ -137,8 +137,8 @@ function checkStoppingCondition(session) {
     return { stop: true, reason: 'Maximum question limit (15) reached.' };
   }
 
-  // Rating stabilization limit over last 3 questions
-  if (historyCount >= 3) {
+  // Rating stabilization limit over last 3 questions (minimum 5 questions answered)
+  if (historyCount >= 5) {
     const currentRating = session.overallRating;
     const rating3QuestionsAgo = session.history[historyCount - 3].userRatingBefore;
     const ratingChangeOverLast3 = Math.abs(currentRating - rating3QuestionsAgo);
@@ -186,8 +186,8 @@ function submitAnswer(userId, questionId, selectedIndex) {
   const currentSkillRating = session.ratings[skillNode] || DEFAULT_RATING;
 
   // Compute Elo updates
-  const overallUpdate = calculateNewRating(currentOverall, question.difficulty, isCorrect);
-  const skillUpdate = calculateNewRating(currentSkillRating, question.difficulty, isCorrect);
+  const overallUpdate = updateEloRating(currentOverall, question.difficulty, isCorrect);
+  const skillUpdate = updateEloRating(currentSkillRating, question.difficulty, isCorrect);
 
   // Update session state
   session.overallRating = overallUpdate.newRating;

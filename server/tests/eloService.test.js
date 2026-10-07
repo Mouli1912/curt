@@ -86,9 +86,9 @@ describe('Elo Psychometric Scoring Engine Unit Tests', () => {
     // 15 questions reached -> true
     assert.strictEqual(shouldStopAssessment(15, [1000, 1010]), true);
 
-    // Rating stabilization: overall rating changed by < 15 over last 3 questions -> true
+    // Rating stabilization: overall rating changed by < 15 over last 3 questions (after at least 5 questions) -> true
     // Rating 3 steps ago = 1050, current = 1054 (|1054 - 1050| = 4 < 15)
-    assert.strictEqual(shouldStopAssessment(4, [1000, 1050, 1052, 1053, 1054]), true);
+    assert.strictEqual(shouldStopAssessment(5, [1000, 1050, 1052, 1053, 1054, 1054]), true);
   });
 
 });

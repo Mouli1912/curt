@@ -16,6 +16,7 @@ connectDB();
 
 const { requestLoggerMiddleware } = require('./middleware/requestLogger');
 const { verifyAuthToken } = require('./middleware/auth');
+const { seedDemoAccounts } = require('../scripts/seedDemo');
 
 // Middleware
 app.use(cors());
@@ -37,49 +38,21 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Graph API Endpoint
+// API Endpoints
 app.use('/api/graph', graphRoutes);
-
-// Assessment API Endpoints
 app.use('/api/assessment', assessmentRoutes);
-
-// Gap Report API Endpoints
 app.use('/api/report', reportRoutes);
-
-// Credential API Endpoints
 app.use('/api/credential', credentialRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/recruiters', recruiterRoutes);
+app.use('/api/profile', userRoutes);
 
 // Auto-seed demo user sessions on startup
-seedDemoSessions();
-
-// Serve static React frontend files if public folder exists (Docker single-port container)
-const fs = require('fs');
-const publicDir = path.join(__dirname, '../public');
-if (fs.existsSync(publicDir)) {
-  app.use(express.static(publicDir));
-  app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api')) return next();
-    res.sendFile(path.join(publicDir, 'index.html'));
-  });
+try {
+  seedDemoAccounts();
+} catch (err) {
+  console.warn('[SkillPath Server] Warning: Could not auto-seed demo accounts:', err.message);
 }
-
-// Assessment API Endpoints
-app.use('/api/assessment', assessmentRoutes);
-
-// Gap Report API Endpoints
-app.use('/api/report', reportRoutes);
-
-// Credential API Endpoints
-app.use('/api/credential', credentialRoutes);
-
-// Admin API Endpoints
-app.use('/api/admin', adminRoutes);
-
-// Recruiter API Endpoints
-app.use('/api/recruiters', recruiterRoutes);
-
-// User Profile API Endpoints
-app.use('/api/profile', userRoutes);
 
 // Serve static React frontend files if public folder exists (Docker single-port container)
 const publicDir = path.join(__dirname, '../public');

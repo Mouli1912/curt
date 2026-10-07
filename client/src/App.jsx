@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import React, { useState } from 'react';
 import Landing from './pages/Landing';
 import Assessment from './pages/Assessment';
 import GapReport from './pages/GapReport';
