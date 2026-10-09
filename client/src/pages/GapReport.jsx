@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchGapReport, fetchSkillGraph } from '../api/client';
+import { fetchGapReport, fetchSkillGraph, issueCredential } from '../api/client';
 import GraphCanvas from '../components/GraphCanvas';
 import CredentialQR from '../components/CredentialQR';
 import ConfettiEffect from '../components/ConfettiEffect';
@@ -42,15 +42,7 @@ export default function GapReport({ userId = 'pro-user', targetRole = 'frontend-
   const handleClaimCredential = async (skillId) => {
     try {
       setMintingSkill(skillId);
-      const res = await fetch('/api/credential/issue', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, skillNode: skillId })
-      });
-      const credData = await res.json();
-      if (!res.ok) {
-        throw new Error(credData.error || 'Failed to mint credential');
-      }
+      const credData = await issueCredential(userId, skillId);
       setActiveCredentialModal(credData);
     } catch (err) {
       alert(`Credential Issue Error: ${err.message}`);
