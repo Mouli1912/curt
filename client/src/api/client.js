@@ -1,7 +1,12 @@
 /**
  * API client helper for fetching endpoints from Express backend
  */
-const API_BASE = '/api';
+let rawBase = (import.meta.env.VITE_API_BASE_URL || '').trim().replace(/\/$/, '');
+if (rawBase && !rawBase.startsWith('http://') && !rawBase.startsWith('https://')) {
+  rawBase = `https://${rawBase}`;
+}
+export const API_BASE_URL = rawBase;
+const API_BASE = API_BASE_URL ? `${API_BASE_URL}/api` : '/api';
 
 export async function fetchSkillGraph(role = 'frontend-developer') {
   const response = await fetch(`${API_BASE}/graph/${role}`);
@@ -138,3 +143,34 @@ export async function updateDiscoverability(userId, isPubliclyDiscoverable) {
   }
   return response.json();
 }
+
+export async function fetchPublicKey() {
+  const response = await fetch(`${API_BASE}/credential/public-key`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch public key: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function issueCredential(userId, skillNode) {
+  const response = await fetch(`${API_BASE}/credential/issue`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, skillNode })
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || `Failed to issue credential: ${response.statusText}`);
+  }
+  return data;
+}
+
+export async function verifyCredential(credentialData) {
+  const response = await fetch(`${API_BASE}/credential/verify`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(credentialData)
+  });
+  return response.json();
+}
+

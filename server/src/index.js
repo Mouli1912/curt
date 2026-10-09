@@ -19,7 +19,14 @@ const { verifyAuthToken } = require('./middleware/auth');
 const { seedDemoAccounts } = require('../scripts/seedDemo');
 
 // Middleware
-app.use(cors());
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : '*';
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 app.use(express.json());
 app.use(requestLoggerMiddleware);
 app.use('/api', verifyAuthToken);

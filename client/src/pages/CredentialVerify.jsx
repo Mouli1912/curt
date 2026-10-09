@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CredentialQR from '../components/CredentialQR';
+import { fetchPublicKey, issueCredential, verifyCredential } from '../api/client';
 
 export default function CredentialVerify() {
   const [inputJson, setInputJson] = useState('');
@@ -9,8 +10,7 @@ export default function CredentialVerify() {
 
   // Fetch public key on mount for verification badge display
   useEffect(() => {
-    fetch('/api/credential/public-key')
-      .then(res => res.json())
+    fetchPublicKey()
       .then(data => {
         if (data.publicKey) setPublicKey(data.publicKey);
       })
@@ -21,12 +21,7 @@ export default function CredentialVerify() {
   const handleLoadSample = async (persona = 'pro-user', tampered = false) => {
     try {
       setLoading(true);
-      const res = await fetch('/api/credential/issue', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: persona, skillNode: 'react' })
-      });
-      const cred = await res.json();
+      const cred = await issueCredential(persona, 'react');
 
       if (tampered) {
         cred.score = 1850; // Tamper score value to fail signature verification!
@@ -50,12 +45,7 @@ export default function CredentialVerify() {
 
     try {
       const parsed = JSON.parse(inputJson);
-      const res = await fetch('/api/credential/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(parsed)
-      });
-      const data = await res.json();
+      const data = await verifyCredential(parsed);
       setResult(data);
     } catch (err) {
       setResult({
