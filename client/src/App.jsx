@@ -29,7 +29,7 @@ const DEMO_USERS = [
   },
   {
     id: 'mid-user',
-    name: 'Alex Rivers',
+    name: 'Mouli Dhara',
     label: 'Mid Learner (Alex)',
     badge: '🟡 Mid-Progress (4 Proven)',
     initials: 'AR',
